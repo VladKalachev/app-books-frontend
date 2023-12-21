@@ -13,11 +13,19 @@ function App() {
       store?.checkAuth();
     }
   }, [])
+
+  if(store?.isLoading) {
+    return <>Lading...</>
+  }
+
+  if(!store?.isAuth) {
+    return <><LoginFormPage /></>
+  }
  
   return (
     <div>
       <h1>{store?.isAuth ? `Пользователь авторизован ${store.user.email}`: "АВТОРИЗУЙТЕСЬ"}</h1>
-      <LoginFormPage />
+      <button onClick={() => store?.logout()}>Выйти</button>
     </div>
   )
 }

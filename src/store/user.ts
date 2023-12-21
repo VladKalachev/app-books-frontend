@@ -9,6 +9,7 @@ import { API_URL } from "../plugins/http";
 export default class UserStore {
   user = {} as IUser;
   isAuth = false;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -20,6 +21,10 @@ export default class UserStore {
 
   setUser(user: IUser) {
     this.user = user;
+  }
+
+  setLoading(boo: boolean) {
+    this.isLoading = boo;
   }
 
   async login(email: string, password: string) {
@@ -56,17 +61,16 @@ export default class UserStore {
   }
 
   async checkAuth() {
+    this.setLoading(true);
     try {
       const response = await axios.get<AuthResponse>(`${API_URL}/user/refresh`, {  withCredentials: true, });
-
-      // fetch(`${API_URL}/user/refresh`, {credentials: "include"})
-      // .then(resp => resp.json())
-      // .then(data => console.log(data));
       localStorage.setItem('token', response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);
     } catch (e: any) {
        console.log(e.response?.data?.message);
+    } finally {
+      this.setLoading(false);
     }
   }
 }
