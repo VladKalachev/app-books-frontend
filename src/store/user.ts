@@ -1,6 +1,10 @@
 import { makeAutoObservable } from "mobx";
-import { IUser } from "../types/users";
+import { 
+  AuthResponse, 
+  IUser } from "../types/users";
 import AuthService from "../api/auth";
+import axios from "axios";
+import { API_URL } from "../plugins/http";
 
 export default class UserStore {
   user = {} as IUser;
@@ -20,7 +24,6 @@ export default class UserStore {
 
   async login(email: string, password: string) {
     try {
-      console.log('login', email, password);
       const response = await AuthService.login(email, password);
       localStorage.setItem('token', response.data.accessToken);
       this.setAuth(true);
@@ -49,6 +52,21 @@ export default class UserStore {
       this.setUser({} as IUser);
     } catch (e: any) {
       console.log(e.response?.data?.message);
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const response = await axios.get<AuthResponse>(`${API_URL}/user/refresh`, {  withCredentials: true, });
+
+      // fetch(`${API_URL}/user/refresh`, {credentials: "include"})
+      // .then(resp => resp.json())
+      // .then(data => console.log(data));
+      localStorage.setItem('token', response.data.accessToken);
+      this.setAuth(true);
+      this.setUser(response.data.user);
+    } catch (e: any) {
+       console.log(e.response?.data?.message);
     }
   }
 }

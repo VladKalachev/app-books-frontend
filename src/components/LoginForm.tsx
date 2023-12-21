@@ -3,9 +3,11 @@ import storeContext from '../contexts/store';
 import { observer } from 'mobx-react-lite';
 
 const LoginForm = () => {
+  const store = useContext(storeContext);
+  
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const store = useContext(storeContext);
+
 
   return (
     <div >
