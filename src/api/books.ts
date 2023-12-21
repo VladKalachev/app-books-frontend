@@ -4,6 +4,6 @@ import { IBook } from "../types/books";
 
 export default class BooksService {
   static fetchUBooks(): Promise<AxiosResponse<IBook[]>> {
-    return  $api.get<IBook[]>('/books')
+    return $api.get<IBook[]>('/books')
   }
 }
