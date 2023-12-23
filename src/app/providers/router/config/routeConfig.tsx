@@ -1,76 +1,70 @@
-// import { MainPage } from '@/pages/MainPage';
-// import { AboutPage } from '@/pages/AboutPage';
-// import { ProfilePage } from '@/pages/ProfilePage';
-// import { ArticlesPage } from '@/pages/ArticlesPage';
-// import { ArticleDetailsPage } from '@/pages/ArticleDetailsPage';
-// import { ArticleEditPage } from '@/pages/ArticleEditPage';
-// import { AdminPanelPage } from '@/pages/AdminPanelPage';
-// import { UserRole } from '@/entities/User';
-// import { ForbiddenPage } from '@/pages/ForbiddenPage';
-// import { NotFoundPage } from '@/pages/NotFoundPage';
 import {
     AppRoutes,
-    // getRouteAbout,
-    // getRouteAdmin,
-    // getRouteArticleCreate,
-    // getRouteArticleDetails,
-    // getRouteArticleEdit,
-    // getRouteForbidden,
-    // getRouteArticles,
-    // getRouteMain,
-    // getRouteProfile,
+    getBooksPage,
+    getGoalsPage,
+    getHomePage,
+    getLandingPage,
+    getLoginPage,
+    getRatingPage,
+    getRegistrationPage,
     getRouteSettings,
+    getStatisticsPage,
 } from '@/shared/consts/router';
-
-// import {} from '@/pages/'
 
 import { AppRoutesProps } from '@/shared/types/router';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { BooksPage } from '@/pages/BooksPage';
+import { HomePage } from '@/pages/HomePage';
+import { GoalsPage } from '@/pages/GoalsPage';
+import { LandingPage } from '@/pages/LandingPage';
+import { RatingPage } from '@/pages/RatingPage';
+import { RegistrationPage } from '@/pages/RegistrationPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { StatisticsPage } from '@/pages/StatisticsPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
-    // [AppRoutes.MAIN]: {
-    //     path: getRouteMain(),
-    //     element: <MainPage />,
-    // },
+    [AppRoutes.LANDING]: {
+        path: getLandingPage(),
+        element: <LandingPage />,
+    },
+    [AppRoutes.REGISTRATION]: {
+        path: getRegistrationPage(),
+        element: <RegistrationPage />,
+    },
+    [AppRoutes.LOGIN]: {
+        path: getLoginPage(),
+        element: <LoginPage />,
+    },
+    [AppRoutes.HOME]: {
+        path: getHomePage(),
+        element: <HomePage />,
+        authOnly: true,
+    },
+    [AppRoutes.BOOKS]: {
+        path: getBooksPage(),
+        element: <BooksPage />,
+        authOnly: true,
+    },
     [AppRoutes.SETTINGS]: {
         path: getRouteSettings(),
         element: <SettingsPage />,
+        authOnly: true,
     },
-    // [AppRoutes.ABOUT]: {
-    //     path: getRouteAbout(),
-    //     element: <AboutPage />,
-    // },
-    // [AppRoutes.PROFILE]: {
-    //     path: getRouteProfile(':id'),
-    //     element: <ProfilePage />,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.ARTICLES]: {
-    //     path: getRouteArticles(),
-    //     element: <ArticlesPage />,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.ARTICLE_DETAILS]: {
-    //     path: getRouteArticleDetails(':id'),
-    //     element: <ArticleDetailsPage />,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.ARTICLE_CREATE]: {
-    //     path: getRouteArticleCreate(),
-    //     element: <ArticleEditPage />,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.ARTICLE_EDIT]: {
-    //     path: getRouteArticleEdit(':id'),
-    //     element: <ArticleEditPage />,
-    //     authOnly: true,
-    // },
-    // [AppRoutes.ADMIN_PANEL]: {
-    //     path: getRouteAdmin(),
-    //     element: <AdminPanelPage />,
-    //     authOnly: true,
-    //     roles: [UserRole.MANAGER, UserRole.ADMIN],
-    // },
+    [AppRoutes.GOALS]: {
+        path: getGoalsPage(),
+        element: <GoalsPage />,
+        authOnly: true,
+    },
+    [AppRoutes.RATING]: {
+        path: getRatingPage(),
+        element: <RatingPage />,
+        authOnly: true,
+    },
+    [AppRoutes.STATISTICS]: {
+        path: getStatisticsPage(),
+        element: <StatisticsPage />,
+        authOnly: true,
+    },
     // [AppRoutes.FORBIDDEN]: {
     //     path: getRouteForbidden(),
     //     element: <ForbiddenPage />,

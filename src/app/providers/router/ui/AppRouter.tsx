@@ -13,8 +13,6 @@ const AppRouter = () => {
             <Suspense fallback={<PageLoader />}>{route.element}</Suspense>
         );
 
-        console.log(route)
-
         return (
             <Route
                 key={route.path}

@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { getRouteMain } from '@/shared/consts/router';
+import { getLoginPage } from '@/shared/consts/router';
 import useStore from '../../StoreProvider/config/useStore';
 
 interface RequireAuthProps {
@@ -9,11 +9,10 @@ interface RequireAuthProps {
 export function RequireAuth({ children }: RequireAuthProps) {
     const { user } = useStore();
     const location = useLocation();
-    console.log(user)
 
     if (!user.isAuth) {
         return (
-            <Navigate to={getRouteMain()} state={{ from: location }} replace />
+            <Navigate to={getLoginPage()} state={{ from: location }} replace />
         );
     }
 

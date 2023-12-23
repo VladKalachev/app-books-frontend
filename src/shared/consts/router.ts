@@ -1,33 +1,49 @@
 export enum AppRoutes {
-    // MAIN = 'main',
+    HOME = 'home',
     SETTINGS = 'settings',
-    // ABOUT = 'about',
-    // PROFILE = 'profile',
-    // ARTICLES = 'articles',
-    // ARTICLE_DETAILS = 'article_details',
-    // ARTICLE_CREATE = 'article_create',
-    // ARTICLE_EDIT = 'article_edit',
-    // ADMIN_PANEL = 'admin_panel',
+    BOOKS = 'books',
+    GOALS = 'goals',
+    LANDING = '',
+    LOGIN = 'login',
+    RATING = 'rating',
+    REGISTRATION = 'registration',
+    STATISTICS = 'statistics'
     // FORBIDDEN = 'forbidden',
     // // last
     // NOT_FOUND = 'not_found',
 }
 
-export const getRouteMain = () => '/';
+export const getHomePage = () => '/home';
+export const getBooksPage = () => '/books';
+export const getGoalsPage = () => '/goals';
+export const getLandingPage = () => '/';
+export const getLoginPage = () => '/login';
+export const getRatingPage = () => '/rating';
+export const getRegistrationPage = () => '/registration';
 export const getRouteSettings = () => '/settings';
-export const getRouteAbout = () => '/about';
-export const getRouteProfile = (id: string) => `/profile/${id}`;
-export const getRouteArticles = () => '/articles';
-export const getRouteArticleDetails = (id: string) => `/articles/${id}`;
-export const getRouteArticleCreate = () => '/articles/new';
-export const getRouteArticleEdit = (id: string) => `/articles/${id}/edit`;
-export const getRouteAdmin = () => '/admin';
-export const getRouteForbidden = () => '/forbidden';
+export const getStatisticsPage = () => '/statistics';
+
+
+// export const getRouteAbout = () => '/about';
+// export const getRouteProfile = (id: string) => `/profile/${id}`;
+// export const getRouteArticles = () => '/articles';
+// export const getRouteArticleDetails = (id: string) => `/articles/${id}`;
+// export const getRouteArticleCreate = () => '/articles/new';
+// export const getRouteArticleEdit = (id: string) => `/articles/${id}/edit`;
+// export const getRouteAdmin = () => '/admin';
+// export const getRouteForbidden = () => '/forbidden';
 
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
-    // [getRouteMain()]: AppRoutes.MAIN,
+    [getBooksPage()]: AppRoutes.BOOKS,
     [getRouteSettings()]: AppRoutes.SETTINGS,
-    // [getRouteAbout()]: AppRoutes.ABOUT,
+    [getGoalsPage()]: AppRoutes.GOALS,
+    [getLandingPage()]: AppRoutes.LANDING,
+    [getLoginPage()]: AppRoutes.LOGIN,
+    [getRatingPage()]: AppRoutes.RATING,
+    [getRegistrationPage()]: AppRoutes.REGISTRATION,
+    [getHomePage()]: AppRoutes.HOME,
+    [getStatisticsPage()]: AppRoutes.SETTINGS,
+
     // [getRouteProfile(':id')]: AppRoutes.PROFILE,
     // [getRouteArticles()]: AppRoutes.ARTICLES,
     // [getRouteArticleDetails(':id')]: AppRoutes.ARTICLE_DETAILS,
