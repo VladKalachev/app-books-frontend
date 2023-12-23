@@ -11,4 +11,9 @@ export default defineConfig({
   plugins: [react(),  checker({
     typescript: true,
   }), mkcert()],
+  resolve: {
+    alias: [
+      { find: '@', replacement: './src' },
+    ],
+  }
 })

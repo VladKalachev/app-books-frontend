@@ -1,11 +1,11 @@
 
 import { useContext, useEffect, useState } from 'react'
-import LoginFormPage from '../pages/LoginFormPage'
-import './App.css'
-import storeContext from '../contexts/store';
+import LoginFormPage from '../pages/LoginPage/ui/LoginPage'
+import './styles/App.css'
+import storeContext from '../shared/contexts/store';
 import { observer } from 'mobx-react-lite';
-import BooksService from '../api/books';
-import { IBook } from '../types/books';
+import BooksService from '../shared/api/books';
+import { IBook } from '../shared/types/books';
 
 function App() {
   const store = useContext(storeContext);
