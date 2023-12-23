@@ -1,8 +1,9 @@
-import $api from "../plugins/http";
+import { IUser } from "@/entities/User/model/types/user";
+import $api from "../../../../shared/plugins/http";
 import { AxiosResponse} from "axios";
-import { IUser } from "../types/users";
 
-export default class UsersService {
+
+export class UsersService {
   static fetchUsers(): Promise<AxiosResponse<IUser[]>> {
     return  $api.get<IUser[]>('/users')
   }

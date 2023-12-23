@@ -1,18 +1,21 @@
 import { makeAutoObservable } from "mobx";
-import { 
-  AuthResponse, 
-  IUser } from "../types/users";
-import AuthService from "../api/auth";
-import axios from "axios";
-import { API_URL } from "../plugins/http";
 
-export default class UserStore {
+import AuthService from "../../../../shared/api/auth";
+import axios from "axios";
+import { API_URL } from "../../../../shared/plugins/http";
+import { IUser } from "../types/user";
+import { AuthResponse } from "@/shared/types/user";
+import RootStore from "@/app/providers/StoreProvider/config/store";
+
+export class UserStore {
+  rootStore: RootStore;
   user = {} as IUser;
   isAuth = false;
   isLoading = false;
 
-  constructor() {
-    makeAutoObservable(this);
+  constructor(rootStore: RootStore) {
+    makeAutoObservable(this, { rootStore: false });
+		this.rootStore = rootStore;
   }
 
   setAuth(bool: boolean) {

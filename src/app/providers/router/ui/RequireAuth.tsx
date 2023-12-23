@@ -1,45 +1,22 @@
-// import { useSelector } from 'react-redux';
-// import { Navigate, useLocation } from 'react-router-dom';
-// import { useMemo } from 'react';
-// import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
-// import { getRouteForbidden, getRouteMain } from '@/shared/const/router';
+import { Navigate, useLocation } from 'react-router-dom';
+import { getRouteMain } from '@/shared/consts/router';
+import useStore from '../../StoreProvider/config/useStore';
 
-// interface RequireAuthProps {
-//     children: JSX.Element;
-//     roles?: UserRole[];
-// }
+interface RequireAuthProps {
+    children: JSX.Element;
+}
 
-// export function RequireAuth({ children, roles }: RequireAuthProps) {
-//     const auth = useSelector(getUserAuthData);
-//     const location = useLocation();
-//     const userRoles = useSelector(getUserRoles);
+export function RequireAuth({ children }: RequireAuthProps) {
+    const { user } = useStore();
+    const location = useLocation();
+    console.log(user)
 
-//     const hasRequiredRoles = useMemo(() => {
-//         if (!roles) {
-//             return true;
-//         }
+    if (!user.isAuth) {
+        return (
+            <Navigate to={getRouteMain()} state={{ from: location }} replace />
+        );
+    }
 
-//         return roles.some((requiredRole) => {
-//             const hasRole = userRoles?.includes(requiredRole);
-//             return hasRole;
-//         });
-//     }, [roles, userRoles]);
 
-//     if (!auth) {
-//         return (
-//             <Navigate to={getRouteMain()} state={{ from: location }} replace />
-//         );
-//     }
-
-//     if (!hasRequiredRoles) {
-//         return (
-//             <Navigate
-//                 to={getRouteForbidden()}
-//                 state={{ from: location }}
-//                 replace
-//             />
-//         );
-//     }
-
-//     return children;
-// }
+    return children;
+}

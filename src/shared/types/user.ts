@@ -1,8 +1,4 @@
-export interface IUser {
-  email: string;
-  isActivated: boolean;
-  id: string;
-}
+import { IUser } from "@/entities/User/model/types/user";
 
 export interface AuthResponse {
   accessToken: string;

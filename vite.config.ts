@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import checker from 'vite-plugin-checker'
 import mkcert from'vite-plugin-mkcert'
+import { fileURLToPath, URL } from "url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
   }), mkcert()],
   resolve: {
     alias: [
-      { find: '@', replacement: './src' },
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
     ],
   }
 })

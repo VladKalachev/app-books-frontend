@@ -13,13 +13,15 @@ const AppRouter = () => {
             <Suspense fallback={<PageLoader />}>{route.element}</Suspense>
         );
 
+        console.log(route)
+
         return (
             <Route
                 key={route.path}
                 path={route.path}
                 element={
                     route.authOnly ? (
-                        <RequireAuth roles={route.roles}>{element}</RequireAuth>
+                        <RequireAuth>{element}</RequireAuth>
                     ) : (
                         element
                     )

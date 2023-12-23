@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
-import storeContext from '../../../shared/contexts/store';
+import {  useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import useStore from '@/app/providers/StoreProvider/config/useStore';
 
 const LoginForm = () => {
-  const store = useContext(storeContext);
+  const { user } = useStore();
   
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -48,10 +48,10 @@ const LoginForm = () => {
             />
         </div>
 
-        <button onClick={() => store?.login(email, password)}>
+        <button onClick={() => user?.login(email, password)}>
           Логин
         </button>
-        <button onClick={() => store?.registration(email, password)}>
+        <button onClick={() => user?.registration(email, password)}>
           Регистрация
         </button>
      
