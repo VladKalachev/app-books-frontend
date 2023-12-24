@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 import AuthService from "../../../../shared/api/auth";
 import axios from "axios";
@@ -15,7 +15,7 @@ export class UserStore {
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false });
-		this.rootStore = rootStore;
+    this.rootStore = rootStore;
   }
 
   setAuth(bool: boolean) {
@@ -33,9 +33,11 @@ export class UserStore {
   async login(email: string, password: string) {
     try {
       const response = await AuthService.login(email, password);
-      localStorage.setItem('token', response.data.accessToken);
-      this.setAuth(true);
-      this.setUser(response.data.user);
+      localStorage.setItem("token", response.data.accessToken);
+      runInAction(() => {
+        this.setAuth(true);
+        this.setUser(response.data.user);
+      });
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -44,9 +46,11 @@ export class UserStore {
   async registration(email: string, password: string) {
     try {
       const response = await AuthService.registration(email, password);
-      localStorage.setItem('token', response.data.accessToken);
-      this.setAuth(true);
-      this.setUser(response.data.user);
+      localStorage.setItem("token", response.data.accessToken);
+      runInAction(() => {
+        this.setAuth(true);
+        this.setUser(response.data.user);
+      });
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -55,9 +59,11 @@ export class UserStore {
   async logout() {
     try {
       await AuthService.logout();
-      localStorage.removeItem('token');
-      this.setAuth(false);
-      this.setUser({} as IUser);
+      localStorage.removeItem("token");
+      runInAction(() => {
+        this.setAuth(false);
+        this.setUser({} as IUser);
+      });
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -66,12 +72,17 @@ export class UserStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      const response = await axios.get<AuthResponse>(`${API_URL}/user/refresh`, {  withCredentials: true, });
-      localStorage.setItem('token', response.data.accessToken);
-      this.setAuth(true);
-      this.setUser(response.data.user);
+      const response = await axios.get<AuthResponse>(
+        `${API_URL}/user/refresh`,
+        { withCredentials: true }
+      );
+      localStorage.setItem("token", response.data.accessToken);
+      runInAction(() => {
+        this.setAuth(true);
+        this.setUser(response.data.user);
+      });
     } catch (e: any) {
-       console.log(e.response?.data?.message);
+      console.log(e.response?.data?.message);
     } finally {
       this.setLoading(false);
     }

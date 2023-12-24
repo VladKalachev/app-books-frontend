@@ -1,7 +1,7 @@
-import { Page } from '@/widgets/Page';
+import { Page } from "@/widgets/Page";
 
 const LandingPage = () => {
-    return <Page data-testid="LandingPage">LandingPage</Page>;
+  return <Page data-testid="LandingPage">LandingPage</Page>;
 };
 
 export default LandingPage;

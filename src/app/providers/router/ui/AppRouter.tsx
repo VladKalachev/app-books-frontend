@@ -5,8 +5,6 @@ import { RequireAuth } from './RequireAuth';
 import { routeConfig } from '../config/routeConfig';
 import { AppRoutesProps } from '@/shared/types/router';
 
-
-
 const AppRouter = () => {
     const renderWithWrapper = useCallback((route: AppRoutesProps) => {
         const element = (

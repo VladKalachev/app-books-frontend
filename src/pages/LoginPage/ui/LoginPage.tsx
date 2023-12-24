@@ -1,7 +1,12 @@
 import LoginForm from "@/features/AuthByEmail/ui/LoginForm";
+import { Page } from "@/widgets/Page";
 
 const LoginPage = () => {
-  return <LoginForm />
-}
+  return (
+    <Page data-testid="LoginPage">
+      <LoginForm />
+    </Page>
+  );
+};
 
 export default LoginPage;
