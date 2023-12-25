@@ -1,4 +1,4 @@
-import LoginForm from "@/features/AuthByEmail/ui/LoginForm";
+import { LoginForm } from "@/features/AuthByEmail";
 import { LendingHeader } from "@/widgets/LandingHeader";
 import { Page } from "@/widgets/Page";
 
@@ -7,7 +7,11 @@ const LoginPage = () => {
     <Page data-testid="LoginPage">
       <section className="h-screen w-full overflow-hidden">
         <LendingHeader />
-        <LoginForm />
+        <div className="h-screen bg-neutral-50 py-24 px-6 text-center ">
+          <div className="w-300">
+            <LoginForm />
+          </div>
+        </div>
       </section>
     </Page>
   );

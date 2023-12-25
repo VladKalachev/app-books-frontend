@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import useStore from "@/app/providers/StoreProvider/config/useStore";
-import { useNavigate } from "react-router-dom";
-import { getHomePage } from "@/shared/consts/router";
+// import { useNavigate } from "react-router-dom";
+// import { getHomePage } from "@/shared/consts/router";
 
-export const LoginForm = observer(() => {
+export const RegistrationForm = observer(() => {
   const { user } = useStore();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div>
@@ -50,13 +50,8 @@ export const LoginForm = observer(() => {
         />
       </div>
 
-      <button
-        onClick={() => {
-          user?.login(email, password);
-          navigate(getHomePage());
-        }}
-      >
-        Логин
+      <button onClick={() => user?.registration(email, password)}>
+        Регистрация
       </button>
     </div>
   );
