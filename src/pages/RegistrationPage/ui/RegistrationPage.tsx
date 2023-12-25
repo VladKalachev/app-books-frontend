@@ -7,7 +7,7 @@ const RegistrationPage = () => {
     <Page data-testid="RegistrationPage">
       <section className="h-screen w-full overflow-hidden">
         <LendingHeader />
-        <div className="display-inline h-screen bg-neutral-50 py-24 px-6 text-center lg:w-1/2 md:w-1/2">
+        <div className="display-inline h-screen py-24 px-6 text-center">
           <RegistrationForm />
         </div>
       </section>

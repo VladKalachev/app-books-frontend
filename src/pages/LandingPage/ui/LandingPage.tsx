@@ -11,7 +11,7 @@ const LandingPage = () => {
       <section className="h-screen w-full">
         <LendingHeader />
 
-        <div className="flex flex-col max-w-6xl px-6 py-16 mx-auto md:flex-row">
+        <div className="flex flex-col max-w-6xl px-6 py-16 mx-auto md:flex-row mt-10">
           <div className="flex flex-col justify-center pr-4 md:w-1/2">
             <h1 className="text-5xl font-extrabold leading-none tracking-tight text-gray-800 lg:text-6xl dark:text-gray-400">
               Приложение для твоих книг, <br />
