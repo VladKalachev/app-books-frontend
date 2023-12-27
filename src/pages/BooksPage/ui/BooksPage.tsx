@@ -1,4 +1,5 @@
 import { BooksService, IBook } from "@/entities/Book";
+import { BookList } from "@/entities/Book/ui/BookList/BookList";
 import { Page } from "@/widgets/Page";
 import { useEffect, useState } from "react";
 
@@ -27,10 +28,7 @@ const BooksPage = () => {
       <div>sidebar</div>
       <div>header</div>
       <div>
-        body
-        {books?.map((book) => (
-          <div key={book?.id}>{book.title}</div>
-        ))}
+        <BookList books={books} />
       </div>
       <div>footer</div>
     </Page>

@@ -11,7 +11,7 @@ import { getLoginPage, getRegistrationPage } from "@/shared/consts/router";
 import { RegistrationPage } from "@/pages/RegistrationPage";
 import { LandingPage } from "@/pages/LandingPage";
 
-function App() {
+const App = observer(() => {
   const { user } = useStore();
   const location = useLocation();
 
@@ -52,6 +52,6 @@ function App() {
       <AppRouter />
     </div>
   );
-}
+});
 
-export default observer(App);
+export default App;

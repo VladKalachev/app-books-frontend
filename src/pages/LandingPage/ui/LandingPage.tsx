@@ -35,7 +35,11 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="md:w-1/2">
-            <img className="w-full" src={logo} alt="Woman working from home" />
+            <img
+              className="w-full"
+              src={logo as any}
+              alt="Woman working from home"
+            />
           </div>
         </div>
       </section>
