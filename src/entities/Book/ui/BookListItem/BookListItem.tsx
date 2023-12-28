@@ -13,6 +13,7 @@ export const BookListItem = (props: BookListItemProps) => {
       {book.id} {book.title}
       {book.description}
       {book.year}
+      {book.fullName}
     </Card>
   );
 };
