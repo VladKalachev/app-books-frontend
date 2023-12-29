@@ -1,17 +1,13 @@
+import { ReactNode } from "react";
 import { IBook } from "../..";
-import { BookListItem } from "../BookListItem/BookListItem";
 
 interface BookListProps {
   books: IBook[];
+  renderList: (book: IBook) => ReactNode;
 }
 
 export const BookList = (props: BookListProps) => {
-  const { books } = props;
-  return (
-    <>
-      {books.map((item) => (
-        <BookListItem book={item} />
-      ))}
-    </>
-  );
+  const { books, renderList } = props;
+
+  return <>{books.map((item) => renderList(item))}</>;
 };
