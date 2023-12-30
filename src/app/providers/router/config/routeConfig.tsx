@@ -1,6 +1,7 @@
 import {
   AppRoutes,
   getBookCreate,
+  getBookEdit,
   getBooksPage,
   getGoalsPage,
   getHomePage,
@@ -18,6 +19,7 @@ import { RatingPage } from "@/pages/RatingPage";
 import { StatisticsPage } from "@/pages/StatisticsPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { AddBookPage } from "@/pages/AddBookPage";
+import { BookEditPage } from "@/pages/BookEditPage";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -33,6 +35,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.BOOKS_CREATE]: {
     path: getBookCreate(),
     element: <AddBookPage />,
+    authOnly: true,
+  },
+  [AppRoutes.BOOKS_EDIT]: {
+    path: getBookEdit(":id"),
+    element: <BookEditPage />,
     authOnly: true,
   },
   [AppRoutes.SETTINGS]: {

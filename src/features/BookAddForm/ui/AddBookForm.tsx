@@ -27,7 +27,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       title,
       description,
       fullName,
-      image: "test",
+      image,
       publishing: false,
       genre: "test",
       year: 2023,

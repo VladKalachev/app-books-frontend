@@ -10,4 +10,19 @@ export class BooksService {
   static addBook(book: IBookCreate): Promise<AxiosResponse<IBook>> {
     return $api.post<IBook>("/books/create", book);
   }
+
+  static getBookById(id: string): Promise<AxiosResponse<IBook>> {
+    return $api.get<IBook>(`/books/${id}`);
+  }
+
+  static updateBook(
+    id: string,
+    book: IBookCreate
+  ): Promise<AxiosResponse<IBook>> {
+    return $api.put<IBook>(`/books/${id}`, book);
+  }
+
+  static deleteBookById(id: string): Promise<AxiosResponse<IBook>> {
+    return $api.delete<IBook>(`/books/${id}`);
+  }
 }

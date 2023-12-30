@@ -1,8 +1,12 @@
-import { AddBookForm } from "@/features/AddBookForm";
+import { AddBookForm } from "@/features/BookAddForm";
 
-const AddBookPage = () => {
+interface AddBookPageProps {
+  className?: string;
+}
+
+const AddBookPage = ({ className }: AddBookPageProps) => {
   return (
-    <div>
+    <div className={className}>
       <AddBookForm />
     </div>
   );
