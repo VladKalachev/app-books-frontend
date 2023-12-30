@@ -1,4 +1,4 @@
-// import ArticleIcon from "@/shared/assets/icons/user-filled.svg";
+import ArticleIcon from "@/shared/assets/icons/user-filled.svg?react";
 
 import {
   getHomePage,
@@ -13,7 +13,7 @@ export const useSidebarItems = () => {
   const sidebarItemsList = [
     {
       path: getHomePage(),
-      //   Icon: ArticleIcon as any,
+      Icon: ArticleIcon,
       text: "Главная",
       authOnly: true,
     },
