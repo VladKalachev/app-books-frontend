@@ -1,4 +1,4 @@
-import { AddBookForm } from "@/features/AddBook";
+import { AddBookForm } from "@/features/AddBookForm";
 
 const AddBookPage = () => {
   return (

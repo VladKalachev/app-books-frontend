@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 import { IBook } from "../..";
+import { HStack } from "@/shared/ui/Stack";
+import { classNames } from "@/shared/libs/classNames/classNames";
+import cls from "./BookList.module.scss";
 
 interface BookListProps {
   books: IBook[];
@@ -13,5 +16,14 @@ export const BookList = (props: BookListProps) => {
     return <>У вас нет добавленных книг</>;
   }
 
-  return <>{books.map((item) => renderList(item))}</>;
+  return (
+    <HStack
+      wrap="wrap"
+      gap="16"
+      className={classNames(cls.BookList, {}, [])}
+      data-testid="BookList"
+    >
+      {books.map((item) => renderList(item))}
+    </HStack>
+  );
 };

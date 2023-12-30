@@ -13,7 +13,8 @@ import { MainLayout } from "@/shared/layouts/MainLayout";
 import { Sidebar } from "@/widgets/Sidebar";
 import { Navbar } from "@/widgets/Navbar";
 import { classNames } from "@/shared/libs/classNames/classNames";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./styles/App.scss";
 
 const App = observer(() => {
@@ -54,6 +55,8 @@ const App = observer(() => {
 
   return (
     <div id="app" className={classNames("app_redesigned", {}, [])}>
+      <ToastContainer hideProgressBar />
+
       <Suspense fallback="">
         <MainLayout
           header={<Navbar />}
