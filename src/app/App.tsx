@@ -1,5 +1,4 @@
 import { Suspense, useEffect } from "react";
-import "./styles/App.scss";
 
 import { observer } from "mobx-react-lite";
 
@@ -13,6 +12,9 @@ import { LandingPage } from "@/pages/LandingPage";
 import { MainLayout } from "@/shared/layouts/MainLayout";
 import { Sidebar } from "@/widgets/Sidebar";
 import { Navbar } from "@/widgets/Navbar";
+import { classNames } from "@/shared/libs/classNames/classNames";
+
+import "./styles/App.scss";
 
 const App = observer(() => {
   const { user } = useStore();
@@ -51,11 +53,15 @@ const App = observer(() => {
   }
 
   return (
-    <MainLayout
-      header={<Navbar />}
-      sidebar={<Sidebar />}
-      content={<AppRouter />}
-    />
+    <div id="app" className={classNames("app_redesigned", {}, [])}>
+      <Suspense fallback="">
+        <MainLayout
+          header={<Navbar />}
+          sidebar={<Sidebar />}
+          content={<AppRouter />}
+        />
+      </Suspense>
+    </div>
   );
 });
 

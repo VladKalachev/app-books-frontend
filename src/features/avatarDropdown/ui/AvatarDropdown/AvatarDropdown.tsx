@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 
 import { getLoginPage, getSettingsPage } from "@/shared/consts/router";
-
+import SettingIcon from "@/shared/assets/icons/setting.svg?react";
 import { Dropdown } from "@/shared/ui/Popups";
 // import { Avatar } from "@/shared/ui/Avatar";
 import useStore from "@/app/providers/StoreProvider/config/useStore";
@@ -31,6 +31,7 @@ export const AvatarDropdown = observer((props: AvatarDropdownProps) => {
     {
       content: "Настройки",
       href: getSettingsPage(),
+      icon: SettingIcon,
     },
     // {
     //   content: "Профиль",

@@ -43,7 +43,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
       {/* <AppLogo size={collapsed ? 30 : 50} className={cls.appLogo} /> */}
       <div className={cls.appLogo}>
         <Icon Svg={BookIcon} />
-        {collapsed ? "" : "КНИГАРУМ"}
+        <span>{collapsed ? "" : "КНИГАРУМ"}</span>
       </div>
 
       <VStack role="navigation" gap="8" className={cls.items}>

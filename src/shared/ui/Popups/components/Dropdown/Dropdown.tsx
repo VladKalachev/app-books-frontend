@@ -6,12 +6,14 @@ import { AppLink } from "../../../AppLink/AppLink";
 import cls from "./Dropdown.module.scss";
 import { mapDirectionClass } from "../../styles/consts";
 import popupCls from "../../styles/popup.module.scss";
+import { Icon } from "@/shared/ui/Icon";
 
 export interface DropdownItem {
   disabled?: boolean;
   content?: ReactNode;
   onClick?: () => void;
   href?: string;
+  icon?: any;
 }
 
 interface DropdownProps {
@@ -43,7 +45,7 @@ export function Dropdown(props: DropdownProps) {
                 [popupCls.active]: active,
               })}
             >
-              {item.content}
+              {item.icon ? <Icon Svg={item.icon} /> : null} {item.content}
             </button>
           );
 

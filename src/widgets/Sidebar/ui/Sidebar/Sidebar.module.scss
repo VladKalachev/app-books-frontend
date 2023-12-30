@@ -49,9 +49,18 @@
   // height: calc(100vh - var(--navbar-height));
   width: var(--sidebar-width);
   position: relative;
+  // border-right: 2px solid var(--light-border);
+  border-right: 2px solid;
+  border-right-color: rgba(234, 231, 218, 0.45);
 
   .appLogo {
     padding-top: 20px;
+    display: flex;
+    align-items: center;
+    svg {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
   }
 
   .items {
@@ -77,7 +86,7 @@
 }
 
 .collapsedRedesigned {
-  width: 50px;
+  width: 66px;
 
   .switchers {
     flex-direction: column;

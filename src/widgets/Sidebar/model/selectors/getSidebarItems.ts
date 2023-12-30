@@ -1,4 +1,8 @@
-import ArticleIcon from "@/shared/assets/icons/user-filled.svg?react";
+import BookIcon from "@/shared/assets/icons/book-icon.svg?react";
+import HomeIcon from "@/shared/assets/icons/home.svg?react";
+import ChartIcon from "@/shared/assets/icons/chart.svg?react";
+import TaskIcon from "@/shared/assets/icons/task-list.svg?react";
+import FieldTimeIcon from "@/shared/assets/icons/field-time.svg?react";
 
 import {
   getHomePage,
@@ -12,31 +16,31 @@ export const useSidebarItems = () => {
   const sidebarItemsList = [
     {
       path: getHomePage(),
-      Icon: ArticleIcon,
+      Icon: HomeIcon,
       text: "Главная",
       authOnly: true,
     },
     {
       path: getBooksPage(),
-      //   Icon: ArticleIcon as any,
+      Icon: BookIcon,
       text: "Мои книги",
       authOnly: true,
     },
     {
       path: getGoalsPage(),
-      //   Icon: ArticleIcon as any,
+      Icon: TaskIcon,
       text: "Мои цели",
       authOnly: true,
     },
     {
       path: getStatisticsPage(),
-      //   Icon: ArticleIcon as any,
+      Icon: ChartIcon,
       text: "Моя статистика",
       authOnly: true,
     },
     {
       path: getRatingPage(),
-      //   Icon: ArticleIcon as any,
+      Icon: FieldTimeIcon,
       text: "Рейтинг",
       authOnly: true,
     },
