@@ -2,11 +2,11 @@
   min-height: 100vh;
   display: grid;
   grid-template-areas:
-    "sidebar header header"
-    "sidebar content content"
-    "sidebar content content"
-    "sidebar content content";
-  grid-template-columns: min-content 1fr 100px;
+    "sidebar header"
+    "sidebar content"
+    "sidebar content"
+    "sidebar content";
+  grid-template-columns: min-content 1fr;
 }
 
 .sidebar {

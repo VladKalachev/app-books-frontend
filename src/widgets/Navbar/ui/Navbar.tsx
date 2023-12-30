@@ -1,6 +1,6 @@
 import { classNames } from "@/shared/libs/classNames/classNames";
 
-// import { Text } from "@/shared/ui/Text";
+import { Text } from "@/shared/ui/Text";
 import { AppLink } from "@/shared/ui/AppLink";
 import { HStack } from "@/shared/ui/Stack";
 // import { NotificationButton } from "@/features/notificationButton";
@@ -20,11 +20,7 @@ export const Navbar = observer(({ className }: NavbarProps) => {
 
   return (
     <header className={classNames(cls.Navbar, {}, [className])}>
-      {/* <Text
-        className={cls.appName}
-        title={"Ulbi TV App"}
-        //   theme={TextTheme.INVERTED}
-      /> */}
+      <Text className={cls.appName} title={"Поиск"} />
       <AppLink
         to={"/books/create"}
         //   theme={AppLinkTheme.SECONDARY}
