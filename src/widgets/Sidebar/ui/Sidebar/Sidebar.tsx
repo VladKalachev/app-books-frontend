@@ -2,13 +2,13 @@ import { memo, useMemo, useState } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 
 import { VStack } from "@/shared/ui/Stack";
-import cls from "./Sidebar.module.scss";
 import { SidebarItem } from "../SidebarItem/SidebarItem";
 import { useSidebarItems } from "../../model/selectors/getSidebarItems";
 import ArrowIcon from "@/shared/assets/icons/arrow-bottom.svg?react";
 import BookIcon from "@/shared/assets/icons/book-filled.svg?react";
-// import { AppLogo } from "@/shared/ui/AppLogo";
 import { Icon } from "@/shared/ui/Icon";
+
+import cls from "./Sidebar.module.scss";
 
 interface SidebarProps {
   className?: string;
@@ -40,7 +40,6 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
         [className]
       )}
     >
-      {/* <AppLogo size={collapsed ? 30 : 50} className={cls.appLogo} /> */}
       <div className={cls.appLogo}>
         <Icon Svg={BookIcon} />
         <span>{collapsed ? "" : "КНИГАРУМ"}</span>

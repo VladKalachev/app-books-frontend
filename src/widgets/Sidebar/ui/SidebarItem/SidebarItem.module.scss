@@ -23,8 +23,12 @@
 .itemRedesigned {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 92%;
+  margin-left: 9px;
   padding: 0 16px;
+  svg {
+    width: 21px;
+  }
 }
 
 .collapsedRedesigned {
@@ -42,4 +46,12 @@
   position: relative;
   border-radius: 20px;
   color: var(--code-bg);
+
+  &:hover {
+    color: var(--code-bg);
+  }
+
+  svg {
+    fill: var(--code-bg);
+  }
 }
