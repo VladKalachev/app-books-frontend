@@ -3,10 +3,7 @@ import {
   getBooksPage,
   getGoalsPage,
   getHomePage,
-  getLandingPage,
-  getLoginPage,
   getRatingPage,
-  getRegistrationPage,
   getSettingsPage,
   getStatisticsPage,
 } from "@/shared/consts/router";
@@ -16,25 +13,11 @@ import { SettingsPage } from "@/pages/SettingsPage";
 import { BooksPage } from "@/pages/BooksPage";
 import { HomePage } from "@/pages/HomePage";
 import { GoalsPage } from "@/pages/GoalsPage";
-import { LandingPage } from "@/pages/LandingPage";
 import { RatingPage } from "@/pages/RatingPage";
-import { RegistrationPage } from "@/pages/RegistrationPage";
-import { LoginPage } from "@/pages/LoginPage";
 import { StatisticsPage } from "@/pages/StatisticsPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
-  [AppRoutes.LANDING]: {
-    path: getLandingPage(),
-    element: <LandingPage />,
-  },
-  [AppRoutes.REGISTRATION]: {
-    path: getRegistrationPage(),
-    element: <RegistrationPage />,
-  },
-  [AppRoutes.LOGIN]: {
-    path: getLoginPage(),
-    element: <LoginPage />,
-  },
   [AppRoutes.HOME]: {
     path: getHomePage(),
     element: <HomePage />,
@@ -70,8 +53,8 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   //     element: <ForbiddenPage />,
   // },
   // // last
-  // [AppRoutes.NOT_FOUND]: {
-  //     path: '*',
-  //     element: <NotFoundPage />,
-  // },
+  [AppRoutes.NOT_FOUND]: {
+    path: "*",
+    element: <NotFoundPage />,
+  },
 };

@@ -3,14 +3,11 @@ export enum AppRoutes {
   SETTINGS = "settings",
   BOOKS = "books",
   GOALS = "goals",
-  LANDING = "",
-  LOGIN = "login",
   RATING = "rating",
-  REGISTRATION = "registration",
   STATISTICS = "statistics",
   // FORBIDDEN = 'forbidden',
   // // last
-  // NOT_FOUND = 'not_found',
+  NOT_FOUND = "not_found",
 }
 
 export const getHomePage = () => "/home";
@@ -36,10 +33,7 @@ export const AppRouteByPathPattern: Record<string, AppRoutes> = {
   [getBooksPage()]: AppRoutes.BOOKS,
   [getSettingsPage()]: AppRoutes.SETTINGS,
   [getGoalsPage()]: AppRoutes.GOALS,
-  [getLandingPage()]: AppRoutes.LANDING,
-  [getLoginPage()]: AppRoutes.LOGIN,
   [getRatingPage()]: AppRoutes.RATING,
-  [getRegistrationPage()]: AppRoutes.REGISTRATION,
   [getHomePage()]: AppRoutes.HOME,
   [getStatisticsPage()]: AppRoutes.SETTINGS,
 
