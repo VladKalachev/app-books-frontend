@@ -5,26 +5,23 @@ import { VStack } from "@/shared/ui/Stack";
 import cls from "./Sidebar.module.scss";
 import { SidebarItem } from "../SidebarItem/SidebarItem";
 import { useSidebarItems } from "../../model/selectors/getSidebarItems";
-
+import ArrowIcon from "@/shared/assets/icons/arrow-bottom.svg?react";
+import BookIcon from "@/shared/assets/icons/book-filled.svg?react";
 // import { AppLogo } from "@/shared/ui/AppLogo";
-// import { Icon } from "@/shared/ui/Icon";
-// import ArrowIcon from "@/shared/assets/icons/user-filled.svg";
+import { Icon } from "@/shared/ui/Icon";
 
 interface SidebarProps {
   className?: string;
 }
 
 export const Sidebar = memo(({ className }: SidebarProps) => {
-  const [
-    collapsed,
-    // setCollapsed
-  ] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const sidebarItemsList = useSidebarItems();
 
-  //   const onToggle = () => {
-  //     console.log(collapsed);
-  //     setCollapsed((prev) => !prev);
-  //   };
+  const onToggle = () => {
+    console.log(collapsed);
+    setCollapsed((prev) => !prev);
+  };
 
   const itemsList = useMemo(
     () =>
@@ -44,18 +41,21 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
       )}
     >
       {/* <AppLogo size={collapsed ? 30 : 50} className={cls.appLogo} /> */}
-      AppLogo
+      <div className={cls.appLogo}>
+        <Icon Svg={BookIcon} />
+        {collapsed ? "" : "КНИГАРУМ"}
+      </div>
+
       <VStack role="navigation" gap="8" className={cls.items}>
         {itemsList}
       </VStack>
-      {/* <Icon
+      <Icon
         data-testid="sidebar-toggle"
         onClick={onToggle}
         className={cls.collapseBtn}
-        // Svg={ArrowIcon as any}
-        Svg={(<>11</>) as any}
+        Svg={ArrowIcon}
         clickable
-      /> */}
+      />
     </aside>
   );
 });

@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from "react";
-import "./styles/App.css";
+import "./styles/App.scss";
 
 import { observer } from "mobx-react-lite";
 
@@ -12,6 +12,7 @@ import { RegistrationPage } from "@/pages/RegistrationPage";
 import { LandingPage } from "@/pages/LandingPage";
 import { MainLayout } from "@/shared/layouts/MainLayout";
 import { Sidebar } from "@/widgets/Sidebar";
+import { Navbar } from "@/widgets/Navbar";
 
 const App = observer(() => {
   const { user } = useStore();
@@ -51,7 +52,7 @@ const App = observer(() => {
 
   return (
     <MainLayout
-      header={<>Header</>}
+      header={<Navbar />}
       sidebar={<Sidebar />}
       content={<AppRouter />}
     />

@@ -9,5 +9,9 @@ interface BookListProps {
 export const BookList = (props: BookListProps) => {
   const { books, renderList } = props;
 
+  if (!books.length) {
+    return <>У вас нет добавленных книг</>;
+  }
+
   return <>{books.map((item) => renderList(item))}</>;
 };

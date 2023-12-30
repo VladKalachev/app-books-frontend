@@ -25,16 +25,13 @@ const BooksPage = () => {
 
   return (
     <Page data-testid="BooksPage">
-      BooksPage
-      <div>sidebar</div>
-      <div>header</div>
+      <h1>Мои книги</h1>
       <div>
         <BookList
           books={books}
           renderList={(book) => <BookListItem book={book} />}
         />
       </div>
-      <div>footer</div>
     </Page>
   );
 };

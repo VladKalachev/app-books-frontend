@@ -6,7 +6,6 @@ import {
   getGoalsPage,
   getStatisticsPage,
   getRatingPage,
-  getSettingsPage,
 } from "@/shared/consts/router";
 
 export const useSidebarItems = () => {
@@ -39,12 +38,6 @@ export const useSidebarItems = () => {
       path: getRatingPage(),
       //   Icon: ArticleIcon as any,
       text: "Рейтинг",
-      authOnly: true,
-    },
-    {
-      path: getSettingsPage(),
-      //   Icon: ArticleIcon as any,
-      text: "Настройки",
       authOnly: true,
     },
   ];
