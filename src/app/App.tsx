@@ -10,6 +10,8 @@ import { useLocation } from "react-router-dom";
 import { getLoginPage, getRegistrationPage } from "@/shared/consts/router";
 import { RegistrationPage } from "@/pages/RegistrationPage";
 import { LandingPage } from "@/pages/LandingPage";
+import { MainLayout } from "@/shared/layouts/MainLayout";
+import { Sidebar } from "@/widgets/Sidebar";
 
 const App = observer(() => {
   const { user } = useStore();
@@ -48,9 +50,11 @@ const App = observer(() => {
   }
 
   return (
-    <div>
-      <AppRouter />
-    </div>
+    <MainLayout
+      header={<>Header</>}
+      sidebar={<Sidebar />}
+      content={<AppRouter />}
+    />
   );
 });
 
