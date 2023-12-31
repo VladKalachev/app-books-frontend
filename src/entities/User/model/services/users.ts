@@ -1,10 +1,13 @@
-import { IUser } from "@/entities/User/model/types/user";
+import { IUser, IUserWithBooks } from "@/entities/User/model/types/user";
 import $api from "../../../../shared/plugins/http";
-import { AxiosResponse} from "axios";
-
+import { AxiosResponse } from "axios";
 
 export class UsersService {
   static fetchUsers(): Promise<AxiosResponse<IUser[]>> {
-    return  $api.get<IUser[]>('/users')
+    return $api.get<IUser[]>("/users");
+  }
+
+  static getUsersWithBooks(): Promise<AxiosResponse<IUserWithBooks[]>> {
+    return $api.get<IUserWithBooks[]>("/usersWithBooks");
   }
 }

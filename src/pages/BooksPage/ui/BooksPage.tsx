@@ -1,6 +1,6 @@
 import { BooksService, IBook } from "@/entities/Book";
-import { BookList } from "@/entities/Book/ui/BookList/BookList";
-import { BookListItem } from "@/entities/Book/ui/BookListItem/BookListItem";
+import { BookList, BookListItem } from "@/entities/Book";
+
 import { Page } from "@/widgets/Page";
 import { useEffect, useState } from "react";
 
