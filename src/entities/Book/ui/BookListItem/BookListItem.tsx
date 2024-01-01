@@ -23,7 +23,7 @@ export const BookListItem = (props: BookListItemProps) => {
         <AppImage
           fallback={<Skeleton width="100%" height={200} />}
           alt={book.title}
-          src={book.image}
+          src={`https://localhost:7000/upload/${book.image}`}
           className={cls.img}
         />
         <VStack className={cls.info} gap="4">

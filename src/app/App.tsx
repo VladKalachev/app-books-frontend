@@ -56,7 +56,6 @@ const App = observer(() => {
   return (
     <div id="app" className={classNames("app_redesigned", {}, [])}>
       <ToastContainer hideProgressBar />
-
       <Suspense fallback="">
         <MainLayout
           header={<Navbar />}

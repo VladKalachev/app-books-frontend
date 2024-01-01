@@ -7,6 +7,7 @@ import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
 import { useNavigate } from "react-router-dom";
 import { getBooksPage } from "@/shared/consts/router";
+import { Textarea } from "@/shared/ui/Textarea";
 
 interface AddBookFormProps {
   className?: string;
@@ -58,12 +59,11 @@ export const AddBookForm = (props: AddBookFormProps) => {
         onChange={(value) => setTitle(value)}
         value={title}
       />
-      <Input
-        type="text"
+      <Textarea
         className={cls.input}
+        value={description}
         placeholder={"Введите Описание книги"}
         onChange={(value) => setDescription(value)}
-        value={description}
       />
       <Input
         type="text"
