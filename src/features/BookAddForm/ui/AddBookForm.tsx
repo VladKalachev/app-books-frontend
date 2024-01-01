@@ -26,6 +26,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
   const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
+  const [publishing, setPublishing] = useState<IBook["publishing"]>("");
+  const [notes, setNotes] = useState<IBook["notes"]>("");
 
   const handleSubmit = async () => {
     const formData: IBookCreate = {
@@ -33,7 +35,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       description,
       fullName,
       image,
-      publishing: false,
+      publishing,
       genre,
       year,
       numberPages,
@@ -51,6 +53,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
       console.log(error);
     }
   };
+  /**
+   * Добавить required для компонентов с *
+   */
 
   /**
    * - title Название книги input [X]
@@ -59,9 +64,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
    * - fullName ФИО Автора input [X] => select
    * - image Картинка uploder [ ]
    * - year [] Год когда была написана numberInput [X]
-   * - numberPages Количество страниц numberInput []
-   * - publishing Издательство input [] => select
-   * - notes Мои заметки по книги []
+   * - numberPages Количество страниц numberInput [X]
+   * - publishing Издательство input [X] => select
+   * - notes Мои заметки по книги textarea [X]
    * - read Прочитано/не прочитано toggle []
    * - buy Купил/Не купил toggle []
    */
@@ -122,6 +127,21 @@ export const AddBookForm = (props: AddBookFormProps) => {
         onChange={(value) => setNumberPages(value)}
         value={numberPages}
       />
+      <Input
+        type="text"
+        className={cls.input}
+        label={"Издательство"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setPublishing(value)}
+        value={publishing}
+      />
+      <Textarea
+        className={cls.input}
+        value={notes}
+        placeholder={"Мои заметки"}
+        onChange={(value) => setNotes(value)}
+      />
+
       <Button className={cls.loginBtn} onClick={handleSubmit}>
         {"Добавить"}
       </Button>

@@ -63,7 +63,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       description,
       fullName,
       image,
-      publishing: false,
+      publishing: "",
       genre: "test",
       year: 2023,
       numberPages: 0,

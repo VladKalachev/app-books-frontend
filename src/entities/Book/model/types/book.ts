@@ -7,7 +7,7 @@ export interface IBook {
   image?: string;
   year?: number;
   numberPages?: number;
-  publishing?: boolean;
+  publishing?: string;
   notes?: string;
   read?: boolean;
   buy?: boolean;
@@ -21,7 +21,7 @@ export interface IBookCreate {
   image?: string;
   year?: number;
   numberPages?: number;
-  publishing?: boolean;
+  publishing?: string;
   notes?: string;
   read?: boolean;
   buy?: boolean;
