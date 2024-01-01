@@ -8,6 +8,7 @@ import { VStack } from "@/shared/ui/Stack";
 import { useNavigate } from "react-router-dom";
 import { getBooksPage } from "@/shared/consts/router";
 import { Textarea } from "@/shared/ui/Textarea";
+import { InputNumber } from "@/shared/ui/InputNumber";
 
 interface AddBookFormProps {
   className?: string;
@@ -20,8 +21,11 @@ export const AddBookForm = (props: AddBookFormProps) => {
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
+  const [genre, setGenre] = useState<IBook["genre"]>("");
   const [fullName, setFullName] = useState<IBook["fullName"]>("");
   const [image, setImage] = useState<IBook["image"]>("");
+  const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
+  const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
 
   const handleSubmit = async () => {
     const formData: IBookCreate = {
@@ -30,9 +34,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
       fullName,
       image,
       publishing: false,
-      genre: "test",
-      year: 2023,
-      numberPages: 0,
+      genre,
+      year,
+      numberPages,
       notes: "text",
       read: true,
       buy: true,
@@ -47,6 +51,20 @@ export const AddBookForm = (props: AddBookFormProps) => {
       console.log(error);
     }
   };
+
+  /**
+   * - title Название книги input [X]
+   * - description Описание книги textarea [X]
+   * - genre Жанр [X] => select
+   * - fullName ФИО Автора input [X] => select
+   * - image Картинка uploder [ ]
+   * - year [] Год когда была написана numberInput [X]
+   * - numberPages Количество страниц numberInput []
+   * - publishing Издательство input [] => select
+   * - notes Мои заметки по книги []
+   * - read Прочитано/не прочитано toggle []
+   * - buy Купил/Не купил toggle []
+   */
 
   return (
     <VStack gap="16" className={classNames(cls.LoginForm, {}, [className])}>
@@ -68,7 +86,16 @@ export const AddBookForm = (props: AddBookFormProps) => {
       <Input
         type="text"
         className={cls.input}
-        placeholder={"Введите ФИО Автора"}
+        label={"Введите жанр книги"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setGenre(value)}
+        value={genre}
+      />
+      <Input
+        type="text"
+        className={cls.input}
+        label={"Введите ФИО Автора"}
+        placeholder={"Введите значение"}
         onChange={(value) => setFullName(value)}
         value={fullName}
       />
@@ -78,6 +105,22 @@ export const AddBookForm = (props: AddBookFormProps) => {
         placeholder={"Загрузите картинку"}
         onChange={(value) => setImage(value)}
         value={image}
+      />
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Год издания книги"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setYear(value)}
+        value={year}
+      />
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Количество страниц (i)"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setNumberPages(value)}
+        value={numberPages}
       />
       <Button className={cls.loginBtn} onClick={handleSubmit}>
         {"Добавить"}

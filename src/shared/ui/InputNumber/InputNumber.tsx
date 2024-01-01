@@ -7,9 +7,9 @@ import React, {
   useState,
 } from "react";
 import { classNames, Mods } from "@/shared/libs/classNames/classNames";
-import cls from "./Input.module.scss";
 import { HStack } from "../Stack";
 import { Text } from "../Text";
+import cls from "./InputNumber.module.scss";
 
 type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -18,11 +18,11 @@ type HTMLInputProps = Omit<
 
 type InputSize = "s" | "m" | "l";
 
-interface InputProps extends HTMLInputProps {
+interface InputNumberProps extends HTMLInputProps {
   className?: string;
-  value?: string;
+  value?: number;
   label?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: number) => void;
   autofocus?: boolean;
   readonly?: boolean;
   addonLeft?: ReactNode;
@@ -30,12 +30,12 @@ interface InputProps extends HTMLInputProps {
   size?: InputSize;
 }
 
-export const Input = memo((props: InputProps) => {
+export const InputNumber = memo((props: InputNumberProps) => {
   const {
     className,
     value,
     onChange,
-    type = "text",
+    type = "number",
     placeholder,
     autofocus,
     readonly,
@@ -56,6 +56,7 @@ export const Input = memo((props: InputProps) => {
   }, [autofocus]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // @ts-ignore
     onChange?.(e.target.value);
   };
 
