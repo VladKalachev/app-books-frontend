@@ -1,0 +1,14 @@
+.Switch {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 8px 16px;
+  border: 2px solid var(--icon-redesigned);
+  &:hover {
+    border: 2px solid var(--icon-redesigned);
+  }
+  span {
+    border: 2px solid var(--icon-redesigned);
+    margin-left: -14px;
+  }
+}

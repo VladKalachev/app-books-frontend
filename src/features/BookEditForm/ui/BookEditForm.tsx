@@ -6,9 +6,12 @@ import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBooksPage } from "@/shared/consts/router";
+import { toast } from "react-toastify";
 
 import cls from "./BookEditForm.module.scss";
 import { Textarea } from "@/shared/ui/Textarea";
+import { InputNumber } from "@/shared/ui/InputNumber";
+import { Switch } from "@/shared/ui/Switch";
 
 interface AddBookFormProps {
   className?: string;
@@ -22,8 +25,15 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
+  const [genre, setGenre] = useState<IBook["genre"]>("");
   const [fullName, setFullName] = useState<IBook["fullName"]>("");
   const [image, setImage] = useState<IBook["image"]>("");
+  const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
+  const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
+  const [publishing, setPublishing] = useState<IBook["publishing"]>("");
+  const [notes, setNotes] = useState<IBook["notes"]>("");
+  const [read, setRead] = useState<IBook["read"]>(false);
+  const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -36,8 +46,15 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
       setTitle(formData.title);
       setDescription(formData.description);
+      setGenre(formData.genre);
       setFullName(formData.fullName);
       setImage(formData.image);
+      setYear(formData.year);
+      setPublishing(formData.publishing);
+      setNumberPages(formData.numberPages);
+      setNotes(formData.notes);
+      setRead(formData.read);
+      setBuy(formData.buy);
 
       setLoading(false);
     } catch (error) {
@@ -47,7 +64,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   useEffect(() => {
-    console.log("params", params.id);
     try {
       if (params?.id) {
         getBookById(params?.id);
@@ -63,13 +79,13 @@ export const BookEditForm = (props: AddBookFormProps) => {
       description,
       fullName,
       image,
-      publishing: "",
-      genre: "test",
-      year: 2023,
-      numberPages: 0,
-      notes: "text",
-      read: true,
-      buy: true,
+      publishing,
+      genre,
+      year,
+      numberPages,
+      notes,
+      read,
+      buy,
     };
 
     console.log(formData);
@@ -85,6 +101,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const onDeleteById = async (id: string) => {
     try {
       await BooksService.deleteBookById(id);
+      toast("Книга успешно удалена");
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
@@ -125,6 +142,46 @@ export const BookEditForm = (props: AddBookFormProps) => {
         placeholder={"Загрузите картинку"}
         onChange={(value) => setImage(value)}
         value={image}
+      />
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Год издания книги"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setYear(value)}
+        value={year}
+      />
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Количество страниц (i)"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setNumberPages(value)}
+        value={numberPages}
+      />
+      <Input
+        type="text"
+        className={cls.input}
+        label={"Издательство"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setPublishing(value)}
+        value={publishing}
+      />
+      <Textarea
+        className={cls.input}
+        value={notes}
+        placeholder={"Мои заметки"}
+        onChange={(value) => setNotes(value)}
+      />
+      <Switch
+        label={"Прочитано"}
+        checked={read}
+        onChange={(value) => setRead(value)}
+      />
+      <Switch
+        label={"Купил"}
+        checked={buy}
+        onChange={(value) => setBuy(value)}
       />
       <Button className={cls.loginBtn} onClick={handleSubmit}>
         {"Редактировать"}

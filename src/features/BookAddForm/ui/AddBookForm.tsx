@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { getBooksPage } from "@/shared/consts/router";
 import { Textarea } from "@/shared/ui/Textarea";
 import { InputNumber } from "@/shared/ui/InputNumber";
+import { toast } from "react-toastify";
+import { Switch } from "@/shared/ui/Switch";
 
 interface AddBookFormProps {
   className?: string;
@@ -28,6 +30,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
   const [publishing, setPublishing] = useState<IBook["publishing"]>("");
   const [notes, setNotes] = useState<IBook["notes"]>("");
+  const [read, setRead] = useState<IBook["read"]>(false);
+  const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const handleSubmit = async () => {
     const formData: IBookCreate = {
@@ -39,15 +43,16 @@ export const AddBookForm = (props: AddBookFormProps) => {
       genre,
       year,
       numberPages,
-      notes: "text",
-      read: true,
-      buy: true,
+      notes,
+      read,
+      buy,
     };
 
     console.log(formData);
 
     try {
       await BooksService.addBook(formData);
+      toast("Книга успешно добавлена в вашу коллекцию");
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
@@ -67,8 +72,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
    * - numberPages Количество страниц numberInput [X]
    * - publishing Издательство input [X] => select
    * - notes Мои заметки по книги textarea [X]
-   * - read Прочитано/не прочитано toggle []
-   * - buy Купил/Не купил toggle []
+   * - read Прочитано/не прочитано toggle [X]
+   * - buy Купил/Не купил toggle [X]
    */
 
   return (
@@ -140,6 +145,16 @@ export const AddBookForm = (props: AddBookFormProps) => {
         value={notes}
         placeholder={"Мои заметки"}
         onChange={(value) => setNotes(value)}
+      />
+      <Switch
+        label={"Прочитано"}
+        checked={read}
+        onChange={(value) => setRead(value)}
+      />
+      <Switch
+        label={"Купил"}
+        checked={buy}
+        onChange={(value) => setBuy(value)}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
