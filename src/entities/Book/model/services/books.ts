@@ -7,8 +7,8 @@ export class BooksService {
     return $api.get<IBook[]>("/books");
   }
 
-  static addBook(book: IBookCreate): Promise<AxiosResponse<IBook>> {
-    return $api.post<IBook>("/books/create", book);
+  static addBook(formData: any): Promise<AxiosResponse<IBook>> {
+    return $api.post<IBook>("/books/create", formData);
   }
 
   static getBookById(id: string): Promise<AxiosResponse<IBook>> {

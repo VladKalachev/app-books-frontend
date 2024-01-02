@@ -11,6 +11,7 @@ import { Textarea } from "@/shared/ui/Textarea";
 import { InputNumber } from "@/shared/ui/InputNumber";
 import { toast } from "react-toastify";
 import { Switch } from "@/shared/ui/Switch";
+import { ImageLoader } from "@/shared/ui/ImageLoader";
 
 interface AddBookFormProps {
   className?: string;
@@ -34,11 +35,10 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const handleSubmit = async () => {
-    const formData: IBookCreate = {
+    const form: IBookCreate = {
       title,
       description,
       fullName,
-      image,
       publishing,
       genre,
       year,
@@ -48,7 +48,20 @@ export const AddBookForm = (props: AddBookFormProps) => {
       buy,
     };
 
-    console.log(formData);
+    console.log(form);
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("fullName", form.fullName);
+    formData.append("publishing", form.publishing as string);
+    formData.append("genre", form.genre as string);
+    formData.append("year", JSON.stringify(form.year));
+    formData.append("numberPages", JSON.stringify(form.numberPages));
+    formData.append("notes", form.notes as string);
+    formData.append("read", JSON.stringify(form.read));
+    formData.append("buy", JSON.stringify(form.buy));
+    formData.append("image", image as any);
 
     try {
       await BooksService.addBook(formData);
@@ -67,7 +80,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
    * - description Описание книги textarea [X]
    * - genre Жанр [X] => select
    * - fullName ФИО Автора input [X] => select
-   * - image Картинка uploder [ ]
+   * - image Картинка uploder [X]
    * - year [] Год когда была написана numberInput [X]
    * - numberPages Количество страниц numberInput [X]
    * - publishing Издательство input [X] => select
@@ -109,12 +122,10 @@ export const AddBookForm = (props: AddBookFormProps) => {
         onChange={(value) => setFullName(value)}
         value={fullName}
       />
-      <Input
-        type="text"
-        className={cls.input}
-        placeholder={"Загрузите картинку"}
-        onChange={(value) => setImage(value)}
+      <ImageLoader
+        label={"Загрузите картинку"}
         value={image}
+        onChange={(value) => setImage(value)}
       />
       <InputNumber
         type="number"

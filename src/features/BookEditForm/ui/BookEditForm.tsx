@@ -12,6 +12,9 @@ import cls from "./BookEditForm.module.scss";
 import { Textarea } from "@/shared/ui/Textarea";
 import { InputNumber } from "@/shared/ui/InputNumber";
 import { Switch } from "@/shared/ui/Switch";
+import { Skeleton } from "@/shared/ui/Skeleton";
+import { AppImage } from "@/shared/ui/AppImage";
+import { ImageLoader } from "@/shared/ui/ImageLoader";
 
 interface AddBookFormProps {
   className?: string;
@@ -74,7 +77,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   }, [params.id]);
 
   const handleSubmit = async () => {
-    const formData: IBookCreate = {
+    const form: IBookCreate = {
       title,
       description,
       fullName,
@@ -88,15 +91,30 @@ export const BookEditForm = (props: AddBookFormProps) => {
       buy,
     };
 
-    console.log(formData);
+    console.log(form);
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("fullName", form.fullName);
+    formData.append("publishing", form.publishing as string);
+    formData.append("genre", form.genre as string);
+    formData.append("year", JSON.stringify(form.year));
+    formData.append("numberPages", JSON.stringify(form.numberPages));
+    formData.append("notes", form.notes as string);
+    formData.append("read", JSON.stringify(form.read));
+    formData.append("buy", JSON.stringify(form.buy));
+    formData.append("image", image as any);
 
     try {
-      await BooksService.updateBook(params.id as string, formData);
+      await BooksService.updateBook(params.id as string, formData as any);
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  console.log("image", image);
 
   const onDeleteById = async (id: string) => {
     try {
@@ -132,16 +150,32 @@ export const BookEditForm = (props: AddBookFormProps) => {
       <Input
         type="text"
         className={cls.input}
-        placeholder={"Введите ФИО Автора"}
-        onChange={(value) => setFullName(value)}
-        value={fullName}
+        label={"Введите жанр книги"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setGenre(value)}
+        value={genre}
       />
       <Input
         type="text"
         className={cls.input}
-        placeholder={"Загрузите картинку"}
-        onChange={(value) => setImage(value)}
+        placeholder={"Введите ФИО Автора"}
+        onChange={(value) => setFullName(value)}
+        value={fullName}
+      />
+
+      {typeof image === "string" ? (
+        <AppImage
+          fallback={<Skeleton width="100%" height={200} />}
+          alt={image}
+          src={`https://localhost:7000/upload/${image}`}
+          className={cls.img}
+        />
+      ) : null}
+
+      <ImageLoader
+        label={"Загрузите картинку"}
         value={image}
+        onChange={(value) => setImage(value)}
       />
       <InputNumber
         type="number"
