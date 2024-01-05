@@ -44,7 +44,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
     setLoading(true);
     try {
       const book = await BooksService.getBookById(id);
-      console.log(book);
+
       const formData = book.data;
 
       setTitle(formData.title);
@@ -106,6 +106,8 @@ export const BookEditForm = (props: AddBookFormProps) => {
     formData.append("buy", JSON.stringify(form.buy));
     formData.append("image", image as any);
 
+    console.log(formData);
+
     try {
       await BooksService.updateBook(params.id as string, formData as any);
       navigate(getBooksPage());
@@ -113,8 +115,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
       console.log(error);
     }
   };
-
-  console.log("image", image);
 
   const onDeleteById = async (id: string) => {
     try {

@@ -56,15 +56,19 @@ export const InputNumber = memo((props: InputNumberProps) => {
   }, [autofocus]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
     // @ts-ignore
-    onChange?.(e.target.value);
+    onChange?.(Number(e.target.value));
   };
 
   const onBlur = () => {
+    console.log("onBlur");
     setIsFocused(false);
   };
 
   const onFocus = () => {
+    console.log("onFocus");
     setIsFocused(true);
   };
 
