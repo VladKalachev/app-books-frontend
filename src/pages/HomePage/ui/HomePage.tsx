@@ -48,13 +48,13 @@ const HomePage = () => {
 
       <Text
         title={`Прочитанное (В этом году прочитано ${
-          books.filter((book) => !book.read).length
+          books.filter((book) => book.read).length
         } книг) `}
         className={cls.textTitle}
         size="s"
       />
       <BookList
-        books={books.slice(0, 5)}
+        books={books.filter((book) => book.read)}
         renderList={(book) => <BookListItem book={book} />}
       />
     </Page>

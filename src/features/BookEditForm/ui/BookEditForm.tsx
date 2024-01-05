@@ -158,7 +158,8 @@ export const BookEditForm = (props: AddBookFormProps) => {
       <Input
         type="text"
         className={cls.input}
-        placeholder={"Введите ФИО Автора"}
+        label={"Введите ФИО Автора"}
+        placeholder={"Введите значение"}
         onChange={(value) => setFullName(value)}
         value={fullName}
       />
