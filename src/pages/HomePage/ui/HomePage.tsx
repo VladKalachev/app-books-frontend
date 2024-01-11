@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import cls from "./HomePage.module.scss";
 
 const HomePage = () => {
-  //
   // const { user } = useStore();
   // const navigate = useNavigate();
 
