@@ -1,55 +1,47 @@
-import { memo, ReactNode, useCallback } from "react";
+import { Tab } from "@headlessui/react";
+import { ReactNode, Fragment } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
-import { Card } from "../Card/Card";
 import cls from "./Tabs.module.scss";
-import { Flex, FlexDirection } from "../Stack/Flex/Flex";
 
 export interface TabItem {
-  value: string;
+  key: number;
+  title: string;
   content: ReactNode;
 }
 
 interface TabsProps {
   className?: string;
   tabs: TabItem[];
-  value: string;
-  onTabClick: (tab: TabItem) => void;
-  direction?: FlexDirection;
+  value: number;
+  onTabClick: (index: number) => void;
 }
 
-export const Tabs = memo((props: TabsProps) => {
-  const { className, tabs, onTabClick, value, direction = "row" } = props;
-
-  const clickHandle = useCallback(
-    (tab: TabItem) => () => {
-      onTabClick(tab);
-    },
-    [onTabClick]
-  );
+export const Tabs = (props: TabsProps) => {
+  const { tabs, value, onTabClick, className } = props;
 
   return (
-    <Flex
-      direction={direction}
-      gap="8"
-      align="start"
-      className={classNames(cls.Tabs, {}, [className])}
-    >
-      {tabs.map((tab) => {
-        const isSelected = tab.value === value;
-        return (
-          <Card
-            variant={isSelected ? "light" : "normal"}
-            className={classNames(cls.tab, {
-              [cls.selected]: isSelected,
-            })}
-            key={tab.value}
-            onClick={clickHandle(tab)}
-            border="round"
-          >
-            {tab.content}
-          </Card>
-        );
-      })}
-    </Flex>
+    <>
+      <Tab.Group selectedIndex={value} onChange={onTabClick}>
+        <div className={classNames(cls.Tabs, {}, [className])}>
+          {tabs.map((tab) => (
+            <Tab.List key={tab.key}>
+              <Tab as={Fragment}>
+                {({ selected }) => (
+                  <div className={selected ? cls.selected : cls.item}>
+                    {tab.title}
+                  </div>
+                )}
+              </Tab>
+            </Tab.List>
+          ))}
+        </div>
+
+        {tabs.map((tab) => (
+          <Tab.Panels key={tab.key}>
+            <Tab.Panel>{tab.content}</Tab.Panel>
+          </Tab.Panels>
+        ))}
+      </Tab.Group>
+    </>
   );
-});
+};
