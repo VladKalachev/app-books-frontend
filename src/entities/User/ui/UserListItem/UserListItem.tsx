@@ -17,7 +17,11 @@ export const UserListItem = (props: UserListItemProps) => {
     <div className={classNames(cls.UserListItem, {}, [className])}>
       <Card className={cls.card} border="partial" padding="0" variant="light">
         <Text text={user.email} />
-        <Text text={`Книг: ${user.Books.length.toString()}`} />
+        <Text
+          text={`Книг: ${
+            user.Books?.length ? user.Books?.length?.toString() : "-"
+          }`}
+        />
       </Card>
     </div>
   );

@@ -24,7 +24,7 @@ export const UserList = (props: BookListProps) => {
       data-testid="UserList"
     >
       {users
-        .sort((a, b) => b.Books.length - a.Books.length)
+        .sort((a, b) => b?.Books?.length - a?.Books?.length)
         .map((item) => renderList(item))}
     </HStack>
   );
