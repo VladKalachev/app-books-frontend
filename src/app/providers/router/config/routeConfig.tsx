@@ -1,6 +1,7 @@
 import {
   AppRoutes,
   getAuthorsCreate,
+  getAuthorsEdit,
   getBookCreate,
   getBookEdit,
   getBooksPage,
@@ -22,6 +23,7 @@ import { NotFoundPage } from "@/pages/NotFoundPage";
 import { AddBookPage } from "@/pages/AddBookPage";
 import { BookEditPage } from "@/pages/BookEditPage";
 import AddAuthorPage from "@/pages/AddAuthorPage/ui/AddAuthorPage";
+import { AuthorEditForm } from "@/features/AuthorEditForm";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -42,6 +44,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.AUTHORS_CREATE]: {
     path: getAuthorsCreate(),
     element: <AddAuthorPage />,
+    authOnly: true,
+  },
+  [AppRoutes.AUTHORS_EDIT]: {
+    path: getAuthorsEdit(":id"),
+    element: <AuthorEditForm />,
     authOnly: true,
   },
   [AppRoutes.BOOKS_EDIT]: {

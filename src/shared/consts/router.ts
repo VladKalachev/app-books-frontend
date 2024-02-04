@@ -6,7 +6,7 @@ export enum AppRoutes {
   BOOKS_EDIT = "books_edit",
   // AUTHORS = "authors",
   AUTHORS_CREATE = "authors_create",
-  // AUTHORS_EDIT = "authors_edit",
+  AUTHORS_EDIT = "authors_edit",
   GOALS = "goals",
   RATING = "rating",
   STATISTICS = "statistics",
@@ -30,7 +30,7 @@ export const getBookEdit = (id: string) => `/books/${id}/edit`;
 
 // export const getAuthorsPage = () => "/authors";
 export const getAuthorsCreate = () => "/books/authorCreate";
-// export const getAuthorsEdit = (id: string) => `/authors/${id}/`;
+export const getAuthorsEdit = (id: string) => `/books/authors/${id}/`;
 
 // export const getRouteAbout = () => '/about';
 // export const getRouteProfile = (id: string) => `/profile/${id}`;
