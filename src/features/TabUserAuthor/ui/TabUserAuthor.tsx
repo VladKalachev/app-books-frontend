@@ -1,4 +1,9 @@
-import { AuthorList, AuthorListItem, IAuthor } from "@/entities/Author";
+import {
+  AuthorList,
+  AuthorListItem,
+  AuthorsService,
+  IAuthor,
+} from "@/entities/Author";
 import { BookList, BookListItem, BooksService, IBook } from "@/entities/Book";
 import { TabItem, Tabs } from "@/shared/ui/Tabs";
 import { useEffect, useState } from "react";
@@ -19,8 +24,8 @@ export const TabUserAuthor = () => {
 
   const getAuthors = async () => {
     try {
-      const bookList = await BooksService.fetchUBooks();
-      setAuthors(bookList.data);
+      const authorList = await AuthorsService.fetchAuthors();
+      setAuthors(authorList.data);
     } catch (error) {
       console.log(error);
     }
