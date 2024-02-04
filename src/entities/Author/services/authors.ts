@@ -6,4 +6,8 @@ export class AuthorsService {
   static fetchAuthors(): Promise<AxiosResponse<IAuthor[]>> {
     return $api.get<IAuthor[]>("/authors");
   }
+
+  static addAuthor(formData: any): Promise<AxiosResponse<IAuthor>> {
+    return $api.post<IAuthor>("/authors/create", formData);
+  }
 }

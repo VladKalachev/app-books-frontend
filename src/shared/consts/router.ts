@@ -4,6 +4,9 @@ export enum AppRoutes {
   BOOKS = "books",
   BOOKS_CREATE = "books_create",
   BOOKS_EDIT = "books_edit",
+  // AUTHORS = "authors",
+  AUTHORS_CREATE = "authors_create",
+  // AUTHORS_EDIT = "authors_edit",
   GOALS = "goals",
   RATING = "rating",
   STATISTICS = "statistics",
@@ -13,7 +16,6 @@ export enum AppRoutes {
 }
 
 export const getHomePage = () => "/home";
-export const getBooksPage = () => "/books";
 export const getGoalsPage = () => "/goals";
 export const getLandingPage = () => "/";
 export const getLoginPage = () => "/login";
@@ -22,8 +24,13 @@ export const getRegistrationPage = () => "/registration";
 export const getSettingsPage = () => "/settings";
 export const getStatisticsPage = () => "/statistics";
 
+export const getBooksPage = () => "/books";
 export const getBookCreate = () => "/books/create";
 export const getBookEdit = (id: string) => `/books/${id}/edit`;
+
+// export const getAuthorsPage = () => "/authors";
+export const getAuthorsCreate = () => "/books/authorCreate";
+// export const getAuthorsEdit = (id: string) => `/authors/${id}/`;
 
 // export const getRouteAbout = () => '/about';
 // export const getRouteProfile = (id: string) => `/profile/${id}`;
@@ -38,6 +45,9 @@ export const AppRouteByPathPattern: Record<string, AppRoutes> = {
   [getBooksPage()]: AppRoutes.BOOKS,
   [getBookCreate()]: AppRoutes.BOOKS_CREATE,
   [getBookEdit(":id")]: AppRoutes.BOOKS_EDIT,
+  // [getAuthorsPage()]: AppRoutes.AUTHORS,
+  [getAuthorsCreate()]: AppRoutes.AUTHORS_CREATE,
+  // [getAuthorsEdit(":id")]: AppRoutes.AUTHORS_EDIT,
   [getSettingsPage()]: AppRoutes.SETTINGS,
   [getGoalsPage()]: AppRoutes.GOALS,
   [getRatingPage()]: AppRoutes.RATING,
