@@ -29,7 +29,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const navigate = useNavigate();
 
   const [authors, setAuthors] = useState([]);
-  const [authorId, setAuthorId] = useState<IBook["authorId"]>(0);
+  const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
@@ -48,13 +48,12 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const getAuthors = async () => {
     try {
       const authorList = await AuthorsService.fetchAuthors();
-      const optionsAuthor = authorList.data?.map((author) => ({
+      const optionsAuthor: any = authorList.data?.map((author) => ({
         value: author.id,
         content: author.fullName,
       }));
 
-      const data: any = [...optionsAuthor, { value: 0, content: "Не выбран" }];
-      setAuthors(data);
+      setAuthors(optionsAuthor);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +122,14 @@ export const BookEditForm = (props: AddBookFormProps) => {
     formData.append("title", form.title);
     formData.append("description", form.description);
 
-    // formData.append("fullName", form.fullName);
+    if (form.fullName) {
+      const fullName: any = authors.find(
+        (author: any) => author.value === Number(authorId)
+      );
+
+      formData.append("fullName", fullName?.content);
+      formData.append("AuthorId", form.authorId as any);
+    }
 
     formData.append("publishing", form.publishing as string);
     formData.append("genre", form.genre as string);
@@ -133,7 +139,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
     formData.append("read", JSON.stringify(form.read));
     formData.append("buy", JSON.stringify(form.buy));
     formData.append("image", image as any);
-    formData.append("AuthorId", form.authorId as any);
 
     console.log(formData);
 
