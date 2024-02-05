@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import $api from "@/shared/plugins/http";
-import { IAuthor, IAuthorCreate } from "..";
+import { IAuthor, IAuthorCreate } from "../..";
 
 export class AuthorsService {
   static fetchAuthors(): Promise<AxiosResponse<IAuthor[]>> {

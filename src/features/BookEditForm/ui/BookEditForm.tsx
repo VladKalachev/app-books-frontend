@@ -96,7 +96,9 @@ export const BookEditForm = (props: AddBookFormProps) => {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("description", form.description);
-    formData.append("fullName", form.fullName);
+
+    // formData.append("fullName", form.fullName);
+
     formData.append("publishing", form.publishing as string);
     formData.append("genre", form.genre as string);
     formData.append("year", JSON.stringify(form.year));

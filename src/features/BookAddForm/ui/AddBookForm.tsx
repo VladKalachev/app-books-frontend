@@ -1,7 +1,7 @@
 import { BooksService, IBook, IBookCreate } from "@/entities/Book";
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cls from "./AddBookForm.module.scss";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
@@ -12,6 +12,9 @@ import { InputNumber } from "@/shared/ui/InputNumber";
 import { toast } from "react-toastify";
 import { Switch } from "@/shared/ui/Switch";
 import { ImageLoader } from "@/shared/ui/ImageLoader";
+
+import { AuthorsService } from "@/entities/Author";
+import { Select } from "@/shared/ui/Select";
 
 interface AddBookFormProps {
   className?: string;
@@ -25,7 +28,10 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
   const [genre, setGenre] = useState<IBook["genre"]>("");
-  const [fullName, setFullName] = useState<IBook["fullName"]>("");
+  // const [fullName, setFullName] = useState<IBook["fullName"]>("null");
+
+  const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
+
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
   const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
@@ -34,11 +40,39 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [read, setRead] = useState<IBook["read"]>(false);
   const [buy, setBuy] = useState<IBook["buy"]>(false);
 
+  const [authors, setAuthors] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const getAuthors = async () => {
+    setLoading(true);
+    try {
+      const authorList = await AuthorsService.fetchAuthors();
+      const optionsAuthor = authorList.data?.map((author) => ({
+        value: author.id,
+        content: author.fullName,
+      }));
+
+      const data: any = [
+        ...optionsAuthor,
+        { value: "null", content: "Не выбран" },
+      ];
+      setAuthors(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAuthors();
+  }, []);
+
   const handleSubmit = async () => {
     const form: IBookCreate = {
       title,
       description,
-      fullName,
       publishing,
       genre,
       year,
@@ -46,6 +80,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       notes,
       read,
       buy,
+      authorId,
     };
 
     console.log(form);
@@ -53,7 +88,12 @@ export const AddBookForm = (props: AddBookFormProps) => {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("description", form.description);
-    formData.append("fullName", form.fullName);
+    // formData.append("fullName", form.fullName);
+    formData.append("fullName", "");
+    if (authorId) {
+      formData.append("AuthorId", authorId);
+    }
+
     formData.append("publishing", form.publishing as string);
     formData.append("genre", form.genre as string);
     formData.append("year", JSON.stringify(form.year));
@@ -89,6 +129,10 @@ export const AddBookForm = (props: AddBookFormProps) => {
    * - buy Купил/Не купил toggle [X]
    */
 
+  if (loading) {
+    return "Loading...";
+  }
+
   return (
     <VStack gap="16" className={classNames(cls.LoginForm, {}, [className])}>
       <h1>Добавить новую книгу</h1>
@@ -114,13 +158,11 @@ export const AddBookForm = (props: AddBookFormProps) => {
         onChange={(value) => setGenre(value)}
         value={genre}
       />
-      <Input
-        type="text"
-        className={cls.input}
+      <Select
         label={"Введите ФИО Автора"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setFullName(value)}
-        value={fullName}
+        value={authorId}
+        options={authors}
+        onChange={(value) => setAuthorId(value)}
       />
       <ImageLoader
         label={"Загрузите картинку"}

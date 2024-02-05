@@ -11,13 +11,14 @@ export interface IBook {
   notes?: string;
   read?: boolean;
   buy?: boolean;
+  authorId?: string;
 }
 
 export interface IBookCreate {
   title: string;
   description: string;
   genre?: string;
-  fullName: string;
+  fullName?: string;
   image?: string;
   year?: number;
   numberPages?: number;
@@ -25,4 +26,5 @@ export interface IBookCreate {
   notes?: string;
   read?: boolean;
   buy?: boolean;
+  authorId?: string;
 }

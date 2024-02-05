@@ -3,4 +3,4 @@ export { AuthorListItem } from "./ui/AuthorListItem/AuthorListItem";
 
 export type { IAuthorCreate, IAuthor } from "./model/types/author";
 
-export { AuthorsService } from "./services/authors";
+export { AuthorsService } from "./model/services/authors";
