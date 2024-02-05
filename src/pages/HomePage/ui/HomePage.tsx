@@ -43,7 +43,7 @@ const HomePage = () => {
       />
       <BookList
         books={books.slice(0, 5)}
-        renderList={(book) => <BookListItem book={book} />}
+        renderList={(book) => <BookListItem key={book.id} book={book} />}
       />
 
       <Text
@@ -55,7 +55,7 @@ const HomePage = () => {
       />
       <BookList
         books={books.filter((book) => book.read)}
-        renderList={(book) => <BookListItem book={book} />}
+        renderList={(book) => <BookListItem key={book.id} book={book} />}
       />
     </Page>
   );

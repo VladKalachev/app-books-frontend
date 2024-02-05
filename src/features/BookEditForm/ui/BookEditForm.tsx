@@ -15,6 +15,8 @@ import { Switch } from "@/shared/ui/Switch";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { AppImage } from "@/shared/ui/AppImage";
 import { ImageLoader } from "@/shared/ui/ImageLoader";
+import { AuthorsService } from "@/entities/Author";
+import { Select } from "@/shared/ui/Select";
 
 interface AddBookFormProps {
   className?: string;
@@ -25,6 +27,9 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const { className } = props;
 
   const navigate = useNavigate();
+
+  const [authors, setAuthors] = useState([]);
+  const [authorId, setAuthorId] = useState<IBook["authorId"]>(0);
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
@@ -40,12 +45,29 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
   const [loading, setLoading] = useState(false);
 
+  const getAuthors = async () => {
+    try {
+      const authorList = await AuthorsService.fetchAuthors();
+      const optionsAuthor = authorList.data?.map((author) => ({
+        value: author.id,
+        content: author.fullName,
+      }));
+
+      const data: any = [...optionsAuthor, { value: 0, content: "Не выбран" }];
+      setAuthors(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getBookById = async (id: string) => {
     setLoading(true);
     try {
       const book = await BooksService.getBookById(id);
 
       const formData = book.data;
+
+      console.log("formData", formData);
 
       setTitle(formData.title);
       setDescription(formData.description);
@@ -58,6 +80,8 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setNotes(formData.notes);
       setRead(formData.read);
       setBuy(formData.buy);
+      // @ts-ignore
+      setAuthorId(formData.AuthorId);
 
       setLoading(false);
     } catch (error) {
@@ -67,6 +91,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   useEffect(() => {
+    getAuthors();
     try {
       if (params?.id) {
         getBookById(params?.id);
@@ -89,6 +114,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       notes,
       read,
       buy,
+      authorId,
     };
 
     console.log(form);
@@ -107,6 +133,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
     formData.append("read", JSON.stringify(form.read));
     formData.append("buy", JSON.stringify(form.buy));
     formData.append("image", image as any);
+    formData.append("AuthorId", form.authorId as any);
 
     console.log(formData);
 
@@ -157,13 +184,11 @@ export const BookEditForm = (props: AddBookFormProps) => {
         onChange={(value) => setGenre(value)}
         value={genre}
       />
-      <Input
-        type="text"
-        className={cls.input}
+      <Select
         label={"Введите ФИО Автора"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setFullName(value)}
-        value={fullName}
+        value={authorId}
+        options={authors}
+        onChange={(value) => setAuthorId(value)}
       />
 
       {typeof image === "string" ? (

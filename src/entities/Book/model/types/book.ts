@@ -1,4 +1,5 @@
 export interface IBook {
+  [x: string]: any;
   id: number;
   title: string;
   description: string;
@@ -11,7 +12,7 @@ export interface IBook {
   notes?: string;
   read?: boolean;
   buy?: boolean;
-  authorId?: string;
+  authorId?: any;
 }
 
 export interface IBookCreate {
@@ -26,5 +27,5 @@ export interface IBookCreate {
   notes?: string;
   read?: boolean;
   buy?: boolean;
-  authorId?: string;
+  authorId?: any;
 }

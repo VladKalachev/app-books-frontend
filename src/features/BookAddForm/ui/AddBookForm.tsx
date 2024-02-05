@@ -88,9 +88,13 @@ export const AddBookForm = (props: AddBookFormProps) => {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("description", form.description);
-    // formData.append("fullName", form.fullName);
-    formData.append("fullName", "");
+
     if (authorId) {
+      const fullName: any = authors.find(
+        (author: any) => author.value === Number(authorId)
+      );
+
+      formData.append("fullName", fullName?.content);
       formData.append("AuthorId", authorId);
     }
 
