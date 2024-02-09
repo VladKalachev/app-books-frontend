@@ -79,7 +79,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setNotes(formData.notes);
       setRead(formData.read);
       setBuy(formData.buy);
-      // @ts-ignore
       setAuthorId(formData.AuthorId);
 
       setLoading(false);
@@ -145,7 +144,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
     try {
       await BooksService.updateBook(params.id as string, formData as any);
       navigate(getBooksPage());
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     }
   };
@@ -155,7 +154,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       await BooksService.deleteBookById(id);
       toast("Книга успешно удалена");
       navigate(getBooksPage());
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     }
   };
