@@ -22,7 +22,7 @@ import { StatisticsPage } from "@/pages/StatisticsPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { AddBookPage } from "@/pages/AddBookPage";
 import { BookEditPage } from "@/pages/BookEditPage";
-import AddAuthorPage from "@/pages/AddAuthorPage/ui/AddAuthorPage";
+import { AddAuthorPage } from "@/pages/AddAuthorPage";
 import { AuthorEditForm } from "@/features/AuthorEditForm";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
