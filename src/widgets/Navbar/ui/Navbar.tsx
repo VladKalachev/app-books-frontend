@@ -9,7 +9,11 @@ import { observer } from "mobx-react-lite";
 import cls from "./Navbar.module.scss";
 import { Button } from "@/shared/ui/Button";
 import { useNavigate } from "react-router-dom";
-import { getAuthorsCreate, getBookCreate } from "@/shared/consts/router";
+import {
+  getAuthorsCreate,
+  getBookCreate,
+  getGenresCreate,
+} from "@/shared/consts/router";
 import { Input } from "@/shared/ui/Input";
 
 interface NavbarProps {
@@ -35,6 +39,12 @@ export const Navbar = observer(({ className }: NavbarProps) => {
           onClick={() => navigate(getAuthorsCreate())}
         >
           {"Добавить автора"}
+        </Button>
+        <Button
+          className={cls.createBtn}
+          onClick={() => navigate(getGenresCreate())}
+        >
+          {"Добавить жанр"}
         </Button>
         {/* <NotificationButton /> */}
         <AvatarDropdown />

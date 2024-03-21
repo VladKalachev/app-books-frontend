@@ -5,6 +5,7 @@ import {
   getBookCreate,
   getBookEdit,
   getBooksPage,
+  getGenresCreate,
   getGoalsPage,
   getHomePage,
   getRatingPage,
@@ -24,6 +25,7 @@ import { AddBookPage } from "@/pages/AddBookPage";
 import { BookEditPage } from "@/pages/BookEditPage";
 import { AddAuthorPage } from "@/pages/AddAuthorPage";
 import { AuthorEditForm } from "@/features/AuthorEditForm";
+import { GenreAddForm } from "@/features/GenreAddForm";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -49,6 +51,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.AUTHORS_EDIT]: {
     path: getAuthorsEdit(":id"),
     element: <AuthorEditForm />,
+    authOnly: true,
+  },
+  [AppRoutes.GENRES_CREATE]: {
+    path: getGenresCreate(),
+    element: <GenreAddForm />,
     authOnly: true,
   },
   [AppRoutes.BOOKS_EDIT]: {

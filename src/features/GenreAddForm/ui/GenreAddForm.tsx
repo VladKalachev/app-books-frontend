@@ -1,56 +1,53 @@
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
 import { useState } from "react";
-import cls from "./AuthorAddForm.module.scss";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
 import { useNavigate } from "react-router-dom";
 import { getBooksPage } from "@/shared/consts/router";
-
 import { toast } from "react-toastify";
-import { AuthorsService, IAuthor, IAuthorCreate } from "@/entities/Author";
 
-interface AuthorAddFormProps {
+import { GenresService, IGenre, IGenreCreate } from "@/entities/Genre";
+import cls from "./GenreAddForm.module.scss";
+
+interface GenreAddFormProps {
   className?: string;
 }
 
-export const AuthorAddForm = ({ className }: AuthorAddFormProps) => {
+export const GenreAddForm = ({ className }: GenreAddFormProps) => {
   const navigate = useNavigate();
 
-  const [fullName, setFullName] = useState<IAuthor["fullName"]>("");
+  const [title, setTitle] = useState<IGenre["title"]>("");
 
   const handleSubmit = async () => {
-    const form: IAuthorCreate = {
-      fullName,
+    const form: IGenreCreate = {
+      title,
     };
 
     console.log(form);
 
     const formData = new FormData();
-    formData.append("fullName", form.fullName);
+    formData.append("title", form.title);
 
     try {
-      await AuthorsService.addAuthor(formData);
-      toast("Автор успешно добавлен");
+      await GenresService.addGenre(formData);
+      toast("Жанр успешно добавлен");
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
     }
   };
-  /**
-   * Добавить required для компонентов с *
-   */
 
   return (
-    <VStack gap="16" className={classNames(cls.AuthorAddForm, {}, [className])}>
-      <h1>Добавить нового автора</h1>
+    <VStack gap="16" className={classNames(cls.GenreAddForm, {}, [className])}>
+      <h1>Добавить новый Жанр</h1>
       <Input
         autofocus
         type="text"
         className={cls.input}
-        placeholder={"Введите ФИО"}
-        onChange={(value) => setFullName(value)}
-        value={fullName}
+        placeholder={"Введите Жанр"}
+        onChange={(value) => setTitle(value)}
+        value={title}
       />
       <Button className={cls.loginBtn} onClick={handleSubmit}>
         {"Добавить"}

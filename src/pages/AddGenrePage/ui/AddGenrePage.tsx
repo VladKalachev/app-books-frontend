@@ -1,10 +1,10 @@
 import { AuthorAddForm } from "@/features/AuthorAddForm";
 
-interface AddAuthorPageProps {
+interface AddGenrePageProps {
   className?: string;
 }
 
-const AddAuthorPage = ({ className }: AddAuthorPageProps) => {
+const AddGenrePage = ({ className }: AddGenrePageProps) => {
   return (
     <div className={className}>
       <AuthorAddForm />
@@ -12,4 +12,4 @@ const AddAuthorPage = ({ className }: AddAuthorPageProps) => {
   );
 };
 
-export default AddAuthorPage;
+export default AddGenrePage;
