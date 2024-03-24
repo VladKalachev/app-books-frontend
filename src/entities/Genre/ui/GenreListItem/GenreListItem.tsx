@@ -4,7 +4,7 @@ import { Text } from "@/shared/ui/Text";
 
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { AppLink } from "@/shared/ui/AppLink";
-import { getAuthorsEdit } from "@/shared/consts/router";
+import { getGenresEdit } from "@/shared/consts/router";
 import { IGenre } from "../..";
 
 import cls from "./GenreListItem.module.scss";
@@ -20,7 +20,7 @@ export const GenreListItem = (props: GenreListItemProps) => {
     <div className={classNames(cls.GenreListItem, {}, [className])}>
       <Card className={cls.card} border="partial" padding="0" variant="light">
         <VStack className={cls.info} gap="4">
-          <AppLink to={getAuthorsEdit(genre.id.toString())}>
+          <AppLink to={getGenresEdit(genre.id.toString())}>
             <Text title={genre.title} className={cls.title} />
           </AppLink>
         </VStack>

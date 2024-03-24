@@ -8,7 +8,7 @@ export enum AppRoutes {
   AUTHORS_CREATE = "authors_create",
   AUTHORS_EDIT = "authors_edit",
   GENRES_CREATE = "genres_create",
-  // GENRES_EDIT = "genres_edit",
+  GENRES_EDIT = "genres_edit",
   GOALS = "goals",
   RATING = "rating",
   STATISTICS = "statistics",
