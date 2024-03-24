@@ -5,12 +5,19 @@ import {
   IAuthor,
 } from "@/entities/Author";
 import { BookList, BookListItem, BooksService, IBook } from "@/entities/Book";
+import {
+  GenreList,
+  GenreListItem,
+  GenresService,
+  IGenre,
+} from "@/entities/Genre";
 import { TabItem, Tabs } from "@/shared/ui/Tabs";
 import { useEffect, useState } from "react";
 
 export const TabUserAuthor = () => {
   const [books, setBooks] = useState<IBook[]>([]);
   const [authors, setAuthors] = useState<IAuthor[]>([]);
+  const [genres, setGenres] = useState<IGenre[]>([]);
   const [value, setValueTabs] = useState(0);
 
   const getBooks = async () => {
@@ -31,12 +38,23 @@ export const TabUserAuthor = () => {
     }
   };
 
+  const getGenres = async () => {
+    try {
+      const genreList = await GenresService.fetchGenres();
+      setGenres(genreList.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getBooks();
     getAuthors();
+    getGenres();
     () => {
       setBooks([]);
       setAuthors([]);
+      setGenres([]);
     };
   }, []);
 
@@ -60,6 +78,16 @@ export const TabUserAuthor = () => {
           renderList={(author) => (
             <AuthorListItem key={author.id} author={author} />
           )}
+        />
+      ),
+    },
+    {
+      key: 3,
+      title: "Жанры",
+      content: (
+        <GenreList
+          genres={genres}
+          renderList={(genre) => <GenreListItem key={genre.id} genre={genre} />}
         />
       ),
     },

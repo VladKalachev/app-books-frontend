@@ -6,14 +6,14 @@ import { IGenre } from "../..";
 import cls from "./GenreList.module.scss";
 
 interface GenreListProps {
-  genre: IGenre[];
+  genres: IGenre[];
   renderList: (genre: IGenre) => ReactNode;
 }
 
 export const GenreList = (props: GenreListProps) => {
-  const { genre, renderList } = props;
+  const { genres, renderList } = props;
 
-  if (!genre.length) {
+  if (!genres.length) {
     return <>Нет данных</>;
   }
 
@@ -24,7 +24,7 @@ export const GenreList = (props: GenreListProps) => {
       className={classNames(cls.GenreList, {}, [])}
       data-testid="BookList"
     >
-      {genre.map((item) => renderList(item))}
+      {genres.map((item) => renderList(item))}
     </HStack>
   );
 };
