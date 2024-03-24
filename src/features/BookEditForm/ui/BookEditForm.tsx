@@ -17,6 +17,7 @@ import { AppImage } from "@/shared/ui/AppImage";
 import { ImageLoader } from "@/shared/ui/ImageLoader";
 import { AuthorsService } from "@/entities/Author";
 import { Select } from "@/shared/ui/Select";
+import { GenresService } from "@/entities/Genre";
 
 interface AddBookFormProps {
   className?: string;
@@ -29,11 +30,14 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const navigate = useNavigate();
 
   const [authors, setAuthors] = useState([]);
+  const [genres, setGenres] = useState([]);
+
   const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
+  const [genreId, setGenreId] = useState<IBook["genreId"]>("null");
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
-  const [genre, setGenre] = useState<IBook["genre"]>("");
+  // const [genre, setGenre] = useState<IBook["genre"]>("");
   const [fullName, setFullName] = useState<IBook["fullName"]>("");
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
@@ -44,6 +48,27 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const [loading, setLoading] = useState(false);
+
+  const getGenres = async () => {
+    setLoading(true);
+    try {
+      const genreList = await GenresService.fetchGenres();
+      const optionsGenre = genreList.data?.map((genre) => ({
+        value: genre.id,
+        content: genre.title,
+      }));
+
+      const data: any = [
+        ...optionsGenre,
+        { value: "null", content: "Не выбран" },
+      ];
+      setGenres(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   const getAuthors = async () => {
     try {
@@ -70,7 +95,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
       setTitle(formData.title);
       setDescription(formData.description);
-      setGenre(formData.genre);
       setFullName(formData.fullName);
       setImage(formData.image);
       setYear(formData.year);
@@ -80,6 +104,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setRead(formData.read);
       setBuy(formData.buy);
       setAuthorId(formData.AuthorId);
+      setGenreId(formData.GenreId);
 
       setLoading(false);
     } catch (error) {
@@ -90,6 +115,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
   useEffect(() => {
     getAuthors();
+    getGenres();
     try {
       if (params?.id) {
         getBookById(params?.id);
@@ -106,13 +132,13 @@ export const BookEditForm = (props: AddBookFormProps) => {
       fullName,
       image,
       publishing,
-      genre,
       year,
       numberPages,
       notes,
       read,
       buy,
       authorId,
+      genreId,
     };
 
     console.log(form);
@@ -130,8 +156,16 @@ export const BookEditForm = (props: AddBookFormProps) => {
       formData.append("AuthorId", form.authorId as any);
     }
 
+    if (form.genreId) {
+      const title: any = genres.find(
+        (genre: any) => genre.value === Number(genreId)
+      );
+
+      formData.append("genre", title?.content);
+      formData.append("GenreId", form.genreId as any);
+    }
+
     formData.append("publishing", form.publishing as string);
-    formData.append("genre", form.genre as string);
     formData.append("year", JSON.stringify(form.year));
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
@@ -180,13 +214,19 @@ export const BookEditForm = (props: AddBookFormProps) => {
         placeholder={"Введите Описание книги"}
         onChange={(value) => setDescription(value)}
       />
-      <Input
+      {/* <Input
         type="text"
         className={cls.input}
         label={"Введите жанр книги"}
         placeholder={"Введите значение"}
         onChange={(value) => setGenre(value)}
         value={genre}
+      /> */}
+      <Select
+        label={"Введите жанр книги"}
+        value={genreId}
+        options={genres}
+        onChange={(value) => setGenreId(value)}
       />
       <Select
         label={"Введите ФИО Автора"}

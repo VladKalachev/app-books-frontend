@@ -15,6 +15,7 @@ import { ImageLoader } from "@/shared/ui/ImageLoader";
 
 import { AuthorsService } from "@/entities/Author";
 import { Select } from "@/shared/ui/Select";
+import { GenresService } from "@/entities/Genre";
 
 interface AddBookFormProps {
   className?: string;
@@ -27,10 +28,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
-  const [genre, setGenre] = useState<IBook["genre"]>("");
-  // const [fullName, setFullName] = useState<IBook["fullName"]>("null");
 
   const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
+  const [genreId, setGenreId] = useState<IBook["genreId"]>("null");
 
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
@@ -41,6 +41,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const [authors, setAuthors] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -65,8 +66,30 @@ export const AddBookForm = (props: AddBookFormProps) => {
     }
   };
 
+  const getGenres = async () => {
+    setLoading(true);
+    try {
+      const genreList = await GenresService.fetchGenres();
+      const optionsGenre = genreList.data?.map((genre) => ({
+        value: genre.id,
+        content: genre.title,
+      }));
+
+      const data: any = [
+        ...optionsGenre,
+        { value: "null", content: "Не выбран" },
+      ];
+      setGenres(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAuthors();
+    getGenres();
   }, []);
 
   const handleSubmit = async () => {
@@ -74,13 +97,13 @@ export const AddBookForm = (props: AddBookFormProps) => {
       title,
       description,
       publishing,
-      genre,
       year,
       numberPages,
       notes,
       read,
       buy,
       authorId,
+      genreId,
     };
 
     console.log(form);
@@ -98,8 +121,16 @@ export const AddBookForm = (props: AddBookFormProps) => {
       formData.append("AuthorId", authorId);
     }
 
+    if (genreId) {
+      const title: any = genres.find(
+        (genre: any) => genre.value === Number(genreId)
+      );
+
+      formData.append("genre", title?.content);
+      formData.append("GenreId", genreId);
+    }
+
     formData.append("publishing", form.publishing as string);
-    formData.append("genre", form.genre as string);
     formData.append("year", JSON.stringify(form.year));
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
@@ -122,8 +153,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
   /**
    * - title Название книги input [X]
    * - description Описание книги textarea [X]
-   * - genre Жанр [X] => select
-   * - fullName ФИО Автора input [X] => select
+   * - genre Жанр [X] => select [X]
+   * - fullName ФИО Автора input [X] => select [X]
    * - image Картинка uploder [X]
    * - year [] Год когда была написана numberInput [X]
    * - numberPages Количество страниц numberInput [X]
@@ -154,14 +185,21 @@ export const AddBookForm = (props: AddBookFormProps) => {
         placeholder={"Введите Описание книги"}
         onChange={(value) => setDescription(value)}
       />
-      <Input
+      {/* <Input
         type="text"
         className={cls.input}
         label={"Введите жанр книги"}
         placeholder={"Введите значение"}
         onChange={(value) => setGenre(value)}
         value={genre}
+      /> */}
+      <Select
+        label={"Введите жанр книги"}
+        value={genreId}
+        options={genres}
+        onChange={(value) => setGenreId(value)}
       />
+
       <Select
         label={"Введите ФИО Автора"}
         value={authorId}
