@@ -1,4 +1,4 @@
-import { AuthorAddForm } from "@/features/AuthorAddForm";
+import { GenreAddForm } from "@/features/GenreAddForm";
 
 interface AddGenrePageProps {
   className?: string;
@@ -7,7 +7,7 @@ interface AddGenrePageProps {
 const AddGenrePage = ({ className }: AddGenrePageProps) => {
   return (
     <div className={className}>
-      <AuthorAddForm />
+      <GenreAddForm />
     </div>
   );
 };

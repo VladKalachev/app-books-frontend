@@ -4,7 +4,7 @@ interface AuthorEditPageProps {
   className?: string;
 }
 
-const BookEditPage = ({ className }: AuthorEditPageProps) => {
+const AuthorEditPage = ({ className }: AuthorEditPageProps) => {
   return (
     <div className={className}>
       <AuthorEditForm />
@@ -12,4 +12,4 @@ const BookEditPage = ({ className }: AuthorEditPageProps) => {
   );
 };
 
-export default BookEditPage;
+export default AuthorEditPage;

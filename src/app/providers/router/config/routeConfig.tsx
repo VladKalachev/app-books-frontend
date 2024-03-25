@@ -9,6 +9,7 @@ import {
   getGenresEdit,
   getGoalsPage,
   getHomePage,
+  getPublishingCreate,
   getRatingPage,
   getSettingsPage,
   getStatisticsPage,
@@ -25,9 +26,11 @@ import { NotFoundPage } from "@/pages/NotFoundPage";
 import { AddBookPage } from "@/pages/AddBookPage";
 import { BookEditPage } from "@/pages/BookEditPage";
 import { AddAuthorPage } from "@/pages/AddAuthorPage";
-import { AuthorEditForm } from "@/features/AuthorEditForm";
-import { GenreAddForm } from "@/features/GenreAddForm";
 import { GenreEditPage } from "@/pages/GenreEditPage";
+import { AddPublishingPage } from "@/pages/AddPublishingPage";
+import { PublishingEditPage } from "@/pages/PublishingEditPage";
+import { AddGenrePage } from "@/pages/AddGenrePage";
+import { AuthorEditPage } from "@/pages/AuthorEditPage";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -52,17 +55,27 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.AUTHORS_EDIT]: {
     path: getAuthorsEdit(":id"),
-    element: <AuthorEditForm />,
+    element: <AuthorEditPage />,
     authOnly: true,
   },
   [AppRoutes.GENRES_CREATE]: {
     path: getGenresCreate(),
-    element: <GenreAddForm />,
+    element: <AddGenrePage />,
     authOnly: true,
   },
   [AppRoutes.GENRES_EDIT]: {
     path: getGenresEdit(":id"),
     element: <GenreEditPage />,
+    authOnly: true,
+  },
+  [AppRoutes.PUBLISHING_CREATE]: {
+    path: getPublishingCreate(),
+    element: <AddPublishingPage />,
+    authOnly: true,
+  },
+  [AppRoutes.PUBLISHING_EDIT]: {
+    path: getPublishingCreate(),
+    element: <PublishingEditPage />,
     authOnly: true,
   },
   [AppRoutes.BOOKS_EDIT]: {

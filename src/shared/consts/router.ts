@@ -7,11 +7,14 @@ export enum AppRoutes {
   // AUTHORS = "authors",
   AUTHORS_CREATE = "authors_create",
   AUTHORS_EDIT = "authors_edit",
+  PUBLISHING_CREATE = "publishing_create",
+  PUBLISHING_EDIT = "publishing_edit",
   GENRES_CREATE = "genres_create",
   GENRES_EDIT = "genres_edit",
   GOALS = "goals",
   RATING = "rating",
   STATISTICS = "statistics",
+
   // FORBIDDEN = 'forbidden',
   // // last
   NOT_FOUND = "not_found",
@@ -36,6 +39,9 @@ export const getAuthorsEdit = (id: string) => `/books/authors/${id}/`;
 
 export const getGenresCreate = () => "/books/genresCreate";
 export const getGenresEdit = (id: string) => `/books/genres/${id}/`;
+
+export const getPublishingCreate = () => "/books/publishingCreate";
+export const getPublishingEdit = (id: string) => `/books/publishing/${id}/`;
 
 // export const getRouteAbout = () => '/about';
 // export const getRouteProfile = (id: string) => `/profile/${id}`;

@@ -87,7 +87,7 @@ export const GenreEditForm = (props: GenreEditFormProps) => {
 
   return (
     <VStack gap="16" className={classNames(cls.GenreForm, {}, [className])}>
-      <h1>Редактировать автора</h1>
+      <h1>Редактировать Жанр</h1>
       <Input
         autofocus
         type="text"
