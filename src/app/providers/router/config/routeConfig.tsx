@@ -10,6 +10,7 @@ import {
   getGoalsPage,
   getHomePage,
   getPublishingCreate,
+  getPublishingEdit,
   getRatingPage,
   getSettingsPage,
   getStatisticsPage,
@@ -74,7 +75,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     authOnly: true,
   },
   [AppRoutes.PUBLISHING_EDIT]: {
-    path: getPublishingCreate(),
+    path: getPublishingEdit(":id"),
     element: <PublishingEditPage />,
     authOnly: true,
   },

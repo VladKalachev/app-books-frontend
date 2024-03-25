@@ -1,4 +1,4 @@
-import { AuthorAddForm } from "@/features/AuthorAddForm";
+import { PublishingEditForm } from "@/features/PublishingEditForm";
 
 interface PublishingEditPageProps {
   className?: string;
@@ -7,7 +7,7 @@ interface PublishingEditPageProps {
 const PublishingEditPage = ({ className }: PublishingEditPageProps) => {
   return (
     <div className={className}>
-      <AuthorAddForm />
+      <PublishingEditForm />
     </div>
   );
 };
