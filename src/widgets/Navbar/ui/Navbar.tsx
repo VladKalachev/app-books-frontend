@@ -13,6 +13,7 @@ import {
   getAuthorsCreate,
   getBookCreate,
   getGenresCreate,
+  getPublishingCreate,
 } from "@/shared/consts/router";
 import { Input } from "@/shared/ui/Input";
 
@@ -45,6 +46,12 @@ export const Navbar = observer(({ className }: NavbarProps) => {
           onClick={() => navigate(getGenresCreate())}
         >
           {"Добавить жанр"}
+        </Button>
+        <Button
+          className={cls.createBtn}
+          onClick={() => navigate(getPublishingCreate())}
+        >
+          {"Добавить издательство"}
         </Button>
         {/* <NotificationButton /> */}
         <AvatarDropdown />
