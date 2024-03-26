@@ -18,6 +18,7 @@ import { ImageLoader } from "@/shared/ui/ImageLoader";
 import { AuthorsService } from "@/entities/Author";
 import { Select } from "@/shared/ui/Select";
 import { GenresService } from "@/entities/Genre";
+import { PublishingService } from "@/entities/Publishing";
 
 interface AddBookFormProps {
   className?: string;
@@ -31,18 +32,21 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
   const [authors, setAuthors] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [publishing, setPublishing] = useState([]);
 
   const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
   const [genreId, setGenreId] = useState<IBook["genreId"]>("null");
+  const [publishingId, setPublishingId] =
+    useState<IBook["publishingId"]>("null");
 
   const [title, setTitle] = useState<IBook["title"]>("");
   const [description, setDescription] = useState<IBook["description"]>("");
-  // const [genre, setGenre] = useState<IBook["genre"]>("");
+
   const [fullName, setFullName] = useState<IBook["fullName"]>("");
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
   const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
-  const [publishing, setPublishing] = useState<IBook["publishing"]>("");
+
   const [notes, setNotes] = useState<IBook["notes"]>("");
   const [read, setRead] = useState<IBook["read"]>(false);
   const [buy, setBuy] = useState<IBook["buy"]>(false);
@@ -63,6 +67,27 @@ export const BookEditForm = (props: AddBookFormProps) => {
         { value: "null", content: "Не выбран" },
       ];
       setGenres(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const getPublishing = async () => {
+    setLoading(true);
+    try {
+      const publishingList = await PublishingService.fetchPublishing();
+      const optionsPublishing = publishingList.data?.map((publishing) => ({
+        value: publishing.id,
+        content: publishing.title,
+      }));
+
+      const data: any = [
+        ...optionsPublishing,
+        { value: "null", content: "Не выбран" },
+      ];
+      setPublishing(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -98,11 +123,11 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setFullName(formData.fullName);
       setImage(formData.image);
       setYear(formData.year);
-      setPublishing(formData.publishing);
       setNumberPages(formData.numberPages);
       setNotes(formData.notes);
       setRead(formData.read);
       setBuy(formData.buy);
+      setPublishingId(formData.PublishingId);
       setAuthorId(formData.AuthorId);
       setGenreId(formData.GenreId);
 
@@ -116,6 +141,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   useEffect(() => {
     getAuthors();
     getGenres();
+    getPublishing();
     try {
       if (params?.id) {
         getBookById(params?.id);
@@ -131,7 +157,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
       description,
       fullName,
       image,
-      publishing,
       year,
       numberPages,
       notes,
@@ -139,6 +164,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       buy,
       authorId,
       genreId,
+      publishingId,
     };
 
     console.log(form);
@@ -165,7 +191,15 @@ export const BookEditForm = (props: AddBookFormProps) => {
       formData.append("GenreId", form.genreId as any);
     }
 
-    formData.append("publishing", form.publishing as string);
+    if (form.publishingId) {
+      const title: any = publishing.find(
+        (publishing: any) => publishing.value === Number(publishingId)
+      );
+
+      formData.append("publishing", title?.content);
+      formData.append("PublishingId", publishingId);
+    }
+
     formData.append("year", JSON.stringify(form.year));
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
@@ -214,14 +248,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
         placeholder={"Введите Описание книги"}
         onChange={(value) => setDescription(value)}
       />
-      {/* <Input
-        type="text"
-        className={cls.input}
-        label={"Введите жанр книги"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setGenre(value)}
-        value={genre}
-      /> */}
+
       <Select
         label={"Введите жанр книги"}
         value={genreId}
@@ -265,13 +292,11 @@ export const BookEditForm = (props: AddBookFormProps) => {
         onChange={(value) => setNumberPages(value)}
         value={numberPages}
       />
-      <Input
-        type="text"
-        className={cls.input}
-        label={"Издательство"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setPublishing(value)}
-        value={publishing}
+      <Select
+        label={"Введите Издательство"}
+        value={publishingId}
+        options={publishing}
+        onChange={(value) => setPublishingId(value)}
       />
       <Textarea
         className={cls.input}
