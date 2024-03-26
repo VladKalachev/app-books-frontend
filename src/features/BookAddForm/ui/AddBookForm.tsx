@@ -16,6 +16,7 @@ import { ImageLoader } from "@/shared/ui/ImageLoader";
 import { AuthorsService } from "@/entities/Author";
 import { Select } from "@/shared/ui/Select";
 import { GenresService } from "@/entities/Genre";
+import { PublishingService } from "@/entities/Publishing";
 
 interface AddBookFormProps {
   className?: string;
@@ -31,17 +32,20 @@ export const AddBookForm = (props: AddBookFormProps) => {
 
   const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
   const [genreId, setGenreId] = useState<IBook["genreId"]>("null");
+  const [publishingId, setPublishingId] =
+    useState<IBook["publishingId"]>("null");
 
   const [image, setImage] = useState<IBook["image"]>("");
   const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
   const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
-  const [publishing, setPublishing] = useState<IBook["publishing"]>("");
+
   const [notes, setNotes] = useState<IBook["notes"]>("");
   const [read, setRead] = useState<IBook["read"]>(false);
   const [buy, setBuy] = useState<IBook["buy"]>(false);
 
   const [authors, setAuthors] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [publishing, setPublishing] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -87,16 +91,37 @@ export const AddBookForm = (props: AddBookFormProps) => {
     }
   };
 
+  const getPublishing = async () => {
+    setLoading(true);
+    try {
+      const publishingList = await PublishingService.fetchPublishing();
+      const optionsPublishing = publishingList.data?.map((publishing) => ({
+        value: publishing.id,
+        content: publishing.title,
+      }));
+
+      const data: any = [
+        ...optionsPublishing,
+        { value: "null", content: "Не выбран" },
+      ];
+      setPublishing(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAuthors();
     getGenres();
+    getPublishing();
   }, []);
 
   const handleSubmit = async () => {
     const form: IBookCreate = {
       title,
       description,
-      publishing,
       year,
       numberPages,
       notes,
@@ -104,6 +129,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       buy,
       authorId,
       genreId,
+      publishingId,
     };
 
     console.log(form);
@@ -130,7 +156,15 @@ export const AddBookForm = (props: AddBookFormProps) => {
       formData.append("GenreId", genreId);
     }
 
-    formData.append("publishing", form.publishing as string);
+    if (publishingId) {
+      const title: any = publishing.find(
+        (genre: any) => genre.value === Number(publishingId)
+      );
+
+      formData.append("publishing", title?.content);
+      formData.append("PublishingId", genreId);
+    }
+
     formData.append("year", JSON.stringify(form.year));
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
@@ -158,7 +192,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
    * - image Картинка uploder [X]
    * - year [] Год когда была написана numberInput [X]
    * - numberPages Количество страниц numberInput [X]
-   * - publishing Издательство input [X] => select
+   * - publishing Издательство input [X] => select [X]
    * - notes Мои заметки по книги textarea [X]
    * - read Прочитано/не прочитано toggle [X]
    * - buy Купил/Не купил toggle [X]
@@ -185,14 +219,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
         placeholder={"Введите Описание книги"}
         onChange={(value) => setDescription(value)}
       />
-      {/* <Input
-        type="text"
-        className={cls.input}
-        label={"Введите жанр книги"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setGenre(value)}
-        value={genre}
-      /> */}
+
       <Select
         label={"Введите жанр книги"}
         value={genreId}
@@ -227,14 +254,14 @@ export const AddBookForm = (props: AddBookFormProps) => {
         onChange={(value) => setNumberPages(value)}
         value={numberPages}
       />
-      <Input
-        type="text"
-        className={cls.input}
-        label={"Издательство"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setPublishing(value)}
-        value={publishing}
+
+      <Select
+        label={"Введите Издательство"}
+        value={publishingId}
+        options={publishing}
+        onChange={(value) => setPublishingId(value)}
       />
+
       <Textarea
         className={cls.input}
         value={notes}

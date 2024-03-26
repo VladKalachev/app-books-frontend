@@ -14,6 +14,7 @@ export interface IBook {
   buy?: boolean;
   authorId?: any;
   genreId?: any;
+  publishingId?: any;
 }
 
 export interface IBookCreate {
@@ -30,4 +31,5 @@ export interface IBookCreate {
   buy?: boolean;
   authorId?: any;
   genreId?: any;
+  publishingId?: any;
 }
