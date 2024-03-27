@@ -14,12 +14,15 @@ import { Sidebar } from "@/widgets/Sidebar";
 import { Navbar } from "@/widgets/Navbar";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { ToastContainer } from "react-toastify";
+import { useTheme } from "@/shared/hooks/useTheme/useTheme";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/App.scss";
 
 const App = observer(() => {
   const { user } = useStore();
   const location = useLocation();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -54,7 +57,7 @@ const App = observer(() => {
   }
 
   return (
-    <div id="app" className={classNames("app_redesigned", {}, [])}>
+    <div id="app" className={classNames("app_redesigned", {}, [theme])}>
       <ToastContainer hideProgressBar />
       <Suspense fallback="">
         <MainLayout

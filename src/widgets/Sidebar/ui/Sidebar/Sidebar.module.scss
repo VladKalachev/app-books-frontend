@@ -52,7 +52,7 @@
   // border-right: 2px solid var(--light-border);
   border-right: 2px solid;
   border-right-color: rgba(234, 231, 218, 0.45);
-
+  // fill: var(--inverted-primary-color);
   .appLogo {
     padding-top: 20px;
     display: flex;
@@ -60,6 +60,7 @@
     svg {
       margin-left: 20px;
       margin-right: 16px;
+      fill: var(--icon-redesigned);
     }
   }
 

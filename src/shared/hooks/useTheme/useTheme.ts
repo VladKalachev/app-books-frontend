@@ -10,7 +10,7 @@ interface UseThemeResult {
 export function useTheme(): UseThemeResult {
   const { theme, setTheme } = useContext(ThemeContext);
 
-  const toggleTheme = (saveAction?: (theme: Theme) => void) => {
+  const toggleTheme = () => {
     let newTheme: Theme;
     switch (theme) {
       case Theme.DARK:
@@ -23,8 +23,6 @@ export function useTheme(): UseThemeResult {
         newTheme = Theme.LIGHT;
     }
     setTheme?.(newTheme);
-
-    saveAction?.(newTheme);
   };
 
   return {
