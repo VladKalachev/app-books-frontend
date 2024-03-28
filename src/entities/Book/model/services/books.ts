@@ -3,8 +3,8 @@ import { IBook, IBookCreate } from "../types/book";
 import $api from "@/shared/plugins/http";
 
 export class BooksService {
-  static fetchUBooks(): Promise<AxiosResponse<IBook[]>> {
-    return $api.get<IBook[]>("/books");
+  static fetchUBooks(q: string = ""): Promise<AxiosResponse<IBook[]>> {
+    return $api.get<IBook[]>(`/books${q}`);
   }
 
   static addBook(formData: any): Promise<AxiosResponse<IBook>> {

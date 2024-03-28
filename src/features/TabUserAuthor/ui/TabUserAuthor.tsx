@@ -19,6 +19,10 @@ import {
 } from "@/entities/Publishing";
 import { TabItem, Tabs } from "@/shared/ui/Tabs";
 import { useEffect, useState } from "react";
+import { Input } from "@/shared/ui/Input";
+
+import cls from "./TabUserAuthor.module.scss";
+import { useDebounce } from "@/shared/hooks/useDebounce/useDebounce";
 
 export const TabUserAuthor = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -27,9 +31,13 @@ export const TabUserAuthor = () => {
   const [publishing, setPublishing] = useState<IPublishing[]>([]);
   const [value, setValueTabs] = useState(0);
 
-  const getBooks = async () => {
+  const [searchValue, setValueSearch] = useState("");
+
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+
+  const getBooks = async (q: string) => {
     try {
-      const bookList = await BooksService.fetchUBooks();
+      const bookList = await BooksService.fetchUBooks(q ? `?search=${q}` : "");
       setBooks(bookList.data);
     } catch (error) {
       console.log(error);
@@ -64,7 +72,10 @@ export const TabUserAuthor = () => {
   };
 
   useEffect(() => {
-    getBooks();
+    getBooks(debouncedSearchValue);
+  }, [debouncedSearchValue]);
+
+  useEffect(() => {
     getAuthors();
     getGenres();
     getPublishing();
@@ -75,15 +86,27 @@ export const TabUserAuthor = () => {
     };
   }, []);
 
+  const onSearch = (value: string) => {
+    setValueSearch(value);
+  };
+
   const typeTabs: TabItem[] = [
     {
       key: 1,
       title: "Все",
       content: (
-        <BookList
-          books={books}
-          renderList={(book) => <BookListItem key={book.id} book={book} />}
-        />
+        <>
+          <Input
+            className={cls.searchInput}
+            value={searchValue}
+            onChange={onSearch}
+            placeholder="Поиск"
+          />
+          <BookList
+            books={books}
+            renderList={(book) => <BookListItem key={book.id} book={book} />}
+          />
+        </>
       ),
     },
     {
