@@ -3,8 +3,10 @@ import $api from "@/shared/plugins/http";
 import { IPublishing, IPublishingCreate } from "../types/publishing";
 
 export class PublishingService {
-  static fetchPublishing(): Promise<AxiosResponse<IPublishing[]>> {
-    return $api.get<IPublishing[]>("/publishing");
+  static fetchPublishing(
+    q: string = ""
+  ): Promise<AxiosResponse<IPublishing[]>> {
+    return $api.get<IPublishing[]>(`/publishing${q}`);
   }
 
   static addPublishing(formData: any): Promise<AxiosResponse<IPublishing>> {

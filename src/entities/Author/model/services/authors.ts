@@ -3,8 +3,8 @@ import $api from "@/shared/plugins/http";
 import { IAuthor, IAuthorCreate } from "../..";
 
 export class AuthorsService {
-  static fetchAuthors(): Promise<AxiosResponse<IAuthor[]>> {
-    return $api.get<IAuthor[]>("/authors");
+  static fetchAuthors(q: string = ""): Promise<AxiosResponse<IAuthor[]>> {
+    return $api.get<IAuthor[]>(`/authors${q}`);
   }
 
   static addAuthor(formData: any): Promise<AxiosResponse<IAuthor>> {

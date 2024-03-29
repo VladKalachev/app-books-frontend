@@ -31,43 +31,59 @@ export const TabUserAuthor = () => {
   const [publishing, setPublishing] = useState<IPublishing[]>([]);
   const [value, setValueTabs] = useState(0);
 
-  const [searchValue, setValueSearch] = useState("");
+  const [searchBooksValue, setValueBooksSearch] = useState("");
+  const [searchGenreValue, setValueGenreSearch] = useState("");
+  const [searchAuthorValue, setValueAuthorSearch] = useState("");
+  const [searchPublishingValue, setValuePublishingSearch] = useState("");
 
-  const debouncedSearchValue = useDebounce(searchValue, 500);
+  const debouncedSearchValue = useDebounce(searchBooksValue, 500);
+  const debouncedGenreSearchValue = useDebounce(searchGenreValue, 500);
+
+  const debouncedAuthorSearchValue = useDebounce(searchAuthorValue, 500);
+  const debouncedPublishingSearchValue = useDebounce(
+    searchPublishingValue,
+    500
+  );
 
   const getBooks = async (q: string) => {
     try {
       const bookList = await BooksService.fetchUBooks(q ? `?search=${q}` : "");
       setBooks(bookList.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  const getAuthors = async () => {
+  const getAuthors = async (q: string) => {
     try {
-      const authorList = await AuthorsService.fetchAuthors();
+      const authorList = await AuthorsService.fetchAuthors(
+        q ? `?search=${q}` : ""
+      );
       setAuthors(authorList.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  const getGenres = async () => {
+  const getGenres = async (q: string) => {
     try {
-      const genreList = await GenresService.fetchGenres();
+      const genreList = await GenresService.fetchGenres(
+        q ? `?search=${q}` : ""
+      );
       setGenres(genreList.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  const getPublishing = async () => {
+  const getPublishing = async (q: string) => {
     try {
-      const publishingList = await PublishingService.fetchPublishing();
+      const publishingList = await PublishingService.fetchPublishing(
+        q ? `?search=${q}` : ""
+      );
       setPublishing(publishingList.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -76,9 +92,18 @@ export const TabUserAuthor = () => {
   }, [debouncedSearchValue]);
 
   useEffect(() => {
-    getAuthors();
-    getGenres();
-    getPublishing();
+    getGenres(debouncedGenreSearchValue);
+  }, [debouncedGenreSearchValue]);
+
+  useEffect(() => {
+    getAuthors(debouncedAuthorSearchValue);
+  }, [debouncedAuthorSearchValue]);
+
+  useEffect(() => {
+    getPublishing(debouncedPublishingSearchValue);
+  }, [debouncedPublishingSearchValue]);
+
+  useEffect(() => {
     () => {
       setBooks([]);
       setAuthors([]);
@@ -87,7 +112,19 @@ export const TabUserAuthor = () => {
   }, []);
 
   const onSearch = (value: string) => {
-    setValueSearch(value);
+    setValueBooksSearch(value);
+  };
+
+  const onGenreSearch = (value: string) => {
+    setValueGenreSearch(value);
+  };
+
+  const onAuthorSearch = (value: string) => {
+    setValueAuthorSearch(value);
+  };
+
+  const onPublishingSearch = (value: string) => {
+    setValuePublishingSearch(value);
   };
 
   const typeTabs: TabItem[] = [
@@ -98,7 +135,7 @@ export const TabUserAuthor = () => {
         <>
           <Input
             className={cls.searchInput}
-            value={searchValue}
+            value={searchBooksValue}
             onChange={onSearch}
             placeholder="Поиск"
           />
@@ -113,34 +150,60 @@ export const TabUserAuthor = () => {
       key: 2,
       title: "Авторы",
       content: (
-        <AuthorList
-          authors={authors}
-          renderList={(author) => (
-            <AuthorListItem key={author.id} author={author} />
-          )}
-        />
+        <>
+          <Input
+            className={cls.searchInput}
+            value={searchAuthorValue}
+            onChange={onAuthorSearch}
+            placeholder="Поиск"
+          />
+          <AuthorList
+            authors={authors}
+            renderList={(author) => (
+              <AuthorListItem key={author.id} author={author} />
+            )}
+          />
+        </>
       ),
     },
     {
       key: 3,
       title: "Жанры",
       content: (
-        <GenreList
-          genres={genres}
-          renderList={(genre) => <GenreListItem key={genre.id} genre={genre} />}
-        />
+        <>
+          <Input
+            className={cls.searchInput}
+            value={searchGenreValue}
+            onChange={onGenreSearch}
+            placeholder="Поиск"
+          />
+          <GenreList
+            genres={genres}
+            renderList={(genre) => (
+              <GenreListItem key={genre.id} genre={genre} />
+            )}
+          />
+        </>
       ),
     },
     {
       key: 4,
       title: "Издательства",
       content: (
-        <PublishingList
-          publishing={publishing}
-          renderList={(publishing) => (
-            <PublishingListItem key={publishing.id} genre={publishing} />
-          )}
-        />
+        <>
+          <Input
+            className={cls.searchInput}
+            value={searchPublishingValue}
+            onChange={onPublishingSearch}
+            placeholder="Поиск"
+          />
+          <PublishingList
+            publishing={publishing}
+            renderList={(publishing) => (
+              <PublishingListItem key={publishing.id} genre={publishing} />
+            )}
+          />
+        </>
       ),
     },
   ];

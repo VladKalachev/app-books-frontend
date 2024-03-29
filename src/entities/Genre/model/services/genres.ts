@@ -3,8 +3,8 @@ import $api from "@/shared/plugins/http";
 import { IGenre, IGenreCreate } from "../types/genre";
 
 export class GenresService {
-  static fetchGenres(): Promise<AxiosResponse<IGenre[]>> {
-    return $api.get<IGenre[]>("/genres");
+  static fetchGenres(q: string = ""): Promise<AxiosResponse<IGenre[]>> {
+    return $api.get<IGenre[]>(`/genres${q}`);
   }
 
   static addGenre(formData: any): Promise<AxiosResponse<IGenre>> {

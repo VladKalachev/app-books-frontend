@@ -15,7 +15,7 @@ import {
   getGenresCreate,
   getPublishingCreate,
 } from "@/shared/consts/router";
-import { Input } from "@/shared/ui/Input";
+// import { Input } from "@/shared/ui/Input";
 
 interface NavbarProps {
   className?: string;
@@ -27,7 +27,7 @@ export const Navbar = observer(({ className }: NavbarProps) => {
 
   return (
     <header className={classNames(cls.Navbar, {}, [className])}>
-      <Input className={cls.searchInput} placeholder="Поиск" />
+      {/* <Input className={cls.searchInput} placeholder="Поиск" /> */}
       <HStack gap="16" className={cls.actions}>
         <Button
           className={cls.createBtn}
