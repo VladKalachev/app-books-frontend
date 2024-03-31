@@ -47,6 +47,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [genres, setGenres] = useState([]);
   const [publishing, setPublishing] = useState([]);
 
+  const [disabledYear, setDisabledYear] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const getAuthors = async () => {
@@ -161,11 +163,20 @@ export const AddBookForm = (props: AddBookFormProps) => {
         (genre: any) => genre.value === Number(publishingId)
       );
 
-      formData.append("publishing", title?.content);
+      if (title?.content) {
+        formData.append("publishing", title?.content);
+      } else {
+        formData.append("publishing", "");
+      }
       formData.append("PublishingId", genreId);
     }
 
-    formData.append("year", JSON.stringify(form.year));
+    if (read) {
+      formData.append("year", JSON.stringify(form.year));
+    } else {
+      formData.append("year", null as any);
+    }
+
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
     formData.append("read", JSON.stringify(form.read));
@@ -241,14 +252,6 @@ export const AddBookForm = (props: AddBookFormProps) => {
       <InputNumber
         type="number"
         className={cls.input}
-        label={"Год издания книги"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setYear(value)}
-        value={year}
-      />
-      <InputNumber
-        type="number"
-        className={cls.input}
         label={"Количество страниц (i)"}
         placeholder={"Введите значение"}
         onChange={(value) => setNumberPages(value)}
@@ -271,8 +274,27 @@ export const AddBookForm = (props: AddBookFormProps) => {
       <Switch
         label={"Прочитано"}
         checked={read}
-        onChange={(value) => setRead(value)}
+        onChange={(value) => {
+          if (value) {
+            setDisabledYear(true);
+          } else {
+            setDisabledYear(false);
+          }
+          setRead(value);
+        }}
       />
+
+      {disabledYear && (
+        <InputNumber
+          type="number"
+          className={cls.input}
+          label={"Год когда прочитал книгу"}
+          placeholder={"Введите значение"}
+          onChange={(value) => setYear(value)}
+          value={year}
+        />
+      )}
+
       <Switch
         label={"Купил"}
         checked={buy}

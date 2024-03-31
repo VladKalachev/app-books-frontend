@@ -279,14 +279,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
       <InputNumber
         type="number"
         className={cls.input}
-        label={"Год издания книги"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setYear(value)}
-        value={year}
-      />
-      <InputNumber
-        type="number"
-        className={cls.input}
         label={"Количество страниц (i)"}
         placeholder={"Введите значение"}
         onChange={(value) => setNumberPages(value)}
@@ -308,6 +300,14 @@ export const BookEditForm = (props: AddBookFormProps) => {
         label={"Прочитано"}
         checked={read}
         onChange={(value) => setRead(value)}
+      />
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Год когда прочитал книгу"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setYear(value)}
+        value={year}
       />
       <Switch
         label={"Купил"}
