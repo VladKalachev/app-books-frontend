@@ -59,7 +59,8 @@ const StatisticsPage = () => {
           className={cls.textTitle}
           size="s"
         />
-        Общее количество прочитанных книг по годам:
+
+        {formatBooks.length && <>Общее количество прочитанных книг по годам:</>}
         <table>
           <thead>
             <tr>
