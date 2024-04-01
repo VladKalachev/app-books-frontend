@@ -23,14 +23,16 @@ const StatisticsPage = () => {
   };
   const count = (dataSet: any) => {
     const finalObj: any = {};
-    dataSet.forEach((item: any) => {
-      const date = item.year;
-      if (finalObj[date]) {
-        finalObj[date].push(item);
-      } else {
-        finalObj[date] = [item];
-      }
-    });
+    dataSet
+      .filter((data: any) => data.read && data.year)
+      .forEach((item: any) => {
+        const date = item.year;
+        if (finalObj[date]) {
+          finalObj[date].push(item);
+        } else {
+          finalObj[date] = [item];
+        }
+      });
     return finalObj;
   };
 
@@ -57,7 +59,7 @@ const StatisticsPage = () => {
           className={cls.textTitle}
           size="s"
         />
-        Общее количество прочитанных книг по гадам:
+        Общее количество прочитанных книг по годам:
         <table>
           <thead>
             <tr>

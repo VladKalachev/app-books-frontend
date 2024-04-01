@@ -122,7 +122,11 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setDescription(formData.description);
       setFullName(formData.fullName);
       setImage(formData.image);
-      setYear(formData.year);
+
+      if (formData.year) {
+        setYear(formData.year);
+      }
+
       setNumberPages(formData.numberPages);
       setNotes(formData.notes);
       setRead(formData.read);
@@ -200,7 +204,12 @@ export const BookEditForm = (props: AddBookFormProps) => {
       formData.append("PublishingId", publishingId);
     }
 
-    formData.append("year", JSON.stringify(form.year));
+    if (read) {
+      formData.append("year", JSON.stringify(form.year));
+    } else {
+      formData.append("year", null as any);
+    }
+
     formData.append("numberPages", JSON.stringify(form.numberPages));
     formData.append("notes", form.notes as string);
     formData.append("read", JSON.stringify(form.read));
@@ -301,14 +310,17 @@ export const BookEditForm = (props: AddBookFormProps) => {
         checked={read}
         onChange={(value) => setRead(value)}
       />
-      <InputNumber
-        type="number"
-        className={cls.input}
-        label={"Год когда прочитал книгу"}
-        placeholder={"Введите значение"}
-        onChange={(value) => setYear(value)}
-        value={year}
-      />
+      {read && (
+        <InputNumber
+          type="number"
+          className={cls.input}
+          label={"Год когда прочитал книгу"}
+          placeholder={"Введите значение"}
+          onChange={(value) => setYear(value)}
+          value={year}
+        />
+      )}
+
       <Switch
         label={"Купил"}
         checked={buy}
