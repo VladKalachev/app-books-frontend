@@ -3,7 +3,7 @@ import { HStack } from "@/shared/ui/Stack";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { IGoal } from "../..";
 
-import cls from "./GenreList.module.scss";
+import cls from "./GoalList.module.scss";
 
 interface GoalListProps {
   goals: IGoal[];

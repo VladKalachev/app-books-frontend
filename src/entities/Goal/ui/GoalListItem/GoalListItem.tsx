@@ -7,7 +7,7 @@ import { AppLink } from "@/shared/ui/AppLink";
 import { getGoalEditPage } from "@/shared/consts/router";
 import { IGoal } from "../..";
 
-import cls from "./GenreListItem.module.scss";
+import cls from "./GoalListItem.module.scss";
 
 interface GoalListItemProps {
   goal: IGoal;
