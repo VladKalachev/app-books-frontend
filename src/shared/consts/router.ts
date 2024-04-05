@@ -21,7 +21,11 @@ export enum AppRoutes {
 }
 
 export const getHomePage = () => "/home";
+
 export const getGoalsPage = () => "/goals";
+export const getGoalsCreatePage = () => "/goals/create";
+export const getGoalEditPage = (id: string) => `/goals/${id}/edit`;
+
 export const getLandingPage = () => "/";
 export const getLoginPage = () => "/login";
 export const getRatingPage = () => "/rating";
