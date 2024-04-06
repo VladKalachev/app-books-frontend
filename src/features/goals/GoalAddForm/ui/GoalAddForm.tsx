@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getGoalsPage } from "@/shared/consts/router";
 import { toast } from "react-toastify";
 
-import { GenresService, IGenre, IGenreCreate } from "@/entities/Genre";
+import { GoalService, IGoal, IGoalCreate } from "@/entities/Goal";
 import cls from "./GoalAddForm.module.scss";
 
 interface GoalAddFormProps {
@@ -17,10 +17,10 @@ interface GoalAddFormProps {
 export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<IGenre["title"]>("");
+  const [title, setTitle] = useState<IGoal["title"]>("");
 
   const handleSubmit = async () => {
-    const form: IGenreCreate = {
+    const form: IGoalCreate = {
       title,
     };
 
@@ -30,8 +30,8 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
     formData.append("title", form.title);
 
     try {
-      await GenresService.addGenre(formData);
-      toast("Жанр успешно добавлен");
+      await GoalService.addGoal(formData);
+      toast("Цель успешно добавлен");
       navigate(getGoalsPage());
     } catch (error: any) {
       console.log(error);
