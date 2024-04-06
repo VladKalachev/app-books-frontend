@@ -3,3 +3,7 @@ export interface IGoal {
   title: string;
   completed: boolean;
 }
+
+export interface IGoalCreate {
+  title: string;
+}

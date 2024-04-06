@@ -12,6 +12,8 @@ export enum AppRoutes {
   GENRES_CREATE = "genres_create",
   GENRES_EDIT = "genres_edit",
   GOALS = "goals",
+  GOALS_CREATE = "goals_create",
+  // GOALS_EDIT = "goals_edit",
   RATING = "rating",
   STATISTICS = "statistics",
 
