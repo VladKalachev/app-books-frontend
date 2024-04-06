@@ -1,8 +1,5 @@
 .GoalList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-
+  display: block;
   .card {
     display: inline-flex;
     height: 300px;
