@@ -7,6 +7,7 @@ import {
   getBooksPage,
   getGenresCreate,
   getGenresEdit,
+  getGoalEditPage,
   getGoalsCreatePage,
   getGoalsPage,
   getHomePage,
@@ -33,7 +34,7 @@ import { AddPublishingPage } from "@/pages/AddPublishingPage";
 import { PublishingEditPage } from "@/pages/PublishingEditPage";
 import { AddGenrePage } from "@/pages/AddGenrePage";
 import { AuthorEditPage } from "@/pages/AuthorEditPage";
-import { GoalAddForm } from "@/features/goals/GoalAddForm";
+import { AddGoalPage } from "@/pages/AddGoalPage";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -98,7 +99,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.GOALS_CREATE]: {
     path: getGoalsCreatePage(),
-    element: <GoalAddForm />,
+    element: <AddGoalPage />,
+    authOnly: true,
+  },
+  [AppRoutes.GOALS_EDIT]: {
+    path: getGoalEditPage(":id"),
+    element: <AddGoalPage />,
     authOnly: true,
   },
   [AppRoutes.RATING]: {
