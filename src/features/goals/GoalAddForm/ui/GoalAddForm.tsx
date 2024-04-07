@@ -65,6 +65,16 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
     }
   };
 
+  const handleSelectBook = (value: string) => {
+    if (value !== "null") {
+      const selectValue = books?.find((book) => book.value === Number(value));
+      setTitle(selectValue?.content);
+    } else {
+      setTitle("");
+    }
+    setBookId(value);
+  };
+
   return (
     <VStack gap="16" className={classNames(cls.GoalAddForm, {}, [className])}>
       <h1>Добавить новую Цель</h1>
@@ -83,7 +93,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
         value={bookId}
         options={books}
         className={cls.selectedBook}
-        onChange={(value) => setBookId(value)}
+        onChange={(value) => handleSelectBook(value)}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
