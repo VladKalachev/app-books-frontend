@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
+// import { Input } from "@/shared/ui/Input";
 import { useEffect, useState } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
@@ -78,7 +78,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   return (
     <VStack gap="16" className={classNames(cls.GoalAddForm, {}, [className])}>
       <h1>Добавить новую Цель</h1>
-
+      {/* 
       <Input
         autofocus
         type="text"
@@ -86,7 +86,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
         placeholder={"Введите Название Книги"}
         onChange={(value) => setTitle(value)}
         value={title}
-      />
+      /> */}
 
       <Select
         label={"Введите Название Книги"}
