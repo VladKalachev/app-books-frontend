@@ -7,10 +7,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getGoalsPage } from "@/shared/consts/router";
 import { toast } from "react-toastify";
 
-import { GenresService, IGenre, IGenreCreate } from "@/entities/Genre";
+import { IGenreCreate } from "@/entities/Genre";
 
-import cls from "./GenreEditForm.module.scss";
-import { GoalService } from "@/entities/Goal";
+import { GoalService, IGoal } from "@/entities/Goal";
+import cls from "./GoalEditForm.module.scss";
 
 interface GenreEditFormProps {
   className?: string;
@@ -22,7 +22,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
 
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<IGenre["title"]>("");
+  const [title, setTitle] = useState<IGoal["title"]>("");
 
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +74,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
 
   const onDeleteById = async (id: string) => {
     try {
-      await GenresService.deleteGenreById(id);
+      await GoalService.deleteGoalById(id);
       toast("Цель успешно удален");
       navigate(getGoalsPage());
     } catch (error: any) {
@@ -87,7 +87,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   }
 
   return (
-    <VStack gap="16" className={classNames(cls.GenreForm, {}, [className])}>
+    <VStack gap="16" className={classNames(cls.GoalForm, {}, [className])}>
       <h1>Редактировать Цель</h1>
       <Input
         autofocus

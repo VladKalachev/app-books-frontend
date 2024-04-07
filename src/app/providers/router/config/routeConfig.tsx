@@ -35,6 +35,7 @@ import { PublishingEditPage } from "@/pages/PublishingEditPage";
 import { AddGenrePage } from "@/pages/AddGenrePage";
 import { AuthorEditPage } from "@/pages/AuthorEditPage";
 import { AddGoalPage } from "@/pages/AddGoalPage";
+import { GoalEditPage } from "@/pages/GoalEditPage";
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.HOME]: {
@@ -104,7 +105,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.GOALS_EDIT]: {
     path: getGoalEditPage(":id"),
-    element: <AddGoalPage />,
+    element: <GoalEditPage />,
     authOnly: true,
   },
   [AppRoutes.RATING]: {
