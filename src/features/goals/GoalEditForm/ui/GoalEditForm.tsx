@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
+// import { Input } from "@/shared/ui/Input";
 import { useEffect, useState } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
@@ -11,6 +11,8 @@ import { IGenreCreate } from "@/entities/Genre";
 
 import { GoalService, IGoal } from "@/entities/Goal";
 import cls from "./GoalEditForm.module.scss";
+import { Select } from "@/shared/ui/Select";
+import { BooksService } from "@/entities/Book";
 
 interface GenreEditFormProps {
   className?: string;
@@ -23,6 +25,8 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IGoal["title"]>("");
+  const [books, setBooks] = useState<any[]>([]);
+  const [bookId, setBookId] = useState<any>("null");
 
   const [loading, setLoading] = useState(false);
 
@@ -34,6 +38,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
       const formData = goal.data;
 
       setTitle(formData.title);
+      setBookId(formData.BookId);
 
       setLoading(false);
     } catch (error) {
@@ -42,7 +47,27 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
     }
   };
 
+  const getBooks = async () => {
+    try {
+      const bookList = await BooksService.fetchUBooks();
+
+      const optionsBook = bookList.data?.map((book) => ({
+        value: book.id,
+        content: book.title,
+      }));
+
+      const data: any = [
+        ...optionsBook,
+        { value: "null", content: "Не выбран" },
+      ];
+      setBooks(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    getBooks();
     try {
       if (params?.id) {
         getGoalById(params?.id);
@@ -82,6 +107,16 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
     }
   };
 
+  const handleSelectBook = (value: string) => {
+    if (value !== "null") {
+      const selectValue = books?.find((book) => book.value === Number(value));
+      setTitle(selectValue?.content);
+    } else {
+      setTitle("");
+    }
+    setBookId(value);
+  };
+
   if (loading) {
     return "Loading...";
   }
@@ -89,13 +124,21 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   return (
     <VStack gap="16" className={classNames(cls.GoalForm, {}, [className])}>
       <h1>Редактировать Цель</h1>
-      <Input
+      {/* <Input
         autofocus
         type="text"
         className={cls.input}
         placeholder={"Введите Жанр"}
         onChange={(value) => setTitle(value)}
         value={title}
+      /> */}
+
+      <Select
+        label={"Введите Название Книги"}
+        value={bookId}
+        options={books}
+        className={cls.selectedBook}
+        onChange={(value) => handleSelectBook(value)}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
