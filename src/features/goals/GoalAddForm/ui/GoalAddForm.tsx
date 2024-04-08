@@ -55,6 +55,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
 
     const formData = new FormData();
     formData.append("title", form.title);
+    formData.append("BookId", bookId);
 
     try {
       await GoalService.addGoal(formData);
