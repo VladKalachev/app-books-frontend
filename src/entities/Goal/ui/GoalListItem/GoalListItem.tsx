@@ -1,5 +1,5 @@
 import { Card } from "@/shared/ui/Card";
-import { VStack } from "@/shared/ui/Stack";
+import { HStack } from "@/shared/ui/Stack";
 import { Text } from "@/shared/ui/Text";
 
 import { classNames } from "@/shared/libs/classNames/classNames";
@@ -8,22 +8,33 @@ import { getGoalEditPage } from "@/shared/consts/router";
 import { IGoal } from "../..";
 
 import cls from "./GoalListItem.module.scss";
+import { Button } from "@/shared/ui/Button";
 
 interface GoalListItemProps {
   goal: IGoal;
   className?: string;
+  onClose: () => void;
 }
 
 export const GoalListItem = (props: GoalListItemProps) => {
-  const { goal, className } = props;
+  const { goal, className, onClose } = props;
+  console.log(" goal.completed", goal.completed);
   return (
     <div className={classNames(cls.GoalListItem, {}, [className])}>
       <Card className={cls.card} border="partial" padding="0" variant="light">
-        <VStack className={cls.info} gap="4">
+        <HStack className={cls.info} gap="4">
           <AppLink to={getGoalEditPage(goal.id.toString())}>
-            <Text title={goal.title} className={cls.title} />
+            <Text
+              title={goal.title}
+              className={classNames(cls.title, {
+                [cls.completed]: goal.completed,
+              })}
+            />
           </AppLink>
-        </VStack>
+          <Button onClick={onClose}>
+            {goal.completed ? "Прочитано" : "Прочитал"}
+          </Button>
+        </HStack>
       </Card>
     </div>
   );

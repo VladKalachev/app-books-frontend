@@ -13,6 +13,17 @@ export const GoalsList = () => {
     }
   };
 
+  const handleClose = async (goal: IGoal) => {
+    try {
+      await GoalService.completedGoalById(goal.id, {
+        completed: !goal.completed,
+      });
+      getGoals("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getGoals("");
     () => {
@@ -24,7 +35,13 @@ export const GoalsList = () => {
     <>
       <GoalList
         goals={goals}
-        renderList={(goal) => <GoalListItem key={goal.id} goal={goal} />}
+        renderList={(goal) => (
+          <GoalListItem
+            key={goal.id}
+            onClose={() => handleClose(goal)}
+            goal={goal}
+          />
+        )}
       />
     </>
   );

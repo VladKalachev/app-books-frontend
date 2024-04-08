@@ -25,4 +25,11 @@ export class GoalService {
   static deleteGoalById(id: string): Promise<AxiosResponse<IGoal>> {
     return $api.delete<IGoal>(`/goals/${id}`);
   }
+
+  static completedGoalById(
+    id: number,
+    completed: any
+  ): Promise<AxiosResponse<IGoal>> {
+    return $api.put<IGoal>(`/goals/completed/${id}`, completed);
+  }
 }

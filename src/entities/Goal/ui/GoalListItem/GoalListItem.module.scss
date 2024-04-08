@@ -6,6 +6,12 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    .completed {
+      h2 {
+        text-decoration: line-through;
+        text-decoration-color: red;
+      }
+    }
   }
 
   .img {
