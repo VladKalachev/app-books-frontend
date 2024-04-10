@@ -7,7 +7,7 @@ export const GoalsList = () => {
   const getGoals = async (q: string) => {
     try {
       const goalsList = await GoalService.fetchGoals(q ? `?search=${q}` : "");
-      setGoals(goalsList.data);
+      setGoals(goalsList.data.reverse());
     } catch (error) {
       console.error(error);
     }
