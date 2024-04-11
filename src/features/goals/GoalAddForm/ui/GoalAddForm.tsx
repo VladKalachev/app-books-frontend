@@ -11,6 +11,7 @@ import { GoalService, IGoal, IGoalCreate } from "@/entities/Goal";
 import { BooksService } from "@/entities/Book";
 
 import cls from "./GoalAddForm.module.scss";
+import { InputNumber } from "@/shared/ui/InputNumber";
 
 interface GoalAddFormProps {
   className?: string;
@@ -20,6 +21,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IGoal["title"]>("");
+  const [currentPages, setСurrentPages] = useState<IGoal["currentPages"]>(0);
   const [books, setBooks] = useState<any[]>([]);
   const [bookId, setBookId] = useState("null");
 
@@ -49,12 +51,14 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   const handleSubmit = async () => {
     const form: IGoalCreate = {
       title,
+      currentPages,
     };
 
     console.log(form);
 
-    const formData = new FormData();
+    const formData: any = new FormData();
     formData.append("title", form.title);
+    formData.append("currentPages", form.currentPages);
     formData.append("BookId", bookId);
 
     try {
@@ -79,15 +83,6 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   return (
     <VStack gap="16" className={classNames(cls.GoalAddForm, {}, [className])}>
       <h1>Добавить новую Цель</h1>
-      {/* 
-      <Input
-        autofocus
-        type="text"
-        className={cls.input}
-        placeholder={"Введите Название Книги"}
-        onChange={(value) => setTitle(value)}
-        value={title}
-      /> */}
 
       <Select
         label={"Введите Название Книги"}
@@ -95,6 +90,15 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
         options={books}
         className={cls.selectedBook}
         onChange={(value) => handleSelectBook(value)}
+      />
+
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Количество страниц которое прочитано"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setСurrentPages(value)}
+        value={currentPages}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
