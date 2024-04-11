@@ -21,7 +21,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IGoal["title"]>("");
-  const [currentPages, setСurrentPages] = useState<IGoal["currentPages"]>(0);
+  const [currentPages, setCurrentPages] = useState<IGoal["currentPages"]>(0);
   const [books, setBooks] = useState<any[]>([]);
   const [bookId, setBookId] = useState("null");
 
@@ -97,7 +97,7 @@ export const GoalAddForm = ({ className }: GoalAddFormProps) => {
         className={cls.input}
         label={"Количество страниц которое прочитано"}
         placeholder={"Введите значение"}
-        onChange={(value) => setСurrentPages(value)}
+        onChange={(value) => setCurrentPages(value)}
         value={currentPages}
       />
 

@@ -1,5 +1,4 @@
 import { Button } from "@/shared/ui/Button";
-// import { Input } from "@/shared/ui/Input";
 import { useEffect, useState } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { VStack } from "@/shared/ui/Stack";
@@ -7,12 +6,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getGoalsPage } from "@/shared/consts/router";
 import { toast } from "react-toastify";
 
-import { IGenreCreate } from "@/entities/Genre";
-
-import { GoalService, IGoal } from "@/entities/Goal";
+import { GoalService, IGoal, IGoalCreate } from "@/entities/Goal";
 import cls from "./GoalEditForm.module.scss";
 import { Select } from "@/shared/ui/Select";
 import { BooksService } from "@/entities/Book";
+import { InputNumber } from "@/shared/ui/InputNumber";
 
 interface GenreEditFormProps {
   className?: string;
@@ -25,6 +23,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IGoal["title"]>("");
+  const [currentPages, setCurrentPages] = useState<IGoal["currentPages"]>(0);
   const [books, setBooks] = useState<any[]>([]);
   const [bookId, setBookId] = useState<any>("null");
 
@@ -39,6 +38,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
 
       setTitle(formData.title);
       setBookId(formData.BookId);
+      setCurrentPages(formData.currentPages);
 
       setLoading(false);
     } catch (error) {
@@ -78,14 +78,16 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   }, [params.id]);
 
   const handleSubmit = async () => {
-    const form: IGenreCreate = {
+    const form: IGoalCreate = {
       title,
+      currentPages,
     };
 
     console.log(form);
 
-    const formData = new FormData();
+    const formData: any = new FormData();
     formData.append("title", form.title);
+    formData.append("currentPages", form.currentPages);
 
     console.log(formData);
 
@@ -124,21 +126,23 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   return (
     <VStack gap="16" className={classNames(cls.GoalForm, {}, [className])}>
       <h1>Редактировать Цель</h1>
-      {/* <Input
-        autofocus
-        type="text"
-        className={cls.input}
-        placeholder={"Введите Жанр"}
-        onChange={(value) => setTitle(value)}
-        value={title}
-      /> */}
 
       <Select
         label={"Введите Название Книги"}
         value={bookId}
         options={books}
+        readonly
         className={cls.selectedBook}
         onChange={(value) => handleSelectBook(value)}
+      />
+
+      <InputNumber
+        type="number"
+        className={cls.input}
+        label={"Количество страниц которое прочитано"}
+        placeholder={"Введите значение"}
+        onChange={(value) => setCurrentPages(value)}
+        value={currentPages}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
