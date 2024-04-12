@@ -3,7 +3,7 @@ export interface IGoal {
   title: string;
   completed: boolean;
   currentPages: number;
-  numberPages: number | null;
+  numberPages: number;
   BookId: number;
 }
 

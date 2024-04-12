@@ -18,7 +18,7 @@ interface GoalListItemProps {
 
 export const GoalListItem = (props: GoalListItemProps) => {
   const { goal, className, onClose } = props;
-  console.log(" goal.completed", goal.completed);
+  const leftNumber = goal.numberPages - goal.currentPages;
   return (
     <div className={classNames(cls.GoalListItem, {}, [className])}>
       <Card className={cls.card} border="partial" padding="0" variant="light">
@@ -31,9 +31,18 @@ export const GoalListItem = (props: GoalListItemProps) => {
               })}
             />
           </AppLink>
+
           <Button onClick={onClose}>
             {goal.completed ? "Прочитано" : "Прочитал"}
           </Button>
+
+          {!goal.completed && leftNumber ? (
+            <Text
+              size="s"
+              className={cls.numbers}
+              title={`Осталось прочитать: ${leftNumber} стр`}
+            />
+          ) : null}
         </HStack>
       </Card>
     </div>

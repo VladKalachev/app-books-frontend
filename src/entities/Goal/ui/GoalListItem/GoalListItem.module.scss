@@ -1,6 +1,6 @@
 .GoalListItem {
   .card {
-    width: 440px;
+    width: 540px;
     height: 70px;
     overflow: hidden;
     display: flex;
@@ -11,6 +11,9 @@
         text-decoration: line-through;
         text-decoration-color: red;
       }
+    }
+    .numbers {
+      margin-left: 10px;
     }
   }
 
