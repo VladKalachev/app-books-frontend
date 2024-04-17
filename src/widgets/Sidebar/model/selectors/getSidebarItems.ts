@@ -11,9 +11,21 @@ import {
   getStatisticsPage,
   getRatingPage,
 } from "@/shared/consts/router";
+import { IUser } from "@/entities/User";
 
-export const useSidebarItems = () => {
-  const sidebarItemsList = [
+interface SidebarItemsProps {
+  path: string;
+  Icon: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & {
+      title?: string | undefined;
+    }
+  >;
+  text: string;
+  authOnly: boolean;
+}
+
+export const useSidebarItems = (user: IUser) => {
+  const sidebarItemsList: SidebarItemsProps[] = [
     {
       path: getHomePage(),
       Icon: HomeIcon,
@@ -46,5 +58,7 @@ export const useSidebarItems = () => {
     },
   ];
 
-  return sidebarItemsList;
+  return sidebarItemsList.filter((item) =>
+    user.isAdmin ? true : item?.text !== "Рейтинг"
+  );
 };

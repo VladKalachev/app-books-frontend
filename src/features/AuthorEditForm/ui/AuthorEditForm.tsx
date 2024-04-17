@@ -10,15 +10,17 @@ import { toast } from "react-toastify";
 import cls from "./AuthorEditForm.module.scss";
 
 import { AuthorsService, IAuthor, IAuthorCreate } from "@/entities/Author";
+import useStore from "@/app/providers/StoreProvider/config/useStore";
+import { observer } from "mobx-react-lite";
 
 interface AuthorEditFormProps {
   className?: string;
 }
 
-export const AuthorEditForm = (props: AuthorEditFormProps) => {
+export const AuthorEditForm = observer((props: AuthorEditFormProps) => {
   const params = useParams<"id">();
   const { className } = props;
-
+  const { user } = useStore();
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState<IAuthor["fullName"]>("");
@@ -102,6 +104,7 @@ export const AuthorEditForm = (props: AuthorEditFormProps) => {
       </Button>
       <Button
         className={cls.loginBtn}
+        disabled={!user.user.isAdmin}
         onClick={() => {
           if (params.id) {
             onDeleteById(params.id.toString());
@@ -112,4 +115,4 @@ export const AuthorEditForm = (props: AuthorEditFormProps) => {
       </Button>
     </VStack>
   );
-};
+});

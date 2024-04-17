@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { classNames } from "@/shared/libs/classNames/classNames";
 
 import { VStack } from "@/shared/ui/Stack";
@@ -9,14 +9,17 @@ import BookIcon from "@/shared/assets/icons/book-filled.svg?react";
 import { Icon } from "@/shared/ui/Icon";
 
 import cls from "./Sidebar.module.scss";
+import useStore from "@/app/providers/StoreProvider/config/useStore";
+import { observer } from "mobx-react-lite";
 
 interface SidebarProps {
   className?: string;
 }
 
-export const Sidebar = memo(({ className }: SidebarProps) => {
+export const Sidebar = observer(({ className }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
-  const sidebarItemsList = useSidebarItems();
+  const { user } = useStore();
+  const sidebarItemsList = useSidebarItems(user.user);
 
   const onToggle = () => {
     setCollapsed((prev) => !prev);

@@ -10,15 +10,17 @@ import { toast } from "react-toastify";
 import { GenresService, IGenre, IGenreCreate } from "@/entities/Genre";
 
 import cls from "./GenreEditForm.module.scss";
+import { observer } from "mobx-react-lite";
+import useStore from "@/app/providers/StoreProvider/config/useStore";
 
 interface GenreEditFormProps {
   className?: string;
 }
 
-export const GenreEditForm = (props: GenreEditFormProps) => {
+export const GenreEditForm = observer((props: GenreEditFormProps) => {
   const params = useParams<"id">();
   const { className } = props;
-
+  const { user } = useStore();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IGenre["title"]>("");
@@ -102,6 +104,7 @@ export const GenreEditForm = (props: GenreEditFormProps) => {
       </Button>
       <Button
         className={cls.loginBtn}
+        disabled={!user.user.isAdmin}
         onClick={() => {
           if (params.id) {
             onDeleteById(params.id.toString());
@@ -112,4 +115,4 @@ export const GenreEditForm = (props: GenreEditFormProps) => {
       </Button>
     </VStack>
   );
-};
+});

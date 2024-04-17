@@ -13,15 +13,17 @@ import {
   IPublishingCreate,
   PublishingService,
 } from "@/entities/Publishing";
+import { observer } from "mobx-react-lite";
+import useStore from "@/app/providers/StoreProvider/config/useStore";
 
 interface PublishingEditFormProps {
   className?: string;
 }
 
-export const PublishingEditForm = (props: PublishingEditFormProps) => {
+export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
   const params = useParams<"id">();
   const { className } = props;
-
+  const { user } = useStore();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<IPublishing["title"]>("");
@@ -111,6 +113,7 @@ export const PublishingEditForm = (props: PublishingEditFormProps) => {
       </Button>
       <Button
         className={cls.loginBtn}
+        disabled={!user.user.isAdmin}
         onClick={() => {
           if (params.id) {
             onDeleteById(params.id.toString());
@@ -121,4 +124,4 @@ export const PublishingEditForm = (props: PublishingEditFormProps) => {
       </Button>
     </VStack>
   );
-};
+});
