@@ -9,6 +9,7 @@ import cls from "./BookListItem.module.scss";
 import { classNames } from "@/shared/libs/classNames/classNames";
 import { AppLink } from "@/shared/ui/AppLink";
 import { getBookEdit } from "@/shared/consts/router";
+import { API_URL } from "@/shared/plugins/http";
 
 interface BookListItemProps {
   book: IBook;
@@ -23,7 +24,7 @@ export const BookListItem = (props: BookListItemProps) => {
         <AppImage
           fallback={<Skeleton width="100%" height={200} />}
           alt={book.title}
-          src={`https://localhost:7000/upload/${book.image}`}
+          src={`${API_URL}/upload/${book.image}`}
           className={cls.img}
         />
         <VStack className={cls.info} gap="4">
