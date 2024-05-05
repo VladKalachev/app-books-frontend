@@ -19,6 +19,7 @@ import { AuthorsService } from "@/entities/Author";
 import { Select } from "@/shared/ui/Select";
 import { GenresService } from "@/entities/Genre";
 import { PublishingService } from "@/entities/Publishing";
+import { API_URL } from "@/shared/plugins/http";
 
 interface AddBookFormProps {
   className?: string;
@@ -275,7 +276,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
         <AppImage
           fallback={<Skeleton width="100%" height={200} />}
           alt={image}
-          src={`https://localhost:7000/upload/${image}`}
+          src={`${API_URL}/upload/${image}`}
           className={cls.img}
         />
       ) : null}
