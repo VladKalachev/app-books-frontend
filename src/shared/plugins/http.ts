@@ -2,7 +2,7 @@ import axios from "axios";
 import { AuthResponse } from "../types/user";
 import { toast } from "react-toastify";
 
-export const API_URL = "https://localhost:7000/api";
+export const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const $api = axios.create({
   withCredentials: true,
