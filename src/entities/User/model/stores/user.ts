@@ -43,7 +43,6 @@ export class UserStore {
 
       navigate(getHomePage());
     } catch (e: any) {
-      // localStorage.removeItem("token");
       console.log(e.response?.data?.message);
     }
   }

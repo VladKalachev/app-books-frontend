@@ -26,8 +26,11 @@ $api.interceptors.response.use(
 
     const originalRequest = error.config;
     if (
-      (error.response.status = 401 && error.config && !error.config._isRetry)
+      error.response.status == 401 &&
+      error.config &&
+      !error.config._isRetry
     ) {
+      console.log("1111");
       originalRequest._isRetry = true;
       try {
         const response = await axios.get<AuthResponse>(
