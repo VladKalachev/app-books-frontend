@@ -140,7 +140,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
     formData.append("title", form.title);
     formData.append("description", form.description);
 
-    if (authorId) {
+    if (authorId !== null) {
       const fullName: any = authors.find(
         (author: any) => author.value === Number(authorId)
       );
@@ -149,16 +149,20 @@ export const AddBookForm = (props: AddBookFormProps) => {
       formData.append("AuthorId", authorId);
     }
 
-    if (genreId) {
+    if (genreId !== null) {
       const title: any = genres.find(
         (genre: any) => genre.value === Number(genreId)
       );
 
-      formData.append("genre", title?.content);
+      if (title?.content) {
+        formData.append("genre", title?.content);
+      } else {
+        formData.append("genre", "");
+      }
       formData.append("GenreId", genreId);
     }
 
-    if (publishingId) {
+    if (publishingId !== null) {
       const title: any = publishing.find(
         (genre: any) => genre.value === Number(publishingId)
       );
@@ -168,7 +172,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       } else {
         formData.append("publishing", "");
       }
-      formData.append("PublishingId", genreId);
+      formData.append("PublishingId", publishingId);
     }
 
     if (read) {
