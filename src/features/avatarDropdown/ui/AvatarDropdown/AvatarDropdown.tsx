@@ -49,7 +49,7 @@ export const AvatarDropdown = observer((props: AvatarDropdownProps) => {
       trigger={
         <div className={cls.avatar}>
           <Icon Svg={UserIcon} />
-          {user.user.email}
+          {user.user?.email}
         </div>
       }
       //   trigger={<Avatar size={40} src={user.avatar} />}

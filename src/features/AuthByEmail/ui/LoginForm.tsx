@@ -2,7 +2,6 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import useStore from "@/app/providers/StoreProvider/config/useStore";
 import { useNavigate } from "react-router-dom";
-import { getHomePage } from "@/shared/consts/router";
 
 export const LoginForm = observer(() => {
   const { user } = useStore();
@@ -47,8 +46,7 @@ export const LoginForm = observer(() => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           onClick={() => {
-            user?.login(email, password);
-            navigate(getHomePage());
+            user?.login(email, password, navigate);
           }}
         >
           Логин

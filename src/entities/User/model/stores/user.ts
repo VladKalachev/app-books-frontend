@@ -6,6 +6,8 @@ import { API_URL } from "../../../../shared/plugins/http";
 import { IUser } from "../types/user";
 import { AuthResponse } from "@/shared/types/user";
 import RootStore from "@/app/providers/StoreProvider/config/store";
+import { NavigateFunction } from "react-router-dom";
+import { getHomePage } from "@/shared/consts/router";
 
 export class UserStore {
   rootStore: RootStore;
@@ -30,7 +32,7 @@ export class UserStore {
     this.isLoading = boo;
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, navigate: NavigateFunction) {
     try {
       const response = await AuthService.login(email, password);
       localStorage.setItem("token", response.data.accessToken);
@@ -38,7 +40,10 @@ export class UserStore {
         this.setAuth(true);
         this.setUser(response.data.user);
       });
+
+      navigate(getHomePage());
     } catch (e: any) {
+      localStorage.removeItem("token");
       console.log(e.response?.data?.message);
     }
   }

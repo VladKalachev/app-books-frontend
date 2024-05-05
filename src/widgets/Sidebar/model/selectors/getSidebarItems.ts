@@ -59,6 +59,6 @@ export const useSidebarItems = (user: IUser) => {
   ];
 
   return sidebarItemsList.filter((item) =>
-    user.isAdmin ? true : item?.text !== "Рейтинг"
+    user?.isAdmin ? true : item?.text !== "Рейтинг"
   );
 };

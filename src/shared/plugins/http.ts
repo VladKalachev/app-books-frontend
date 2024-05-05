@@ -21,7 +21,7 @@ $api.interceptors.response.use(
   async (error) => {
     if (error?.response?.data) {
       console.log(error.response.data);
-      toast(error.response.data);
+      toast.error(error.response?.data?.message);
     }
 
     const originalRequest = error.config;

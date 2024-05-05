@@ -16,7 +16,7 @@ export const UserListItem = (props: UserListItemProps) => {
   return (
     <div className={classNames(cls.UserListItem, {}, [className])}>
       <Card className={cls.card} border="partial" padding="0" variant="light">
-        <Text text={user.email} />
+        <Text text={user?.email} />
         <Text text={`Книг: ${user.Books?.length}`} />
       </Card>
     </div>

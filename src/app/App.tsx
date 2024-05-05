@@ -38,6 +38,7 @@ const App = observer(() => {
     if (location?.pathname === getRegistrationPage()) {
       return (
         <Suspense fallback="">
+          <ToastContainer hideProgressBar />
           <RegistrationPage />
         </Suspense>
       );
@@ -45,12 +46,14 @@ const App = observer(() => {
     if (location?.pathname === getLoginPage()) {
       return (
         <Suspense fallback="">
+          <ToastContainer hideProgressBar />
           <LoginPage />
         </Suspense>
       );
     }
     return (
       <Suspense fallback="">
+        <ToastContainer hideProgressBar />
         <LandingPage />
       </Suspense>
     );

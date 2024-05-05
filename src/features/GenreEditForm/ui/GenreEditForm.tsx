@@ -104,7 +104,7 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
       </Button>
       <Button
         className={cls.loginBtn}
-        disabled={!user.user.isAdmin}
+        disabled={!user.user?.isAdmin}
         onClick={() => {
           if (params.id) {
             onDeleteById(params.id.toString());
