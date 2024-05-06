@@ -7,7 +7,8 @@ import { IUser } from "../types/user";
 import { AuthResponse } from "@/shared/types/user";
 import RootStore from "@/app/providers/StoreProvider/config/store";
 import { NavigateFunction } from "react-router-dom";
-import { getHomePage } from "@/shared/consts/router";
+import { getHomePage, getLoginPage } from "@/shared/consts/router";
+import { toast } from "react-toastify";
 
 export class UserStore {
   rootStore: RootStore;
@@ -47,14 +48,15 @@ export class UserStore {
     }
   }
 
-  async registration(email: string, password: string) {
+  async registration(
+    email: string,
+    password: string,
+    navigate: NavigateFunction
+  ) {
     try {
-      const response = await AuthService.registration(email, password);
-      localStorage.setItem("token", response.data.accessToken);
-      runInAction(() => {
-        this.setAuth(true);
-        this.setUser(response.data.user);
-      });
+      await AuthService.registration(email, password);
+      navigate(getLoginPage());
+      toast("Пользователь успешно добавлен. Можете авторизоваться");
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }

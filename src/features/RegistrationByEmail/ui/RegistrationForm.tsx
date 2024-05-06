@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import useStore from "@/app/providers/StoreProvider/config/useStore";
-// import { useNavigate } from "react-router-dom";
-// import { getHomePage } from "@/shared/consts/router";
+import { useNavigate } from "react-router-dom";
 
 export const RegistrationForm = observer(() => {
   const { user } = useStore();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -48,7 +47,7 @@ export const RegistrationForm = observer(() => {
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           onClick={(e) => {
             e.preventDefault();
-            user?.registration(email, password);
+            user?.registration(email, password, navigate);
           }}
         >
           Регистрация
