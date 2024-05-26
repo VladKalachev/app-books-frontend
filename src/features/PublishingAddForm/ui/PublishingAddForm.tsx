@@ -29,13 +29,8 @@ export const PublishingAddForm = ({ className }: PublishingAddFormProps) => {
       title,
     };
 
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("title", form.title);
-
     try {
-      await PublishingService.addPublishing(formData);
+      await PublishingService.addPublishing(form);
       toast("Издательство успешно добавлено");
       navigate(getBooksPage());
     } catch (error: any) {

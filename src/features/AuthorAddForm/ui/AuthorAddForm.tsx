@@ -23,20 +23,15 @@ export const AuthorAddForm = ({ className }: AuthorAddFormProps) => {
     const form: IAuthorCreate = {
       fullName,
     };
-
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("fullName", form.fullName);
-
     try {
-      await AuthorsService.addAuthor(formData);
+      await AuthorsService.addAuthor(form);
       toast("Автор успешно добавлен");
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
     }
   };
+  
   /**
    * Добавить required для компонентов с *
    */

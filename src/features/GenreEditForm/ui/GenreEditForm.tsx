@@ -57,16 +57,8 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
     const form: IGenreCreate = {
       title,
     };
-
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("title", form.title);
-
-    console.log(formData);
-
     try {
-      await GenresService.updateGenre(params.id as string, formData as any);
+      await GenresService.updateGenre(params.id as string, form);
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);

@@ -23,7 +23,7 @@ export interface IBookCreate {
   genre?: string;
   fullName?: string;
   image?: string;
-  year?: number;
+  year?: number | null;
   numberPages?: number;
   publishing?: string;
   notes?: string;

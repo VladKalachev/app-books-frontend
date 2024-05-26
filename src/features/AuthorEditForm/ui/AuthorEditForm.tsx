@@ -58,15 +58,8 @@ export const AuthorEditForm = observer((props: AuthorEditFormProps) => {
       fullName,
     };
 
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("fullName", form.fullName);
-
-    console.log(formData);
-
     try {
-      await AuthorsService.updateAuthor(params.id as string, formData as any);
+      await AuthorsService.updateAuthor(params.id as string, form);
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);

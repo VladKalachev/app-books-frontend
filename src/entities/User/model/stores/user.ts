@@ -79,7 +79,7 @@ export class UserStore {
     this.setLoading(true);
     try {
       const response = await axios.get<AuthResponse>(
-        `${API_URL}/user/refresh`,
+        `${API_URL}auth/refresh`,
         { withCredentials: true }
       );
       localStorage.setItem("token", response.data.accessToken);

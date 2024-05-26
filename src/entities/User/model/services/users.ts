@@ -8,6 +8,6 @@ export class UsersService {
   }
 
   static getUsersWithBooks(): Promise<AxiosResponse<IUserWithBooks[]>> {
-    return $api.get<IUserWithBooks[]>("/usersWithBooks");
+    return $api.get<IUserWithBooks[]>("/users/usersWithBooks");
   }
 }

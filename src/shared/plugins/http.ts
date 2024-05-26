@@ -19,9 +19,15 @@ $api.interceptors.response.use(
     return config;
   },
   async (error) => {
-    if (error?.response?.data) {
-      console.log(error.response.data);
-      toast.error(error.response?.data?.message);
+    const errorData = error?.response?.data
+    if (errorData) {
+      if(Array.isArray(errorData?.message)) {
+        errorData?.message.map((message: string) => {
+          toast.error(message);
+        })
+      } else {
+          toast.error(error.response?.data?.message)
+      }
     }
 
     const originalRequest = error.config;
@@ -30,11 +36,11 @@ $api.interceptors.response.use(
       error.config &&
       !error.config._isRetry
     ) {
-      console.log("1111");
+    
       originalRequest._isRetry = true;
       try {
         const response = await axios.get<AuthResponse>(
-          `${API_URL}/user/refresh`,
+          `${API_URL}auth/refresh`,
           { withCredentials: true }
         );
         localStorage.setItem("token", response.data.accessToken);

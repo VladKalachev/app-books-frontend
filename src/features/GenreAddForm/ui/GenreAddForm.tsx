@@ -24,17 +24,12 @@ export const GenreAddForm = ({ className }: GenreAddFormProps) => {
       title,
     };
 
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("title", form.title);
-
     try {
-      await GenresService.addGenre(formData);
+      await GenresService.addGenre(form);
       toast("Жанр успешно добавлен");
       navigate(getBooksPage());
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
     }
   };
 

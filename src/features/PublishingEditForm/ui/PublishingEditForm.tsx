@@ -61,17 +61,10 @@ export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
       title,
     };
 
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append("title", form.title);
-
-    console.log(formData);
-
     try {
       await PublishingService.updatePublishing(
         params.id as string,
-        formData as any
+        form
       );
       navigate(getBooksPage());
     } catch (error: any) {
