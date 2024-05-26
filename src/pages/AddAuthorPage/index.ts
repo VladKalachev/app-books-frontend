@@ -1,1 +1,1 @@
-export { AddAuthorPageAsync as AddAuthorPage } from "./ui/AddAuthorPage.async";
+export { AddAuthorPageAsync as AddAuthorPage } from './ui/AddAuthorPage.async';

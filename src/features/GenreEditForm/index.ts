@@ -1,1 +1,1 @@
-export { GenreEditForm } from "./ui/GenreEditForm";
+export { GenreEditForm } from './ui/GenreEditForm';

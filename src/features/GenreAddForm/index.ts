@@ -1,1 +1,1 @@
-export { GenreAddForm } from "./ui/GenreAddForm";
+export { GenreAddForm } from './ui/GenreAddForm';

@@ -1,1 +1,1 @@
-export { PublishingEditPageAsync as PublishingEditPage } from "./ui/PublishingEditPage.async";
+export { PublishingEditPageAsync as PublishingEditPage } from './ui/PublishingEditPage.async';

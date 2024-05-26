@@ -1,1 +1,1 @@
-export { AddGenrePageAsync as AddGenrePage } from "./ui/AddGenrePage.async";
+export { AddGenrePageAsync as AddGenrePage } from './ui/AddGenrePage.async';

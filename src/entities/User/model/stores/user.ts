@@ -1,14 +1,14 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction } from 'mobx';
 
-import AuthService from "../../../../shared/api/auth";
-import axios from "axios";
-import { API_URL } from "../../../../shared/plugins/http";
-import { IUser } from "../types/user";
-import { AuthResponse } from "@/shared/types/user";
-import RootStore from "@/app/providers/StoreProvider/config/store";
-import { NavigateFunction } from "react-router-dom";
-import { getHomePage, getLoginPage } from "@/shared/consts/router";
-import { toast } from "react-toastify";
+import AuthService from '../../../../shared/api/auth';
+import axios from 'axios';
+import { API_URL } from '../../../../shared/plugins/http';
+import { IUser } from '../types/user';
+import { AuthResponse } from '@/shared/types/user';
+import RootStore from '@/app/providers/StoreProvider/config/store';
+import { NavigateFunction } from 'react-router-dom';
+import { getHomePage, getLoginPage } from '@/shared/consts/router';
+import { toast } from 'react-toastify';
 
 export class UserStore {
   rootStore: RootStore;
@@ -36,7 +36,7 @@ export class UserStore {
   async login(email: string, password: string, navigate: NavigateFunction) {
     try {
       const response = await AuthService.login(email, password);
-      localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem('token', response.data.accessToken);
       runInAction(() => {
         this.setAuth(true);
         this.setUser(response.data.user);
@@ -48,15 +48,11 @@ export class UserStore {
     }
   }
 
-  async registration(
-    email: string,
-    password: string,
-    navigate: NavigateFunction
-  ) {
+  async registration(email: string, password: string, navigate: NavigateFunction) {
     try {
       await AuthService.registration(email, password);
       navigate(getLoginPage());
-      toast("Пользователь успешно добавлен. Можете авторизоваться");
+      toast('Пользователь успешно добавлен. Можете авторизоваться');
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -65,7 +61,7 @@ export class UserStore {
   async logout() {
     try {
       await AuthService.logout();
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
       runInAction(() => {
         this.setAuth(false);
         this.setUser({} as IUser);
@@ -78,11 +74,10 @@ export class UserStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      const response = await axios.get<AuthResponse>(
-        `${API_URL}auth/refresh`,
-        { withCredentials: true }
-      );
-      localStorage.setItem("token", response.data.accessToken);
+      const response = await axios.get<AuthResponse>(`${API_URL}auth/refresh`, {
+        withCredentials: true,
+      });
+      localStorage.setItem('token', response.data.accessToken);
       runInAction(() => {
         this.setAuth(true);
         this.setUser(response.data.user);

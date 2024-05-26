@@ -1,24 +1,21 @@
-import { AxiosResponse } from "axios";
-import $api from "@/shared/plugins/http";
-import { IAuthor, IAuthorCreate } from "../..";
+import { AxiosResponse } from 'axios';
+import $api from '@/shared/plugins/http';
+import { IAuthor, IAuthorCreate } from '../..';
 
 export class AuthorsService {
-  static fetchAuthors(q: string = ""): Promise<AxiosResponse<IAuthor[]>> {
+  static fetchAuthors(q: string = ''): Promise<AxiosResponse<IAuthor[]>> {
     return $api.get<IAuthor[]>(`/authors${q}`);
   }
 
   static addAuthor(formData: any): Promise<AxiosResponse<IAuthor>> {
-    return $api.post<IAuthor>("/authors/create", formData);
+    return $api.post<IAuthor>('/authors/create', formData);
   }
 
   static getAuthorById(id: string): Promise<AxiosResponse<IAuthor>> {
     return $api.get<IAuthor>(`/authors/${id}`);
   }
 
-  static updateAuthor(
-    id: string,
-    author: IAuthorCreate
-  ): Promise<AxiosResponse<IAuthor>> {
+  static updateAuthor(id: string, author: IAuthorCreate): Promise<AxiosResponse<IAuthor>> {
     return $api.put<IAuthor>(`/authors/${id}`, author);
   }
 

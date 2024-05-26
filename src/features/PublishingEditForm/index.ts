@@ -1,1 +1,1 @@
-export { PublishingEditForm } from "./ui/PublishingEditForm";
+export { PublishingEditForm } from './ui/PublishingEditForm';

@@ -1,1 +1,1 @@
-export { AddBookPageAsync as AddBookPage } from "./ui/AddBookPage.async";
+export { AddBookPageAsync as AddBookPage } from './ui/AddBookPage.async';

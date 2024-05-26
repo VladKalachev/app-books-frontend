@@ -1,1 +1,1 @@
-export { AuthorEditForm } from "./ui/AuthorEditForm";
+export { AuthorEditForm } from './ui/AuthorEditForm';

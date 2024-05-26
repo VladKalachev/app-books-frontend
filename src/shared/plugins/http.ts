@@ -1,6 +1,6 @@
-import axios from "axios";
-import { AuthResponse } from "../types/user";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import { AuthResponse } from '../types/user';
+import { toast } from 'react-toastify';
 
 export const API_URL = import.meta.env.VITE_APP_API_URL;
 
@@ -10,7 +10,7 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
   return config;
 });
 
@@ -19,38 +19,32 @@ $api.interceptors.response.use(
     return config;
   },
   async (error) => {
-    const errorData = error?.response?.data
+    const errorData = error?.response?.data;
     if (errorData) {
-      if(Array.isArray(errorData?.message)) {
+      if (Array.isArray(errorData?.message)) {
         errorData?.message.map((message: string) => {
           toast.error(message);
-        })
+        });
       } else {
-          toast.error(error.response?.data?.message)
+        toast.error(error.response?.data?.message);
       }
     }
 
     const originalRequest = error.config;
-    if (
-      error.response.status == 401 &&
-      error.config &&
-      !error.config._isRetry
-    ) {
-    
+    if (error.response.status == 401 && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get<AuthResponse>(
-          `${API_URL}auth/refresh`,
-          { withCredentials: true }
-        );
-        localStorage.setItem("token", response.data.accessToken);
+        const response = await axios.get<AuthResponse>(`${API_URL}auth/refresh`, {
+          withCredentials: true,
+        });
+        localStorage.setItem('token', response.data.accessToken);
         return $api.request(originalRequest);
       } catch (error) {
-        console.log("Не авторизован!");
+        console.log('Не авторизован!');
       }
     }
     throw error;
-  }
+  },
 );
 
 export default $api;

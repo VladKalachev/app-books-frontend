@@ -1,1 +1,1 @@
-export { TabUserAuthor } from "./ui/TabUserAuthor";
+export { TabUserAuthor } from './ui/TabUserAuthor';

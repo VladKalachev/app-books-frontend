@@ -1,1 +1,1 @@
-export { GoalsList } from "./ui/GoalsList";
+export { GoalsList } from './ui/GoalsList';

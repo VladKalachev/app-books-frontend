@@ -1,1 +1,1 @@
-export { GoalEditForm } from "./ui/GoalEditForm";
+export { GoalEditForm } from './ui/GoalEditForm';

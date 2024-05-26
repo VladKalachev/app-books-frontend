@@ -1,52 +1,52 @@
 export enum AppRoutes {
-  HOME = "home",
-  SETTINGS = "settings",
-  BOOKS = "books",
-  BOOKS_CREATE = "books_create",
-  BOOKS_EDIT = "books_edit",
+  HOME = 'home',
+  SETTINGS = 'settings',
+  BOOKS = 'books',
+  BOOKS_CREATE = 'books_create',
+  BOOKS_EDIT = 'books_edit',
   // AUTHORS = "authors",
-  AUTHORS_CREATE = "authors_create",
-  AUTHORS_EDIT = "authors_edit",
-  PUBLISHING_CREATE = "publishing_create",
-  PUBLISHING_EDIT = "publishing_edit",
-  GENRES_CREATE = "genres_create",
-  GENRES_EDIT = "genres_edit",
-  GOALS = "goals",
-  GOALS_CREATE = "goals_create",
-  GOALS_EDIT = "goals_edit",
-  RATING = "rating",
-  STATISTICS = "statistics",
+  AUTHORS_CREATE = 'authors_create',
+  AUTHORS_EDIT = 'authors_edit',
+  PUBLISHING_CREATE = 'publishing_create',
+  PUBLISHING_EDIT = 'publishing_edit',
+  GENRES_CREATE = 'genres_create',
+  GENRES_EDIT = 'genres_edit',
+  GOALS = 'goals',
+  GOALS_CREATE = 'goals_create',
+  GOALS_EDIT = 'goals_edit',
+  RATING = 'rating',
+  STATISTICS = 'statistics',
 
   // FORBIDDEN = 'forbidden',
   // // last
-  NOT_FOUND = "not_found",
+  NOT_FOUND = 'not_found',
 }
 
-export const getHomePage = () => "/home";
+export const getHomePage = () => '/home';
 
-export const getGoalsPage = () => "/goals";
-export const getGoalsCreatePage = () => "/goals/create";
+export const getGoalsPage = () => '/goals';
+export const getGoalsCreatePage = () => '/goals/create';
 export const getGoalEditPage = (id: string) => `/goals/${id}/edit`;
 
-export const getLandingPage = () => "/";
-export const getLoginPage = () => "/login";
-export const getRatingPage = () => "/rating";
-export const getRegistrationPage = () => "/registration";
-export const getSettingsPage = () => "/settings";
-export const getStatisticsPage = () => "/statistics";
+export const getLandingPage = () => '/';
+export const getLoginPage = () => '/login';
+export const getRatingPage = () => '/rating';
+export const getRegistrationPage = () => '/registration';
+export const getSettingsPage = () => '/settings';
+export const getStatisticsPage = () => '/statistics';
 
-export const getBooksPage = () => "/books";
-export const getBookCreate = () => "/books/create";
+export const getBooksPage = () => '/books';
+export const getBookCreate = () => '/books/create';
 export const getBookEdit = (id: string) => `/books/${id}/edit`;
 
 // export const getAuthorsPage = () => "/authors";
-export const getAuthorsCreate = () => "/books/authorCreate";
+export const getAuthorsCreate = () => '/books/authorCreate';
 export const getAuthorsEdit = (id: string) => `/books/authors/${id}/`;
 
-export const getGenresCreate = () => "/books/genresCreate";
+export const getGenresCreate = () => '/books/genresCreate';
 export const getGenresEdit = (id: string) => `/books/genres/${id}/`;
 
-export const getPublishingCreate = () => "/books/publishingCreate";
+export const getPublishingCreate = () => '/books/publishingCreate';
 export const getPublishingEdit = (id: string) => `/books/publishing/${id}/`;
 
 // export const getRouteAbout = () => '/about';
@@ -61,7 +61,7 @@ export const getPublishingEdit = (id: string) => `/books/publishing/${id}/`;
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
   [getBooksPage()]: AppRoutes.BOOKS,
   [getBookCreate()]: AppRoutes.BOOKS_CREATE,
-  [getBookEdit(":id")]: AppRoutes.BOOKS_EDIT,
+  [getBookEdit(':id')]: AppRoutes.BOOKS_EDIT,
   // [getAuthorsPage()]: AppRoutes.AUTHORS,
   [getAuthorsCreate()]: AppRoutes.AUTHORS_CREATE,
   [getGenresCreate()]: AppRoutes.GENRES_CREATE,

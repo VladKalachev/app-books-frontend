@@ -1,4 +1,4 @@
 export enum BookType {
-  ALL = "ALL",
-  AUTHORS = "AUTHORS",
+  ALL = 'ALL',
+  AUTHORS = 'AUTHORS',
 }

@@ -1,16 +1,14 @@
-import { AxiosResponse } from "axios";
-import $api from "@/shared/plugins/http";
-import { IPublishing, IPublishingCreate } from "../types/publishing";
+import { AxiosResponse } from 'axios';
+import $api from '@/shared/plugins/http';
+import { IPublishing, IPublishingCreate } from '../types/publishing';
 
 export class PublishingService {
-  static fetchPublishing(
-    q: string = ""
-  ): Promise<AxiosResponse<IPublishing[]>> {
+  static fetchPublishing(q: string = ''): Promise<AxiosResponse<IPublishing[]>> {
     return $api.get<IPublishing[]>(`/publishing${q}`);
   }
 
   static addPublishing(formData: any): Promise<AxiosResponse<IPublishing>> {
-    return $api.post<IPublishing>("/publishing/create", formData);
+    return $api.post<IPublishing>('/publishing/create', formData);
   }
 
   static getPublishingById(id: string): Promise<AxiosResponse<IPublishing>> {
@@ -19,7 +17,7 @@ export class PublishingService {
 
   static updatePublishing(
     id: string,
-    genre: IPublishingCreate
+    genre: IPublishingCreate,
   ): Promise<AxiosResponse<IPublishing>> {
     return $api.put<IPublishing>(`/publishing/${id}`, genre);
   }

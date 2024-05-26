@@ -1,4 +1,4 @@
-import { IBook } from "@/entities/Book";
+import { IBook } from '@/entities/Book';
 
 export interface IUser {
   email: string;

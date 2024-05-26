@@ -1,10 +1,8 @@
-
-import { BooksStore } from "@/entities/Book";
-import { UserStore } from "@/entities/User";
-
+import { BooksStore } from '@/entities/Book';
+import { UserStore } from '@/entities/User';
 
 class RootStore {
-	user: UserStore;
+  user: UserStore;
   books: BooksStore;
 
   constructor() {
