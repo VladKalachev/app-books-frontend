@@ -1,12 +1,12 @@
-import React, { memo } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import cls from "./Icon.module.scss";
+import { VFC, SVGProps, memo } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './Icon.module.scss';
 
-type SvgProps = Omit<React.SVGProps<SVGSVGElement>, "onClick">;
+type SvgProps = Omit<SVGProps<SVGSVGElement>, 'onClick'>;
 
 interface IconBaseProps extends SvgProps {
   className?: string;
-  Svg: React.VFC<React.SVGProps<SVGSVGElement>>;
+  Svg: VFC<SVGProps<SVGSVGElement>>;
 }
 
 interface NonClickableIconProps extends IconBaseProps {
@@ -21,14 +21,7 @@ interface ClickableBaseProps extends IconBaseProps {
 type IconProps = NonClickableIconProps | ClickableBaseProps;
 
 export const Icon = memo((props: IconProps) => {
-  const {
-    className,
-    Svg,
-    width = 32,
-    height = 32,
-    clickable,
-    ...otherProps
-  } = props;
+  const { className, Svg, width = 32, height = 32, clickable, ...otherProps } = props;
 
   const icon = (
     <Svg

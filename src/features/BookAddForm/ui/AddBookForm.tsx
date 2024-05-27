@@ -121,14 +121,14 @@ export const AddBookForm = (props: AddBookFormProps) => {
       buy,
       authorId,
       genreId,
-      image,
+      file: image,
       publishingId,
     };
 
     if (authorId !== 'null') {
       const fullName: any = authors.find((author: any) => author.value === Number(authorId));
       form.fullName = fullName?.content;
-      form.authorId = authorId;
+      form.authorId = Number(authorId);
     } else {
       form.fullName = '';
       form.authorId = null;

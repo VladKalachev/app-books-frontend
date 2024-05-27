@@ -1,22 +1,23 @@
-import React, {
+import {
   InputHTMLAttributes,
+  ChangeEvent,
   memo,
   ReactNode,
   useEffect,
   useRef,
   useState,
-} from "react";
-import { classNames, Mods } from "@/shared/libs/classNames/classNames";
-import { HStack } from "../Stack";
-import { Text } from "../Text";
-import cls from "./InputNumber.module.scss";
+} from 'react';
+import { classNames, Mods } from '@/shared/libs/classNames/classNames';
+import { HStack } from '../Stack';
+import { Text } from '../Text';
+import cls from './InputNumber.module.scss';
 
 type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange" | "readOnly" | "size"
+  'value' | 'onChange' | 'readOnly' | 'size'
 >;
 
-type InputSize = "s" | "m" | "l";
+type InputSize = 's' | 'm' | 'l';
 
 interface InputNumberProps extends HTMLInputProps {
   className?: string;
@@ -35,14 +36,14 @@ export const InputNumber = memo((props: InputNumberProps) => {
     className,
     value,
     onChange,
-    type = "number",
+    type = 'number',
     placeholder,
     autofocus,
     readonly,
     addonLeft,
     addonRight,
     label,
-    size = "m",
+    size = 'm',
     ...otherProps
   } = props;
   const ref = useRef<HTMLInputElement>(null);
@@ -55,7 +56,7 @@ export const InputNumber = memo((props: InputNumberProps) => {
     }
   }, [autofocus]);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
 
     // @ts-ignore
@@ -63,12 +64,12 @@ export const InputNumber = memo((props: InputNumberProps) => {
   };
 
   const onBlur = () => {
-    console.log("onBlur");
+    console.log('onBlur');
     setIsFocused(false);
   };
 
   const onFocus = () => {
-    console.log("onFocus");
+    console.log('onFocus');
     setIsFocused(true);
   };
 

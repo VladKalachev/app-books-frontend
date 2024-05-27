@@ -1,32 +1,32 @@
-import { BooksService, IBook, IBookCreate } from "@/entities/Book";
-import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
-import { useEffect, useState } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import { VStack } from "@/shared/ui/Stack";
-import { useNavigate, useParams } from "react-router-dom";
-import { getBooksPage } from "@/shared/consts/router";
-import { toast } from "react-toastify";
+import { BooksService, IBook, IBookCreate } from '@/entities/Book';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { useEffect, useState } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import { VStack } from '@/shared/ui/Stack';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getBooksPage } from '@/shared/consts/router';
+import { toast } from 'react-toastify';
 
-import cls from "./BookEditForm.module.scss";
-import { Textarea } from "@/shared/ui/Textarea";
-import { InputNumber } from "@/shared/ui/InputNumber";
-import { Switch } from "@/shared/ui/Switch";
-import { Skeleton } from "@/shared/ui/Skeleton";
-import { AppImage } from "@/shared/ui/AppImage";
-import { ImageLoader } from "@/shared/ui/ImageLoader";
-import { AuthorsService } from "@/entities/Author";
-import { Select } from "@/shared/ui/Select";
-import { GenresService } from "@/entities/Genre";
-import { PublishingService } from "@/entities/Publishing";
-import { API_URL } from "@/shared/plugins/http";
+import cls from './BookEditForm.module.scss';
+import { Textarea } from '@/shared/ui/Textarea';
+import { InputNumber } from '@/shared/ui/InputNumber';
+import { Switch } from '@/shared/ui/Switch';
+import { Skeleton } from '@/shared/ui/Skeleton';
+import { AppImage } from '@/shared/ui/AppImage';
+import { ImageLoader } from '@/shared/ui/ImageLoader';
+import { AuthorsService } from '@/entities/Author';
+import { Select } from '@/shared/ui/Select';
+import { GenresService } from '@/entities/Genre';
+import { PublishingService } from '@/entities/Publishing';
+import { API_URL } from '@/shared/plugins/http';
 
 interface AddBookFormProps {
   className?: string;
 }
 
 export const BookEditForm = (props: AddBookFormProps) => {
-  const params = useParams<"id">();
+  const params = useParams<'id'>();
   const { className } = props;
 
   const navigate = useNavigate();
@@ -35,22 +35,21 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const [genres, setGenres] = useState([]);
   const [publishing, setPublishing] = useState([]);
 
-  const [authorId, setAuthorId] = useState<IBook["authorId"]>("null");
-  const [genreId, setGenreId] = useState<IBook["genreId"]>("null");
-  const [publishingId, setPublishingId] =
-    useState<IBook["publishingId"]>("null");
+  const [authorId, setAuthorId] = useState<IBook['authorId']>('null');
+  const [genreId, setGenreId] = useState<IBook['genreId']>('null');
+  const [publishingId, setPublishingId] = useState<IBook['publishingId']>('null');
 
-  const [title, setTitle] = useState<IBook["title"]>("");
-  const [description, setDescription] = useState<IBook["description"]>("");
+  const [title, setTitle] = useState<IBook['title']>('');
+  const [description, setDescription] = useState<IBook['description']>('');
 
-  const [fullName, setFullName] = useState<IBook["fullName"]>("");
-  const [image, setImage] = useState<IBook["image"]>("");
-  const [year, setYear] = useState<IBook["year"]>(new Date().getFullYear());
-  const [numberPages, setNumberPages] = useState<IBook["numberPages"]>(0);
+  const [fullName, setFullName] = useState<IBook['fullName']>('');
+  const [image, setImage] = useState<IBook['image']>('');
+  const [year, setYear] = useState<IBook['year']>(new Date().getFullYear());
+  const [numberPages, setNumberPages] = useState<IBook['numberPages']>(0);
 
-  const [notes, setNotes] = useState<IBook["notes"]>("");
-  const [read, setRead] = useState<IBook["read"]>(false);
-  const [buy, setBuy] = useState<IBook["buy"]>(false);
+  const [notes, setNotes] = useState<IBook['notes']>('');
+  const [read, setRead] = useState<IBook['read']>(false);
+  const [buy, setBuy] = useState<IBook['buy']>(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -63,10 +62,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
         content: genre.title,
       }));
 
-      const data: any = [
-        ...optionsGenre,
-        { value: "null", content: "Не выбран" },
-      ];
+      const data: any = [...optionsGenre, { value: 'null', content: 'Не выбран' }];
       setGenres(data);
       setLoading(false);
     } catch (error) {
@@ -84,10 +80,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
         content: publishing.title,
       }));
 
-      const data: any = [
-        ...optionsPublishing,
-        { value: "null", content: "Не выбран" },
-      ];
+      const data: any = [...optionsPublishing, { value: 'null', content: 'Не выбран' }];
       setPublishing(data);
       setLoading(false);
     } catch (error) {
@@ -117,7 +110,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
 
       const formData = book.data;
 
-      console.log("formData", formData);
+      console.log('formData', formData);
 
       setTitle(formData.title);
       setDescription(formData.description);
@@ -161,7 +154,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       title,
       description,
       fullName,
-      image,
+      file: image,
       year,
       numberPages,
       notes,
@@ -175,47 +168,43 @@ export const BookEditForm = (props: AddBookFormProps) => {
     console.log(form);
 
     const formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("description", form.description);
+    formData.append('title', form.title);
+    formData.append('description', form.description);
 
     if (form.fullName) {
-      const fullName: any = authors.find(
-        (author: any) => author.value === Number(authorId)
-      );
+      const fullName: any = authors.find((author: any) => author.value === Number(authorId));
 
-      formData.append("fullName", fullName?.content);
-      formData.append("AuthorId", form.authorId as any);
+      formData.append('fullName', fullName?.content);
+      formData.append('AuthorId', form.authorId as any);
     }
 
     if (form.genreId) {
-      const title: any = genres.find(
-        (genre: any) => genre.value === Number(genreId)
-      );
+      const title: any = genres.find((genre: any) => genre.value === Number(genreId));
 
-      formData.append("genre", title?.content);
-      formData.append("GenreId", form.genreId as any);
+      formData.append('genre', title?.content);
+      formData.append('GenreId', form.genreId as any);
     }
 
     if (form.publishingId) {
       const title: any = publishing.find(
-        (publishing: any) => publishing.value === Number(publishingId)
+        (publishing: any) => publishing.value === Number(publishingId),
       );
 
-      formData.append("publishing", title?.content);
-      formData.append("PublishingId", publishingId);
+      formData.append('publishing', title?.content);
+      formData.append('PublishingId', publishingId);
     }
 
     if (read) {
-      formData.append("year", JSON.stringify(form.year));
+      formData.append('year', JSON.stringify(form.year));
     } else {
-      formData.append("year", null as any);
+      formData.append('year', null as any);
     }
 
-    formData.append("numberPages", JSON.stringify(form.numberPages));
-    formData.append("notes", form.notes as string);
-    formData.append("read", JSON.stringify(form.read));
-    formData.append("buy", JSON.stringify(form.buy));
-    formData.append("image", image as any);
+    formData.append('numberPages', JSON.stringify(form.numberPages));
+    formData.append('notes', form.notes as string);
+    formData.append('read', JSON.stringify(form.read));
+    formData.append('buy', JSON.stringify(form.buy));
+    formData.append('image', image as any);
 
     console.log(formData);
 
@@ -230,7 +219,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   const onDeleteById = async (id: string) => {
     try {
       await BooksService.deleteBookById(id);
-      toast("Книга успешно удалена");
+      toast('Книга успешно удалена');
       navigate(getBooksPage());
     } catch (error) {
       console.log(error);
@@ -238,7 +227,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   if (loading) {
-    return "Loading...";
+    return 'Loading...';
   }
 
   return (
@@ -248,31 +237,31 @@ export const BookEditForm = (props: AddBookFormProps) => {
         autofocus
         type="text"
         className={cls.input}
-        placeholder={"Введите Название книги"}
+        placeholder={'Введите Название книги'}
         onChange={(value) => setTitle(value)}
         value={title}
       />
       <Textarea
         className={cls.input}
         value={description}
-        placeholder={"Введите Описание книги"}
+        placeholder={'Введите Описание книги'}
         onChange={(value) => setDescription(value)}
       />
 
       <Select
-        label={"Введите жанр книги"}
+        label={'Введите жанр книги'}
         value={genreId}
         options={genres}
         onChange={(value) => setGenreId(value)}
       />
       <Select
-        label={"Введите ФИО Автора"}
+        label={'Введите ФИО Автора'}
         value={authorId}
         options={authors}
         onChange={(value) => setAuthorId(value)}
       />
 
-      {typeof image === "string" ? (
+      {typeof image === 'string' ? (
         <AppImage
           fallback={<Skeleton width="100%" height={200} />}
           alt={image}
@@ -282,20 +271,20 @@ export const BookEditForm = (props: AddBookFormProps) => {
       ) : null}
 
       <ImageLoader
-        label={"Загрузите картинку"}
+        label={'Загрузите картинку'}
         value={image}
         onChange={(value) => setImage(value)}
       />
       <InputNumber
         type="number"
         className={cls.input}
-        label={"Количество страниц (i)"}
-        placeholder={"Введите значение"}
+        label={'Количество страниц (i)'}
+        placeholder={'Введите значение'}
         onChange={(value) => setNumberPages(value)}
         value={numberPages}
       />
       <Select
-        label={"Введите Издательство"}
+        label={'Введите Издательство'}
         value={publishingId}
         options={publishing}
         onChange={(value) => setPublishingId(value)}
@@ -303,32 +292,24 @@ export const BookEditForm = (props: AddBookFormProps) => {
       <Textarea
         className={cls.input}
         value={notes}
-        placeholder={"Мои заметки"}
+        placeholder={'Мои заметки'}
         onChange={(value) => setNotes(value)}
       />
-      <Switch
-        label={"Прочитано"}
-        checked={read}
-        onChange={(value) => setRead(value)}
-      />
+      <Switch label={'Прочитано'} checked={read} onChange={(value) => setRead(value)} />
       {read && (
         <InputNumber
           type="number"
           className={cls.input}
-          label={"Год когда прочитал книгу"}
-          placeholder={"Введите значение"}
+          label={'Год когда прочитал книгу'}
+          placeholder={'Введите значение'}
           onChange={(value) => setYear(value)}
           value={year}
         />
       )}
 
-      <Switch
-        label={"Купил"}
-        checked={buy}
-        onChange={(value) => setBuy(value)}
-      />
+      <Switch label={'Купил'} checked={buy} onChange={(value) => setBuy(value)} />
       <Button className={cls.loginBtn} onClick={handleSubmit}>
-        {"Редактировать"}
+        {'Редактировать'}
       </Button>
       <Button
         className={cls.loginBtn}
@@ -338,7 +319,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
           }
         }}
       >
-        {"Удалить"}
+        {'Удалить'}
       </Button>
     </VStack>
   );

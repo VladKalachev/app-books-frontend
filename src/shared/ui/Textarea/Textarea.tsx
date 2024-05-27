@@ -1,13 +1,10 @@
-import React, { memo, useRef } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import { HStack } from "../Stack";
-import { Text } from "../Text";
-import cls from "./Textarea.module.scss";
+import { TextareaHTMLAttributes, memo, useRef } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import { HStack } from '../Stack';
+import { Text } from '../Text';
+import cls from './Textarea.module.scss';
 
-type HTMLTextareaProps = Omit<
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-  "onChange"
->;
+type HTMLTextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'>;
 
 export interface TextareaProps extends HTMLTextareaProps {
   className?: string;
@@ -16,15 +13,7 @@ export interface TextareaProps extends HTMLTextareaProps {
 }
 
 export const Textarea = memo((props: TextareaProps) => {
-  const {
-    className,
-    value,
-    children,
-    onChange,
-    placeholder,
-    label,
-    ...otherProps
-  } = props;
+  const { className, value, children, onChange, placeholder, label, ...otherProps } = props;
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
