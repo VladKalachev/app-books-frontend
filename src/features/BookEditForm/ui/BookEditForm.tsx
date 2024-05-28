@@ -233,8 +233,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
     return <>Loading...</>;
   }
 
-  console.log('image', image);
-
   return (
     <VStack gap="16" className={classNames(cls.LoginForm, {}, [className])}>
       <h1>Редактировать книгу </h1>
