@@ -1,14 +1,14 @@
 // import useStore from "@/app/providers/StoreProvider/config/useStore";
-import { BooksService, IBook } from "@/entities/Book";
-import { BookList } from "@/entities/Book/ui/BookList/BookList";
-import { BookListItem } from "@/entities/Book/ui/BookListItem/BookListItem";
-import { Text } from "@/shared/ui/Text";
+import { BooksService, IBook } from '@/entities/Book';
+import { BookList } from '@/entities/Book/ui/BookList/BookList';
+import { BookListItem } from '@/entities/Book/ui/BookListItem/BookListItem';
+import { Text } from '@/shared/ui/Text';
 
-import { Page } from "@/widgets/Page";
-import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import { Page } from '@/widgets/Page';
+import { observer } from 'mobx-react-lite';
+import { useEffect, useState } from 'react';
 // import { useNavigate } from "react-router-dom";
-import cls from "./HomePage.module.scss";
+import cls from './HomePage.module.scss';
 
 const HomePage = () => {
   // const { user } = useStore();

@@ -1,28 +1,18 @@
-import {
-  AuthorList,
-  AuthorListItem,
-  AuthorsService,
-  IAuthor,
-} from "@/entities/Author";
-import { BookList, BookListItem, BooksService, IBook } from "@/entities/Book";
-import {
-  GenreList,
-  GenreListItem,
-  GenresService,
-  IGenre,
-} from "@/entities/Genre";
+import { AuthorList, AuthorListItem, AuthorsService, IAuthor } from '@/entities/Author';
+import { BookList, BookListItem, BooksService, IBook } from '@/entities/Book';
+import { GenreList, GenreListItem, GenresService, IGenre } from '@/entities/Genre';
 import {
   IPublishing,
   PublishingList,
   PublishingListItem,
   PublishingService,
-} from "@/entities/Publishing";
-import { TabItem, Tabs } from "@/shared/ui/Tabs";
-import { useEffect, useState } from "react";
-import { Input } from "@/shared/ui/Input";
+} from '@/entities/Publishing';
+import { TabItem, Tabs } from '@/shared/ui/Tabs';
+import { useEffect, useState } from 'react';
+import { Input } from '@/shared/ui/Input';
 
-import cls from "./TabUserAuthor.module.scss";
-import { useDebounce } from "@/shared/hooks/useDebounce/useDebounce";
+import cls from './TabUserAuthor.module.scss';
+import { useDebounce } from '@/shared/hooks/useDebounce/useDebounce';
 
 export const TabUserAuthor = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -31,24 +21,21 @@ export const TabUserAuthor = () => {
   const [publishing, setPublishing] = useState<IPublishing[]>([]);
   const [value, setValueTabs] = useState(0);
 
-  const [searchBooksValue, setValueBooksSearch] = useState("");
-  const [searchGenreValue, setValueGenreSearch] = useState("");
-  const [searchAuthorValue, setValueAuthorSearch] = useState("");
-  const [searchPublishingValue, setValuePublishingSearch] = useState("");
+  const [searchBooksValue, setValueBooksSearch] = useState('');
+  const [searchGenreValue, setValueGenreSearch] = useState('');
+  const [searchAuthorValue, setValueAuthorSearch] = useState('');
+  const [searchPublishingValue, setValuePublishingSearch] = useState('');
 
   const debouncedSearchValue = useDebounce(searchBooksValue, 500);
   const debouncedGenreSearchValue = useDebounce(searchGenreValue, 500);
 
   const debouncedAuthorSearchValue = useDebounce(searchAuthorValue, 500);
-  const debouncedPublishingSearchValue = useDebounce(
-    searchPublishingValue,
-    500
-  );
+  const debouncedPublishingSearchValue = useDebounce(searchPublishingValue, 500);
 
   const getBooks = async (q: string) => {
     try {
-      const bookList = await BooksService.fetchUBooks(q ? `?search=${q}` : "");
-      setBooks(bookList.data);
+      const bookList = await BooksService.fetchUBooks(q ? `?search=${q}` : '');
+      setBooks(bookList.data.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -56,10 +43,8 @@ export const TabUserAuthor = () => {
 
   const getAuthors = async (q: string) => {
     try {
-      const authorList = await AuthorsService.fetchAuthors(
-        q ? `?search=${q}` : ""
-      );
-      setAuthors(authorList.data);
+      const authorList = await AuthorsService.fetchAuthors(q ? `?search=${q}` : '');
+      setAuthors(authorList.data.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -67,10 +52,8 @@ export const TabUserAuthor = () => {
 
   const getGenres = async (q: string) => {
     try {
-      const genreList = await GenresService.fetchGenres(
-        q ? `?search=${q}` : ""
-      );
-      setGenres(genreList.data);
+      const genreList = await GenresService.fetchGenres(q ? `?search=${q}` : '');
+      setGenres(genreList.data.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -78,10 +61,8 @@ export const TabUserAuthor = () => {
 
   const getPublishing = async (q: string) => {
     try {
-      const publishingList = await PublishingService.fetchPublishing(
-        q ? `?search=${q}` : ""
-      );
-      setPublishing(publishingList.data);
+      const publishingList = await PublishingService.fetchPublishing(q ? `?search=${q}` : '');
+      setPublishing(publishingList.data.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -130,7 +111,7 @@ export const TabUserAuthor = () => {
   const typeTabs: TabItem[] = [
     {
       key: 1,
-      title: "Все",
+      title: 'Все',
       content: (
         <>
           <Input
@@ -148,7 +129,7 @@ export const TabUserAuthor = () => {
     },
     {
       key: 2,
-      title: "Авторы",
+      title: 'Авторы',
       content: (
         <>
           <Input
@@ -159,16 +140,14 @@ export const TabUserAuthor = () => {
           />
           <AuthorList
             authors={authors}
-            renderList={(author) => (
-              <AuthorListItem key={author.id} author={author} />
-            )}
+            renderList={(author) => <AuthorListItem key={author.id} author={author} />}
           />
         </>
       ),
     },
     {
       key: 3,
-      title: "Жанры",
+      title: 'Жанры',
       content: (
         <>
           <Input
@@ -179,16 +158,14 @@ export const TabUserAuthor = () => {
           />
           <GenreList
             genres={genres}
-            renderList={(genre) => (
-              <GenreListItem key={genre.id} genre={genre} />
-            )}
+            renderList={(genre) => <GenreListItem key={genre.id} genre={genre} />}
           />
         </>
       ),
     },
     {
       key: 4,
-      title: "Издательства",
+      title: 'Издательства',
       content: (
         <>
           <Input

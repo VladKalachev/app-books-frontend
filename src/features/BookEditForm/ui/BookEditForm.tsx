@@ -1,4 +1,4 @@
-import { BooksService, IBook, IBookCreate } from '@/entities/Book';
+import { BooksService, FileUploadWithLoader, IBook, IBookCreate } from '@/entities/Book';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { useEffect, useState } from 'react';
@@ -12,14 +12,14 @@ import cls from './BookEditForm.module.scss';
 import { Textarea } from '@/shared/ui/Textarea';
 import { InputNumber } from '@/shared/ui/InputNumber';
 import { Switch } from '@/shared/ui/Switch';
-import { Skeleton } from '@/shared/ui/Skeleton';
-import { AppImage } from '@/shared/ui/AppImage';
-import { ImageLoader } from '@/shared/ui/ImageLoader';
+// import { Skeleton } from '@/shared/ui/Skeleton';
+// import { AppImage } from '@/shared/ui/AppImage';
+// import { ImageLoader } from '@/shared/ui/ImageLoader';
 import { AuthorsService } from '@/entities/Author';
 import { Select } from '@/shared/ui/Select';
 import { GenresService } from '@/entities/Genre';
 import { PublishingService } from '@/entities/Publishing';
-import { API_URL } from '@/shared/plugins/http';
+// import { API_URL } from '@/shared/plugins/http';
 
 interface AddBookFormProps {
   className?: string;
@@ -90,6 +90,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   const getAuthors = async () => {
+    setLoading(true);
     try {
       const authorList = await AuthorsService.fetchAuthors();
       const optionsAuthor: any = authorList.data?.map((author) => ({
@@ -97,9 +98,12 @@ export const BookEditForm = (props: AddBookFormProps) => {
         content: author.fullName,
       }));
 
-      setAuthors(optionsAuthor);
+      const data: any = [...optionsAuthor, { value: 'null', content: 'Не выбран' }];
+      setAuthors(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -109,8 +113,6 @@ export const BookEditForm = (props: AddBookFormProps) => {
       const book = await BooksService.getBookById(id);
 
       const formData = book.data;
-
-      console.log('formData', formData);
 
       setTitle(formData.title);
       setDescription(formData.description);
@@ -125,9 +127,9 @@ export const BookEditForm = (props: AddBookFormProps) => {
       setNotes(formData.notes);
       setRead(formData.read);
       setBuy(formData.buy);
-      setPublishingId(formData.PublishingId);
-      setAuthorId(formData.AuthorId);
-      setGenreId(formData.GenreId);
+      setPublishingId(formData.publishingId ? formData.publishingId : 'null');
+      setAuthorId(formData.authorId ? formData.authorId : 'null');
+      setGenreId(formData.genreId ? formData.genreId : 'null');
 
       setLoading(false);
     } catch (error) {
@@ -154,7 +156,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
       title,
       description,
       fullName,
-      file: image,
+      image,
       year,
       numberPages,
       notes,
@@ -165,51 +167,52 @@ export const BookEditForm = (props: AddBookFormProps) => {
       publishingId,
     };
 
-    console.log(form);
-
-    const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('description', form.description);
-
-    if (form.fullName) {
+    if (authorId !== 'null') {
       const fullName: any = authors.find((author: any) => author.value === Number(authorId));
-
-      formData.append('fullName', fullName?.content);
-      formData.append('AuthorId', form.authorId as any);
+      form.fullName = fullName?.content;
+      form.authorId = Number(authorId);
+    } else {
+      form.fullName = '';
+      form.authorId = null;
     }
 
-    if (form.genreId) {
+    if (genreId !== 'null') {
       const title: any = genres.find((genre: any) => genre.value === Number(genreId));
 
-      formData.append('genre', title?.content);
-      formData.append('GenreId', form.genreId as any);
-    }
-
-    if (form.publishingId) {
-      const title: any = publishing.find(
-        (publishing: any) => publishing.value === Number(publishingId),
-      );
-
-      formData.append('publishing', title?.content);
-      formData.append('PublishingId', publishingId);
-    }
-
-    if (read) {
-      formData.append('year', JSON.stringify(form.year));
+      if (title?.content) {
+        form.genre = title?.content;
+      } else {
+        form.genre = '';
+      }
+      form.genreId = Number(genreId);
     } else {
-      formData.append('year', null as any);
+      form.genre = '';
+      form.genreId = null;
     }
 
-    formData.append('numberPages', JSON.stringify(form.numberPages));
-    formData.append('notes', form.notes as string);
-    formData.append('read', JSON.stringify(form.read));
-    formData.append('buy', JSON.stringify(form.buy));
-    formData.append('image', image as any);
+    if (publishingId !== 'null') {
+      const title: any = publishing.find((genre: any) => genre.value === Number(publishingId));
 
-    console.log(formData);
+      if (title?.content) {
+        form.publishing = title?.content;
+      } else {
+        form.publishing = '';
+      }
+
+      form.publishingId = Number(publishingId);
+    } else {
+      form.publishing = '';
+      form.publishingId = null;
+    }
+
+    if (!read) {
+      form.year = null;
+    }
+
+    console.log(form);
 
     try {
-      await BooksService.updateBook(params.id as string, formData as any);
+      await BooksService.updateBook(params.id as string, form);
       navigate(getBooksPage());
     } catch (error) {
       console.log(error);
@@ -227,8 +230,10 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   if (loading) {
-    return 'Loading...';
+    return <>Loading...</>;
   }
+
+  console.log('image', image);
 
   return (
     <VStack gap="16" className={classNames(cls.LoginForm, {}, [className])}>
@@ -254,6 +259,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
         options={genres}
         onChange={(value) => setGenreId(value)}
       />
+
       <Select
         label={'Введите ФИО Автора'}
         value={authorId}
@@ -261,20 +267,26 @@ export const BookEditForm = (props: AddBookFormProps) => {
         onChange={(value) => setAuthorId(value)}
       />
 
-      {typeof image === 'string' ? (
+      {/* {image ? (
         <AppImage
           fallback={<Skeleton width="100%" height={200} />}
           alt={image}
-          src={`${API_URL}/upload/${image}`}
+          src={`${API_URL}uploads/${image}`}
           className={cls.img}
         />
-      ) : null}
+      ) : null} */}
 
-      <ImageLoader
+      <FileUploadWithLoader
+        image={image}
+        label={'Загрузите картинку'}
+        onChange={(value) => setImage(value)}
+      />
+
+      {/* <ImageLoader
         label={'Загрузите картинку'}
         value={image}
         onChange={(value) => setImage(value)}
-      />
+      /> */}
       <InputNumber
         type="number"
         className={cls.input}

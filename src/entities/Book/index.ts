@@ -7,3 +7,4 @@ export { BooksService } from './model/services/books';
 
 export { BookList } from './ui/BookList/BookList';
 export { BookListItem } from './ui/BookListItem/BookListItem';
+export { FileUploadWithLoader } from './ui/FileUpload/FileUpload';

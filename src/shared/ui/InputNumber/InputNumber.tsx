@@ -64,12 +64,12 @@ export const InputNumber = memo((props: InputNumberProps) => {
   };
 
   const onBlur = () => {
-    console.log('onBlur');
+    // console.log('onBlur');
     setIsFocused(false);
   };
 
   const onFocus = () => {
-    console.log('onFocus');
+    // console.log('onFocus');
     setIsFocused(true);
   };
 

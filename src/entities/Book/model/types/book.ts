@@ -5,7 +5,7 @@ export interface IBook {
   description: string;
   genre?: string;
   fullName: string;
-  file?: string;
+  image?: string;
   year?: number;
   numberPages?: number;
   publishing?: string;
@@ -22,7 +22,7 @@ export interface IBookCreate {
   description: string;
   genre?: string;
   fullName?: string;
-  file?: string;
+  image?: string;
   year?: number | null;
   numberPages?: number;
   publishing?: string;

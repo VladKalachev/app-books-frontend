@@ -1,4 +1,4 @@
-import { BooksService, IBook, IBookCreate } from '@/entities/Book';
+import { BooksService, FileUploadWithLoader, IBook, IBookCreate } from '@/entities/Book';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { useEffect, useState } from 'react';
@@ -11,7 +11,6 @@ import { Textarea } from '@/shared/ui/Textarea';
 import { InputNumber } from '@/shared/ui/InputNumber';
 import { toast } from 'react-toastify';
 import { Switch } from '@/shared/ui/Switch';
-import { ImageLoader } from '@/shared/ui/ImageLoader';
 
 import { AuthorsService } from '@/entities/Author';
 import { Select } from '@/shared/ui/Select';
@@ -121,7 +120,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       buy,
       authorId,
       genreId,
-      file: image,
+      image,
       publishingId,
     };
 
@@ -166,8 +165,6 @@ export const AddBookForm = (props: AddBookFormProps) => {
     if (!read) {
       form.year = null;
     }
-
-    console.log(form);
 
     try {
       await BooksService.addBook(form);
@@ -230,11 +227,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
         options={authors}
         onChange={(value) => setAuthorId(value)}
       />
-      <ImageLoader
-        label={'Загрузите картинку'}
-        value={image}
-        onChange={(value) => setImage(value)}
-      />
+
+      <FileUploadWithLoader label={'Загрузите картинку'} onChange={(value) => setImage(value)} />
+
       <InputNumber
         type="number"
         className={cls.input}

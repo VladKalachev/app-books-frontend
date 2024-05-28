@@ -1,10 +1,10 @@
-import { BooksService, IBook } from "@/entities/Book";
-import { Page } from "@/widgets/Page";
-import { Text } from "@/shared/ui/Text";
-import { useEffect, useState } from "react";
-import cls from "./StatisticsPage.module.scss";
-import { useNavigate } from "react-router-dom";
-import { getBookEdit } from "@/shared/consts/router";
+import { BooksService, IBook } from '@/entities/Book';
+import { Page } from '@/widgets/Page';
+import { Text } from '@/shared/ui/Text';
+import { useEffect, useState } from 'react';
+import cls from './StatisticsPage.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { getBookEdit } from '@/shared/consts/router';
 
 const StatisticsPage = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -78,7 +78,6 @@ const StatisticsPage = () => {
           <tbody>
             <tr>
               {Object.keys(formatBooks).map((item, i) => {
-                console.log(formatBooks[item]);
                 const listBooks = formatBooks[item];
                 return (
                   <td key={i}>
