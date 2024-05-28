@@ -193,7 +193,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
    */
 
   if (loading) {
-    return <>Loading...</>;
+    return <>Загрузка...</>;
   }
 
   return (

@@ -1,29 +1,29 @@
-import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
-import { useEffect, useState } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import { VStack } from "@/shared/ui/Stack";
-import { useNavigate, useParams } from "react-router-dom";
-import { getBooksPage } from "@/shared/consts/router";
-import { toast } from "react-toastify";
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { useEffect, useState } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import { VStack } from '@/shared/ui/Stack';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getBooksPage } from '@/shared/consts/router';
+import { toast } from 'react-toastify';
 
-import { GenresService, IGenre, IGenreCreate } from "@/entities/Genre";
+import { GenresService, IGenre, IGenreCreate } from '@/entities/Genre';
 
-import cls from "./GenreEditForm.module.scss";
-import { observer } from "mobx-react-lite";
-import useStore from "@/app/providers/StoreProvider/config/useStore";
+import cls from './GenreEditForm.module.scss';
+import { observer } from 'mobx-react-lite';
+import useStore from '@/app/providers/StoreProvider/config/useStore';
 
 interface GenreEditFormProps {
   className?: string;
 }
 
 export const GenreEditForm = observer((props: GenreEditFormProps) => {
-  const params = useParams<"id">();
+  const params = useParams<'id'>();
   const { className } = props;
   const { user } = useStore();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<IGenre["title"]>("");
+  const [title, setTitle] = useState<IGenre['title']>('');
 
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +68,7 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
   const onDeleteById = async (id: string) => {
     try {
       await GenresService.deleteGenreById(id);
-      toast("Жанр успешно удален");
+      toast('Жанр успешно удален');
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
@@ -76,7 +76,7 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
   };
 
   if (loading) {
-    return "Loading...";
+    return <>Загрузка...</>;
   }
 
   return (
@@ -86,13 +86,13 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
         autofocus
         type="text"
         className={cls.input}
-        placeholder={"Введите Жанр"}
+        placeholder={'Введите Жанр'}
         onChange={(value) => setTitle(value)}
         value={title}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
-        {"Редактировать"}
+        {'Редактировать'}
       </Button>
       <Button
         className={cls.loginBtn}
@@ -103,7 +103,7 @@ export const GenreEditForm = observer((props: GenreEditFormProps) => {
           }
         }}
       >
-        {"Удалить"}
+        {'Удалить'}
       </Button>
     </VStack>
   );

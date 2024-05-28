@@ -24,6 +24,6 @@ export class GoalService {
   }
 
   static completedGoalById(id: number, completed: any): Promise<AxiosResponse<IGoal>> {
-    return $api.put<IGoal>(`/goals/completed/${id}`, completed);
+    return $api.put<IGoal>(`/goals/${id}/completed`, completed);
   }
 }

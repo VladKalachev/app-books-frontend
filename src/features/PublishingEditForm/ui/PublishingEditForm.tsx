@@ -1,32 +1,28 @@
-import { Button } from "@/shared/ui/Button";
-import { Input } from "@/shared/ui/Input";
-import { useEffect, useState } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import { VStack } from "@/shared/ui/Stack";
-import { useNavigate, useParams } from "react-router-dom";
-import { getBooksPage } from "@/shared/consts/router";
-import { toast } from "react-toastify";
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { useEffect, useState } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import { VStack } from '@/shared/ui/Stack';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getBooksPage } from '@/shared/consts/router';
+import { toast } from 'react-toastify';
 
-import cls from "./PublishingEditForm.module.scss";
-import {
-  IPublishing,
-  IPublishingCreate,
-  PublishingService,
-} from "@/entities/Publishing";
-import { observer } from "mobx-react-lite";
-import useStore from "@/app/providers/StoreProvider/config/useStore";
+import cls from './PublishingEditForm.module.scss';
+import { IPublishing, IPublishingCreate, PublishingService } from '@/entities/Publishing';
+import { observer } from 'mobx-react-lite';
+import useStore from '@/app/providers/StoreProvider/config/useStore';
 
 interface PublishingEditFormProps {
   className?: string;
 }
 
 export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
-  const params = useParams<"id">();
+  const params = useParams<'id'>();
   const { className } = props;
   const { user } = useStore();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<IPublishing["title"]>("");
+  const [title, setTitle] = useState<IPublishing['title']>('');
 
   const [loading, setLoading] = useState(false);
 
@@ -62,10 +58,7 @@ export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
     };
 
     try {
-      await PublishingService.updatePublishing(
-        params.id as string,
-        form
-      );
+      await PublishingService.updatePublishing(params.id as string, form);
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
@@ -75,7 +68,7 @@ export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
   const onDeleteById = async (id: string) => {
     try {
       await PublishingService.deletePublishingById(id);
-      toast("Издательство успешно удалено");
+      toast('Издательство успешно удалено');
       navigate(getBooksPage());
     } catch (error: any) {
       console.log(error);
@@ -83,26 +76,23 @@ export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
   };
 
   if (loading) {
-    return "Loading...";
+    return <>Загрузка...</>;
   }
 
   return (
-    <VStack
-      gap="16"
-      className={classNames(cls.PublishingEditForm, {}, [className])}
-    >
+    <VStack gap="16" className={classNames(cls.PublishingEditForm, {}, [className])}>
       <h1>Редактировать Издательства</h1>
       <Input
         autofocus
         type="text"
         className={cls.input}
-        placeholder={"Введите Издательство"}
+        placeholder={'Введите Издательство'}
         onChange={(value) => setTitle(value)}
         value={title}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
-        {"Редактировать"}
+        {'Редактировать'}
       </Button>
       <Button
         className={cls.loginBtn}
@@ -113,7 +103,7 @@ export const PublishingEditForm = observer((props: PublishingEditFormProps) => {
           }
         }}
       >
-        {"Удалить"}
+        {'Удалить'}
       </Button>
     </VStack>
   );

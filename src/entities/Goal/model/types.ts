@@ -10,4 +10,5 @@ export interface IGoal {
 export interface IGoalCreate {
   title: string;
   currentPages: number;
+  bookId?: any;
 }

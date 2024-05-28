@@ -1,31 +1,30 @@
-import { Button } from "@/shared/ui/Button";
-import { useEffect, useState } from "react";
-import { classNames } from "@/shared/libs/classNames/classNames";
-import { VStack } from "@/shared/ui/Stack";
-import { useNavigate, useParams } from "react-router-dom";
-import { getGoalsPage } from "@/shared/consts/router";
-import { toast } from "react-toastify";
-
-import { GoalService, IGoal, IGoalCreate } from "@/entities/Goal";
-import cls from "./GoalEditForm.module.scss";
-import { Select } from "@/shared/ui/Select";
-import { BooksService } from "@/entities/Book";
-import { InputNumber } from "@/shared/ui/InputNumber";
+import { Button } from '@/shared/ui/Button';
+import { useEffect, useState } from 'react';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import { VStack } from '@/shared/ui/Stack';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getGoalsPage } from '@/shared/consts/router';
+import { toast } from 'react-toastify';
+import { GoalService, IGoal, IGoalCreate } from '@/entities/Goal';
+import cls from './GoalEditForm.module.scss';
+import { Select } from '@/shared/ui/Select';
+import { BooksService } from '@/entities/Book';
+import { InputNumber } from '@/shared/ui/InputNumber';
 
 interface GenreEditFormProps {
   className?: string;
 }
 
 export const GoalEditForm = (props: GenreEditFormProps) => {
-  const params = useParams<"id">();
+  const params = useParams<'id'>();
   const { className } = props;
 
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<IGoal["title"]>("");
-  const [currentPages, setCurrentPages] = useState<IGoal["currentPages"]>(0);
+  const [title, setTitle] = useState<IGoal['title']>('');
+  const [currentPages, setCurrentPages] = useState<IGoal['currentPages']>(0);
   const [books, setBooks] = useState<any[]>([]);
-  const [bookId, setBookId] = useState<any>("null");
+  const [bookId, setBookId] = useState<any>('null');
 
   const [loading, setLoading] = useState(false);
 
@@ -56,10 +55,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
         content: book.title,
       }));
 
-      const data: any = [
-        ...optionsBook,
-        { value: "null", content: "Не выбран" },
-      ];
+      const data: any = [...optionsBook, { value: 'null', content: 'Не выбран' }];
       setBooks(data);
     } catch (error) {
       console.log(error);
@@ -83,16 +79,8 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
       currentPages,
     };
 
-    console.log(form);
-
-    const formData: any = new FormData();
-    formData.append("title", form.title);
-    formData.append("currentPages", form.currentPages);
-
-    console.log(formData);
-
     try {
-      await GoalService.updateGoal(params.id as string, formData as any);
+      await GoalService.updateGoal(params.id as string, form);
       navigate(getGoalsPage());
     } catch (error: any) {
       console.log(error);
@@ -102,7 +90,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   const onDeleteById = async (id: string) => {
     try {
       await GoalService.deleteGoalById(id);
-      toast("Цель успешно удален");
+      toast('Цель успешно удален');
       navigate(getGoalsPage());
     } catch (error: any) {
       console.log(error);
@@ -110,17 +98,17 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
   };
 
   const handleSelectBook = (value: string) => {
-    if (value !== "null") {
+    if (value !== 'null') {
       const selectValue = books?.find((book) => book.value === Number(value));
       setTitle(selectValue?.content);
     } else {
-      setTitle("");
+      setTitle('');
     }
     setBookId(value);
   };
 
   if (loading) {
-    return "Loading...";
+    return <>Загрузка...</>;
   }
 
   return (
@@ -128,7 +116,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
       <h1>Редактировать Цель</h1>
 
       <Select
-        label={"Введите Название Книги"}
+        label={'Введите Название Книги'}
         value={bookId}
         options={books}
         readonly
@@ -139,14 +127,14 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
       <InputNumber
         type="number"
         className={cls.input}
-        label={"Количество страниц которое прочитано"}
-        placeholder={"Введите значение"}
+        label={'Количество страниц которое прочитано'}
+        placeholder={'Введите значение'}
         onChange={(value) => setCurrentPages(value)}
         value={currentPages}
       />
 
       <Button className={cls.loginBtn} onClick={handleSubmit}>
-        {"Редактировать"}
+        {'Редактировать'}
       </Button>
       <Button
         className={cls.loginBtn}
@@ -156,7 +144,7 @@ export const GoalEditForm = (props: GenreEditFormProps) => {
           }
         }}
       >
-        {"Удалить"}
+        {'Удалить'}
       </Button>
     </VStack>
   );

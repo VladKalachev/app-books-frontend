@@ -230,7 +230,7 @@ export const BookEditForm = (props: AddBookFormProps) => {
   };
 
   if (loading) {
-    return <>Loading...</>;
+    return <>Загрузка...</>;
   }
 
   return (
