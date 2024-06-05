@@ -77,13 +77,14 @@ export class UserStore {
       const response = await axios.get<AuthResponse>(`${API_URL}/auth/refresh`, {
         withCredentials: true,
       });
+      console.log(response)
       localStorage.setItem('token', response.data.accessToken);
       runInAction(() => {
         this.setAuth(true);
         this.setUser(response.data.user);
       });
     } catch (e: any) {
-      console.log(e.response?.data?.message);
+      console.log(e);
     } finally {
       this.setLoading(false);
     }
