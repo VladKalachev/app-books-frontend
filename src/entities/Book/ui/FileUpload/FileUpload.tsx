@@ -57,7 +57,7 @@ export const FileUploadWithLoader = (props: FileUploadWithLoaderProps) => {
     formData.append('file', file);
 
     try {
-      const response = await $api.post(`${API_URL}/file`, formData);
+      const response = await $api.post(`/file`, formData);
       onChange(response.data.filePath.split('/')[1]);
 
       setMessage('Файл успешно загружен');
