@@ -75,7 +75,7 @@ export const FileUploadWithLoader = (props: FileUploadWithLoaderProps) => {
           <AppImage
             fallback={<Skeleton width="100%" height={200} />}
             alt={image}
-            src={`${API_URL}uploads/${image}`}
+            src={`${API_URL}/uploads/${image}`}
             className={cls.img}
           />
         ) : null}
